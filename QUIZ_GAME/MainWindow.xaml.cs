@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QUIZ_GAME;
 
 namespace QUIZ_GAME
 {
@@ -23,6 +24,19 @@ namespace QUIZ_GAME
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Login_Click(object sender, RoutedEventArgs e)
+        {
+            Login login = new Login();
+            login.Show();
+            //this.Close();
+        }
+
+        private void Register_Click(object sender, RoutedEventArgs e)
+        {
+            Register register = new Register();
+            register.Show();
         }
     }
 }
