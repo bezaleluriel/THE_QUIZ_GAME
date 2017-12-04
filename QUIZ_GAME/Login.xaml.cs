@@ -16,6 +16,7 @@ namespace QUIZ_GAME
 {
     /// <summary>
     /// Interaction logic for Login.xaml
+    /// Uriel is my king
     /// </summary>
     public partial class Login : Window
     {
