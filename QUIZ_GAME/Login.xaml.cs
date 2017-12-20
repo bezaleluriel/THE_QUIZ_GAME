@@ -27,12 +27,30 @@ namespace QUIZ_GAME
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
 
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
+            Reset();
+        }
 
+        private void Reset()
+        {
+            emailBox.Text = "";
+            PasswordBox.Password = "";
+        }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            string email = emailBox.Text;
+            string password = PasswordBox.Password;
+
+            DB_Connect db_connect = new DB_Connect();          
+            List<string>[] answer = db_connect.Select(email, password);
+            Console.WriteLine("email = " + answer[0] + "password = " + answer[1]);
+
+            Reset();
         }
     }
 }

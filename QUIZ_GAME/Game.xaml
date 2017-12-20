@@ -185,7 +185,7 @@
         <!--the money-->
         <Button x:Name="money100" Width="150"
                 BorderThickness="1"
-                Content="100"   Foreground="GreenYellow" Grid.Row="4"  FontSize="15" Margin="309,131,-18,-91">
+                Content="100 $"   Foreground="GreenYellow" Grid.Row="4"  FontSize="15" Margin="309,131,-18,-91">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -206,7 +206,7 @@
 
         <Button x:Name="money200" Width="150"
                 BorderThickness="1"
-                Content="200"   Foreground="GreenYellow" Grid.Row="4"  FontSize="15" Margin="309,108,-18,-68">
+                Content="200 $"   Foreground="GreenYellow" Grid.Row="4"  FontSize="15" Margin="309,108,-18,-68">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -227,7 +227,7 @@
 
         <Button x:Name="money300" Width="150"
                 BorderThickness="1"
-                Content="300"   Foreground="GreenYellow" Grid.Row="4"  FontSize="15" Margin="309,85,-18,-45">
+                Content="300 $"   Foreground="GreenYellow" Grid.Row="4"  FontSize="15" Margin="309,85,-18,-45">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -248,7 +248,7 @@
         </Button>
         <Button x:Name="money400" Width="150"
                 BorderThickness="1"
-                Content="400"   Foreground="GreenYellow" Grid.Row="4"  FontSize="15" Margin="309,62,-18,-22">
+                Content="400 $"   Foreground="GreenYellow" Grid.Row="4"  FontSize="15" Margin="309,62,-18,-22">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -269,7 +269,7 @@
 
         <Button x:Name="money500" Width="150"
                 BorderThickness="1"
-                Content="500"   Foreground="Black" Grid.Row="4"  FontSize="15" Margin="309,38,-18,2">
+                Content="500 $"   Foreground="Black" Grid.Row="4"  FontSize="15" Margin="309,38,-18,2">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -290,7 +290,7 @@
 
         <Button x:Name="money2000" Width="150"
                 BorderThickness="1"
-                Content="2,000"   Foreground="GreenYellow" Grid.Row="4"  FontSize="15" Margin="309,13,-18,27">
+                Content="2,000 $"   Foreground="GreenYellow" Grid.Row="4"  FontSize="15" Margin="309,13,-18,27">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -311,7 +311,7 @@
 
         <Button x:Name="money4000" Width="150"
                 BorderThickness="1"
-                Content="4,000"   Foreground="GreenYellow" Grid.Row="3"  FontSize="15" Margin="309,30,-18,50" Grid.RowSpan="2">
+                Content="4,000 $"   Foreground="GreenYellow" Grid.Row="3"  FontSize="15" Margin="309,30,-18,50" Grid.RowSpan="2">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -332,7 +332,7 @@
 
         <Button x:Name="money8000" Width="150"
                 BorderThickness="1"
-                Content="8,000"   Foreground="greenyellow" Grid.Row="3"  FontSize="15" Margin="309,7,-18,13">
+                Content="8,000 $"   Foreground="greenyellow" Grid.Row="3"  FontSize="15" Margin="309,7,-18,13">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -353,7 +353,7 @@
         </Button>
         <Button x:Name="money16000" Width="150"
                 BorderThickness="1"
-                Content="16,000"   Foreground="greenyellow" Grid.Row="2"  FontSize="15" Margin="309,24,-18,36" Grid.RowSpan="2">
+                Content="16,000 $"   Foreground="greenyellow" Grid.Row="2"  FontSize="15" Margin="309,24,-18,36" Grid.RowSpan="2">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -374,7 +374,7 @@
 
         <Button x:Name="money32000" Width="150"
                 BorderThickness="1"
-                Content="32,000"   Foreground="Black" Grid.Row="2"  FontSize="15" Margin="309,0,-18,20" Click="money32000_Click">
+                Content="32,000 $"   Foreground="Black" Grid.Row="2"  FontSize="15" Margin="309,0,-18,20" Click="money32000_Click">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -395,7 +395,7 @@
 
         <Button x:Name="money64000" Width="150"
                 BorderThickness="1"
-                Content="64,000"   Foreground="greenyellow" Grid.Row="1"  FontSize="15" Margin="309,16,-18,4">
+                Content="64,000 $"   Foreground="greenyellow" Grid.Row="1"  FontSize="15" Margin="309,16,-18,4" HorizontalAlignment="Left">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -416,7 +416,7 @@
 
         <Button x:Name="money125000" Width="150"
                 BorderThickness="1"
-                Content="125,000"   Foreground="greenyellow"  FontSize="15" Margin="309,34,-18,26" Grid.RowSpan="2">
+                Content="125,000 $"   Foreground="greenyellow"  FontSize="15" Margin="309,34,-18,26" Grid.RowSpan="2">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -437,7 +437,7 @@
 
         <Button x:Name="money250000" Width="150"
                 BorderThickness="1"
-                Content="250,000"   Foreground="greenyellow"  FontSize="15" Margin="309,13,-18,7">
+                Content="250,000 $"   Foreground="greenyellow"  FontSize="15" Margin="309,13,-18,7">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -458,7 +458,7 @@
         </Button>
         <Button x:Name="money500000" Width="150"
                 BorderThickness="1"
-                Content="50,0000"   Foreground="greenyellow"  FontSize="15" Margin="309,-10,-18,30">
+                Content="50,0000 $"   Foreground="greenyellow"  FontSize="15" Margin="309,-10,-18,30">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -479,7 +479,7 @@
 
         <Button x:Name="money1million" Width="150"
                 BorderThickness="1"
-                Content="1 MILLION"   Foreground="Black"  FontSize="15" Margin="309,-33,-18,53">
+                Content="1 MILLION $"   Foreground="Black"  FontSize="15" Margin="309,-33,-18,53">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">

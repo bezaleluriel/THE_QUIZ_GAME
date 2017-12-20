@@ -66,6 +66,10 @@
 
 
         </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="161*"/>
+            <ColumnDefinition Width="30*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
@@ -75,18 +79,18 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Welcome!" FontSize="35" Width="Auto" 
-                   Style="{StaticResource TextBlockStyle}" Margin="8,-100,8,0" />
+                   Style="{StaticResource TextBlockStyle}" Margin="8,-100,8,0" Grid.ColumnSpan="2" />
 
         <TextBox Name="textBoxName" Tag="User Name" Grid.Row="0"  FontSize="20"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                 Style="{StaticResource MyWaterMarkStyle}" Margin="0,-31,0,31"/>
-        <PasswordBox Name="passwordBox1"  FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,25,0,15" Grid.RowSpan="2"/>
-        <PasswordBox Name="passwordBoxConfirm" Password="Password" Grid.Row="2" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <TextBox Name="textBoxEmail" Tag="Email" Grid.Row="3" Style="{StaticResource MyWaterMarkStyle}" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,18,0,42" Grid.RowSpan="2" />
-        <TextBlock Height="20" HorizontalAlignment="Left" Margin="-56,137,0,-97" x:Name ="errormessage" VerticalAlignment="Top" Width="247"  OpacityMask="Crimson" Foreground="#FFE5572C" Grid.Row="4" />
+                 Style="{StaticResource MyWaterMarkStyle}" Margin="0,-31,0,31" Grid.ColumnSpan="2"/>
+        <PasswordBox Name="passwordBox1"  FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,25,0,15" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+        <PasswordBox Name="passwordBoxConfirm" Password="Password" Grid.Row="2" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+        <TextBox Name="textBoxEmail" Tag="Email" Grid.Row="3" Style="{StaticResource MyWaterMarkStyle}" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,18,0,42" Grid.RowSpan="2" Grid.ColumnSpan="2" />
+        <TextBlock Height="20" HorizontalAlignment="Left" Margin="-56,137,0,-97" x:Name ="errormessage" VerticalAlignment="Top" Width="247"  OpacityMask="Crimson" Foreground="#FFE5572C" Grid.Row="4" Grid.ColumnSpan="2" />
 
         <Button x:Name="btnRegister" Width="150" Height="60"
                 BorderThickness="2" Click="btnRegister_Click"
-                Content="Register"   Foreground="White" Grid.Row="4"  FontSize="15" Margin="14,49,14,-49">
+                Content="Register"   Foreground="White" Grid.Row="4"  FontSize="15" Margin="20,49,21,-49" Grid.ColumnSpan="2">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -107,7 +111,7 @@
 
         <Button x:Name="btnClose" Width="150" Height="60"
                 BorderThickness="2" Click="btnClose_Click"
-                Content="Close"   Foreground="White" Grid.Row="4"  FontSize="15" Margin="188,49,-147,-49">
+                Content="Close"   Foreground="White" Grid.Row="4"  FontSize="15" Margin="27,49,-147,-49" Grid.Column="1">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -128,7 +132,7 @@
 
         <Button x:Name="btnReset" Width="150" Height="60"
                 BorderThickness="2" Click="btnReset_Click"
-                Content="Reset"   Foreground="White" Grid.Row="4"  FontSize="15" Margin="-148,49,189,-49">
+                Content="Reset"   Foreground="White" Grid.Row="4"  FontSize="15" Margin="-148,49,159,-49">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -146,6 +150,6 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        
+
     </Grid>
 </Window>

@@ -77,13 +77,13 @@
         <TextBlock Text="Welcome Back!" FontSize="35" Width="Auto" 
                    Style="{StaticResource TextBlockStyle}" Margin="-8,-100,8,0" />
 
-        <TextBox Tag="User Name" Grid.Row="0"  FontSize="20"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+        <TextBox x:Name="emailBox" Tag="Email" Grid.Row="0"  FontSize="20"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                  Style="{StaticResource MyWaterMarkStyle}"/>
-        <PasswordBox Tag="Password" Grid.Row="2" Password="Password" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <PasswordBox x:Name="PasswordBox" Tag="Password" Grid.Row="2" Password="Password" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
 
         <Button x:Name="btnLogin" Width="150" Height="60"
-                BorderThickness="1"
+                BorderThickness="1" Click="btnLogin_Click"
                 Content="Login"   Foreground="White" Grid.Row="4"  FontSize="15">
 
             <Button.Template>

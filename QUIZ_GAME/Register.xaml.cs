@@ -66,13 +66,8 @@ namespace QUIZ_GAME
                 else
                 {
                     errormessage.Text = "";
-                    SqlConnection con = new SqlConnection("Data Source=TESTPURU;Initial Catalog=Data;User ID=sa;Password=wintellect");
-                    con.Open();
-                    SqlCommand cmd = new SqlCommand("Insert into Registration (Name,Email,Password) values('" + name + "','" + email + "','" + password + "')", con);                    
-                    cmd.CommandType = CommandType.Text;
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    errormessage.Text = "You have Registered successfully.";
+                    DB_Connect db_connect = new DB_Connect();
+                    db_connect.Insert(name, password, email);
                     Reset();
                 }
             }
