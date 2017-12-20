@@ -8,5 +8,7 @@ namespace QUIZ_GAME
 {
     class Amir
     {
+
+
     }
 }
