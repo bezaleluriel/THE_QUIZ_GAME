@@ -38,5 +38,12 @@ namespace QUIZ_GAME
             Register register = new Register();
             register.Show();
         }
+
+        private void btnStartGame_Click(object sender, RoutedEventArgs e)
+        {
+            Game game = new Game();
+            game.Show();
+            this.Close();
+        }
     }
 }

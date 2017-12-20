@@ -79,8 +79,8 @@
 
 
         <Button x:Name="btnStartGame" Width="150" Height="60"
-                BorderThickness="1"
-                Content="Start Game!"   Foreground="White" Grid.Row="2"  FontSize="15" Margin="159,0,188,20" Grid.RowSpan="2">
+                BorderThickness="1" Click="btnStartGame_Click"
+                Content="Start Game!"   Foreground="White"  FontSize="15" Margin="159,38,188,22" Grid.RowSpan="3">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -101,7 +101,7 @@
 
         <Button x:Name="btnRegister" Width="150" Height="60"
                 BorderThickness="1" Click="Register_Click"
-                Content="Register"   Foreground="White" Grid.Row="4"  FontSize="15" Margin="159,0,188,0">
+                Content="Register"   Foreground="White" Grid.Row="2"  FontSize="15" Margin="159,38,188,42" Grid.RowSpan="3">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -122,7 +122,7 @@
 
         <Button x:Name="btnLogin" Width="150" Height="60"
                 BorderThickness="1" Click="Login_Click"
-                Content="Login"   Foreground="White" Grid.Row="4"  FontSize="15" Margin="159,81,188,-81">
+                Content="Login"   Foreground="White" Grid.Row="4"  FontSize="15" Margin="159,39,188,-39">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">

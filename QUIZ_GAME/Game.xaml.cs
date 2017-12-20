@@ -15,22 +15,16 @@ using System.Windows.Shapes;
 namespace QUIZ_GAME
 {
     /// <summary>
-    /// Interaction logic for Login.xaml
-    /// Uriel is my king
+    /// Interaction logic for Game.xaml
     /// </summary>
-    public partial class Login : Window
+    public partial class Game : Window
     {
-        public Login()
+        public Game()
         {
             InitializeComponent();
         }
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnReset_Click(object sender, RoutedEventArgs e)
+        private void money32000_Click(object sender, RoutedEventArgs e)
         {
 
         }

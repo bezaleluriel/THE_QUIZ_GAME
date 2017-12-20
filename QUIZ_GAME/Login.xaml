@@ -79,12 +79,54 @@
 
         <TextBox Tag="User Name" Grid.Row="0"  FontSize="20"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                  Style="{StaticResource MyWaterMarkStyle}"/>
-        <TextBox Tag="Password" Grid.Row="2" Style="{StaticResource MyWaterMarkStyle}" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <PasswordBox Tag="Password" Grid.Row="2" Password="Password" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
 
         <Button x:Name="btnLogin" Width="150" Height="60"
                 BorderThickness="1"
                 Content="Login"   Foreground="White" Grid.Row="4"  FontSize="15">
+
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border  CornerRadius="25" BorderThickness="1">
+                            <Border.Background>
+                                <LinearGradientBrush
+                                    StartPoint="0,0.5" EndPoint="0,0.5">
+                                    <GradientStop Color="MediumPurple" Offset="0.0"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Button x:Name="btnClose" Width="150" Height="60"
+                BorderThickness="1" Click="btnClose_Click"
+                Content="Close"   Foreground="White" Grid.Row="4"  FontSize="15" Margin="216,0,-124,0">
+
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border  CornerRadius="25" BorderThickness="1">
+                            <Border.Background>
+                                <LinearGradientBrush
+                                    StartPoint="0,0.5" EndPoint="0,0.5">
+                                    <GradientStop Color="MediumPurple" Offset="0.0"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Button x:Name="btnReset" Width="150" Height="60"
+                BorderThickness="1" Click="btnReset_Click"
+                Content="Reset"   Foreground="White" Grid.Row="4"  FontSize="15" Margin="-122,0,214,0">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">

@@ -77,15 +77,15 @@
         <TextBlock Text="Welcome!" FontSize="35" Width="Auto" 
                    Style="{StaticResource TextBlockStyle}" Margin="8,-100,8,0" />
 
-        <TextBox Tag="User Name" Grid.Row="0"  FontSize="20"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+        <TextBox Name="textBoxName" Tag="User Name" Grid.Row="0"  FontSize="20"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                  Style="{StaticResource MyWaterMarkStyle}" Margin="0,-31,0,31"/>
-        <TextBox Tag="Password" Style="{StaticResource MyWaterMarkStyle}" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,25,0,15" Grid.RowSpan="2"/>
-        <TextBox Tag="Confirm Password" Grid.Row="2" Style="{StaticResource MyWaterMarkStyle}" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <TextBox Tag="Email" Grid.Row="3" Style="{StaticResource MyWaterMarkStyle}" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,18,0,42" Grid.RowSpan="2" />
-
+        <PasswordBox Name="passwordBox1"  FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,25,0,15" Grid.RowSpan="2"/>
+        <PasswordBox Name="passwordBoxConfirm" Password="Password" Grid.Row="2" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBox Name="textBoxEmail" Tag="Email" Grid.Row="3" Style="{StaticResource MyWaterMarkStyle}" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,18,0,42" Grid.RowSpan="2" />
+        <TextBlock Height="20" HorizontalAlignment="Left" Margin="-56,137,0,-97" x:Name ="errormessage" VerticalAlignment="Top" Width="247"  OpacityMask="Crimson" Foreground="#FFE5572C" Grid.Row="4" />
 
         <Button x:Name="btnRegister" Width="150" Height="60"
-                BorderThickness="2"
+                BorderThickness="2" Click="btnRegister_Click"
                 Content="Register"   Foreground="White" Grid.Row="4"  FontSize="15" Margin="14,49,14,-49">
 
             <Button.Template>
@@ -104,5 +104,48 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+
+        <Button x:Name="btnClose" Width="150" Height="60"
+                BorderThickness="2" Click="btnClose_Click"
+                Content="Close"   Foreground="White" Grid.Row="4"  FontSize="15" Margin="188,49,-147,-49">
+
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border  CornerRadius="25" BorderThickness="1">
+                            <Border.Background>
+                                <LinearGradientBrush
+                                    StartPoint="0,0.5" EndPoint="0,0.5">
+                                    <GradientStop Color="MediumPurple" Offset="0.0"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Button x:Name="btnReset" Width="150" Height="60"
+                BorderThickness="2" Click="btnReset_Click"
+                Content="Reset"   Foreground="White" Grid.Row="4"  FontSize="15" Margin="-148,49,189,-49">
+
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border  CornerRadius="25" BorderThickness="1">
+                            <Border.Background>
+                                <LinearGradientBrush
+                                    StartPoint="0,0.5" EndPoint="0,0.5">
+                                    <GradientStop Color="MediumPurple" Offset="0.0"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        
     </Grid>
 </Window>
