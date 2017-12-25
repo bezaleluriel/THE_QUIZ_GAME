@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -43,14 +44,45 @@ namespace QUIZ_GAME
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
+            if (emailBox.Text.Length == 0)
+            {
+                errormessage.Text = "Enter an email.";
+                emailBox.Focus();
+            }
+            else if (!Regex.IsMatch(emailBox.Text, @"^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"))
+            {
+                errormessage.Text = "Enter a valid email.";
+                emailBox.Select(0, emailBox.Text.Length);
+                emailBox.Focus();
+            }
+            else
+            {
+                string email = emailBox.Text;
+                string password = PasswordBox.Password;
+
+                DB_Connect db_connect = new DB_Connect();
+                List<string>[] answer = db_connect.Select(email, password);
+                if (answer != null)
+                {
+                    errormessage.Text = "Login successfully";
+                }
+                else
+                {
+                    errormessage.Text = "Sorry! Please enter existing emailid/password.";
+                }
+                Reset();
+            }
+
+
+            /*
             string email = emailBox.Text;
             string password = PasswordBox.Password;
 
             DB_Connect db_connect = new DB_Connect();          
             List<string>[] answer = db_connect.Select(email, password);
-            Console.WriteLine("email = " + answer[0] + "password = " + answer[1]);
 
             Reset();
+            */
         }
     }
 }

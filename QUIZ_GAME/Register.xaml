@@ -86,7 +86,7 @@
         <PasswordBox Name="passwordBox1"  FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,25,0,15" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
         <PasswordBox Name="passwordBoxConfirm" Password="Password" Grid.Row="2" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
         <TextBox Name="textBoxEmail" Tag="Email" Grid.Row="3" Style="{StaticResource MyWaterMarkStyle}" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,18,0,42" Grid.RowSpan="2" Grid.ColumnSpan="2" />
-        <TextBlock Height="20" HorizontalAlignment="Left" Margin="-56,137,0,-97" x:Name ="errormessage" VerticalAlignment="Top" Width="247"  OpacityMask="Crimson" Foreground="#FFE5572C" Grid.Row="4" Grid.ColumnSpan="2" />
+        <TextBlock x:Name ="errormessage" Height="20" HorizontalAlignment="Left" Margin="-56,137,0,-97" VerticalAlignment="Top" Width="247"  OpacityMask="Crimson" Foreground="#FFE5572C" Grid.Row="4" Grid.ColumnSpan="2" />
 
         <Button x:Name="btnRegister" Width="150" Height="60"
                 BorderThickness="2" Click="btnRegister_Click"

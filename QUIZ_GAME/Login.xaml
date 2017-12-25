@@ -144,5 +144,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+
+        <TextBlock x:Name ="errormessage" Height="20" HorizontalAlignment="Left" Margin="-51,116,0,-76" VerticalAlignment="Top" Width="247"  OpacityMask="Crimson" Foreground="#FFE5572C" Grid.Row="4" />
     </Grid>
 </Window>

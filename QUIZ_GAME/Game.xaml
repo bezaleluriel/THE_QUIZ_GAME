@@ -74,7 +74,7 @@
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Wo wants to be a milionare?" FontSize="35" Width="Auto" 
+        <TextBlock Text="Who wants to be a milionare?" FontSize="35" Width="Auto" 
                    Style="{StaticResource TextBlockStyle}" Margin="-8,-100,8,0" />
 
         <Button x:Name="btnA1" Width="150" Height="60"
@@ -395,7 +395,7 @@
 
         <Button x:Name="money64000" Width="150"
                 BorderThickness="1"
-                Content="64,000 $"   Foreground="greenyellow" Grid.Row="1"  FontSize="15" Margin="309,16,-18,4" HorizontalAlignment="Left">
+                Content="64,000 $"   Foreground="greenyellow" Grid.Row="1"  FontSize="15" Margin="318,16,-7,4" HorizontalAlignment="Left">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">

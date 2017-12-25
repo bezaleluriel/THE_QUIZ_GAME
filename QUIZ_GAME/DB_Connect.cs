@@ -10,7 +10,8 @@ using System.Windows;
 namespace QUIZ_GAME
 {
     class DB_Connect
-    {
+    {//
+
         private MySqlConnection connection;
         private string server;
         private string database;
@@ -22,7 +23,7 @@ namespace QUIZ_GAME
         private void Initialize()
         {
             server = "localhost";
-            database = "test"; //change the name of the db
+            database = "mydb"; //change the name of the db
             uid = "root";
             password = "1234";
             string connectionString;
