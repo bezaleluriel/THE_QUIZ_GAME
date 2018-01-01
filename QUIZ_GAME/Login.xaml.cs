@@ -65,24 +65,15 @@ namespace QUIZ_GAME
                 if (answer != null)
                 {
                     errormessage.Text = "Login successfully";
+                    Reset();
                 }
                 else
                 {
-                    errormessage.Text = "Sorry! Please enter existing emailid/password.";
+                    errormessage.Text = "Sorry! Please enter existing email/password.";
                 }
-                Reset();
+                
             }
 
-
-            /*
-            string email = emailBox.Text;
-            string password = PasswordBox.Password;
-
-            DB_Connect db_connect = new DB_Connect();          
-            List<string>[] answer = db_connect.Select(email, password);
-
-            Reset();
-            */
         }
     }
 }

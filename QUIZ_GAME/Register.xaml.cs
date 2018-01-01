@@ -67,8 +67,18 @@ namespace QUIZ_GAME
                 {
                     errormessage.Text = "";
                     DB_Connect db_connect = new DB_Connect();
-                    db_connect.Insert(name, password, email);
-                    Reset();
+                    bool result = db_connect.Insert(name, password, email);
+
+                    if(result == true)
+                    {
+                        errormessage.Text = "Login succssfuly.";
+                        Reset();
+                    }
+                    else
+                    {
+                        errormessage.Text = "Email alredy exists.";
+                    }
+                    
                 }
             }
         }

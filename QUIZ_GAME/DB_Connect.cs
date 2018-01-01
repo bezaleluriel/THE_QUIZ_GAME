@@ -116,9 +116,9 @@ namespace QUIZ_GAME
                 + "' AND user_password = '" + password + "'";
 
             //Create a list to store the result
-            List<string>[] list = new List<string>[3];//
+            List<string>[] list = new List<string>[3];
             list[0] = new List<string>();
-            list[1] = new List<string>();
+            list[1] = new List<string>(); 
 
             //Open connection
             if (this.OpenConnection() == true)
