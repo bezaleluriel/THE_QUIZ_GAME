@@ -24,6 +24,6 @@ namespace QUIZ_GAME
             InitializeComponent();
         }
 
-        //
+        
     }
 }
