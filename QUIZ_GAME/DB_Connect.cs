@@ -155,6 +155,48 @@ namespace QUIZ_GAME
             }
         }
 
+        public List<string>[] selectQ1(string query)
+        {
+            //Create a list to store the result
+            List<string>[] list = new List<string>[3];
+            list[0] = new List<string>();
+            list[1] = new List<string>();
+
+            //Open connection
+            if (this.OpenConnection() == true)
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                //Create a data reader and Execute the command
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    list[0].Add(dataReader["artist_id"] + "");
+                    list[1].Add(dataReader["song_name"] + "");
+                }
+
+                if (dataReader.HasRows == false)
+                {
+                    list = null;
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+                //return list to be displayed
+                return list;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }
 
 }

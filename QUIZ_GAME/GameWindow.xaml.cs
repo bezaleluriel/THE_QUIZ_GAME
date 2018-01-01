@@ -24,9 +24,6 @@ namespace QUIZ_GAME
             InitializeComponent();
         }
 
-        private void money32000_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        //
     }
 }
