@@ -165,7 +165,8 @@ namespace QUIZ_GAME
             CurrentMoney = getMoneyByQuestionNumber(currentQuestionNumber);
             CurrentClue = "";
             currentQuestionNumber++;
-            ActivateQuestion((Iquestion)questionsList[currentQuestionNumber]);
+            if(currentQuestionNumber< questionsList.Count)
+                ActivateQuestion((Iquestion)questionsList[currentQuestionNumber]);
         }
         public void NotifyPropertyChanged(string propertyName)
         {
