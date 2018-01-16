@@ -55,15 +55,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Amir.cs" />
+    <Compile Include="Album.cs" />
+    <Compile Include="Answer.cs" />
     <Compile Include="DB_Connect.cs" />
+    <Compile Include="GameFlow.cs" />
     <Compile Include="GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Iquestion.cs" />
     <Compile Include="Q1.cs" />
+    <Compile Include="Q2.cs" />
+    <Compile Include="Q5.cs" />
+    <Compile Include="Q6.cs" />
+    <Compile Include="Q7.cs" />
+    <Compile Include="Q8.cs" />
     <Compile Include="Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Song.cs" />
+    <Compile Include="TestWindow.xaml.cs">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="GameWindow.xaml">
       <SubType>Designer</SubType>
@@ -89,6 +100,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Register.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -118,6 +133,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\picQ.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\clueLogo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

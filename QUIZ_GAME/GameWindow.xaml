@@ -1,11 +1,12 @@
 ﻿<Window x:Class="QUIZ_GAME.Game"
+        ResizeMode="NoResize"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QUIZ_GAME"
         mc:Ignorable="d"
-        Title="MainWindow" Width="525"  >
+        Title="MainWindow" Width="1101" Height="621.5" WindowStartupLocation="CenterScreen"  >
     <Window.Style>
         <Style TargetType="{x:Type Window}">
             <Setter Property="Template">
@@ -68,18 +69,20 @@
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="9"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="26"/>
+            <RowDefinition Height="9"/>
+            <RowDefinition Height="31"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
 
         <TextBlock Text="Who wants to be a milionare?" FontSize="35" Width="Auto" 
-                   Style="{StaticResource TextBlockStyle}" Margin="-8,-100,8,0" />
+                   Style="{StaticResource TextBlockStyle}" Margin="-148,-122,148,120" />
 
-        <Button x:Name="btnA1" Width="150" Height="60"
+        <Button x:Name="btnA1"
                 BorderThickness="1"
-                Content="answer 1"   Foreground="White" Grid.Row="2"  FontSize="15" Margin="-110,0,202,20" Grid.RowSpan="2">
+                Content="{Binding Path=CurrentFirstAns,UpdateSourceTrigger=PropertyChanged}"    Foreground="White" Grid.Row="4"  FontSize="15" Margin="-280,6,442,59" Grid.RowSpan="3" Click="btnA1_Click">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -98,9 +101,9 @@
             </Button.Template>
         </Button>
 
-        <Button x:Name="btnA2" Width="150" Height="60"
+        <Button x:Name="btnA2"
                 BorderThickness="1"
-                Content="answer 2"   Foreground="White" Grid.Row="2"  FontSize="15" Margin="44,0,48,20" Grid.RowSpan="2">
+                Content="{Binding Path=CurrentSecondAns,UpdateSourceTrigger=PropertyChanged}"  Foreground="White" Grid.Row="4"  FontSize="15" Margin="91,6,77,59" Grid.RowSpan="3" Click="btnA2_Click">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -119,9 +122,9 @@
             </Button.Template>
         </Button>
 
-        <Button x:Name="btnA3" Width="150" Height="60"
+        <Button x:Name="btnA3"
                 BorderThickness="1"
-                Content="answer 3"   Foreground="White" Grid.Row="3"  FontSize="15" Margin="-110,25,202,15" Grid.RowSpan="2">
+                Content="{Binding Path=CurrentThirdAns,UpdateSourceTrigger=PropertyChanged}"   Foreground="White" Grid.Row="6"  FontSize="15" Margin="-280,68,440,-44" Click="btnA3_Click">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -140,9 +143,9 @@
             </Button.Template>
         </Button>
 
-        <Button x:Name="btnA4" Width="150" Height="60"
+        <Button x:Name="btnA4"
                 BorderThickness="1"
-                Content="answer 4"   Foreground="White" Grid.Row="3"  FontSize="15" Margin="44,25,48,15" Grid.RowSpan="2">
+                Content="{Binding Path=CurrentFourthAns,UpdateSourceTrigger=PropertyChanged}"   Foreground="White" Grid.Row="6"  FontSize="15" Margin="91,68,77,-44" Click="btnA4_Click">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -161,9 +164,9 @@
             </Button.Template>
         </Button>
 
-        <Button x:Name="question" Height="60"
+        <Button x:Name="questionBox"
                 BorderThickness="1"
-                Content="here comes the question"   Foreground="White"  FontSize="15" Margin="-8,0,147,20" Grid.RowSpan="2">
+                Content="{Binding Path=CurrentQuestion,UpdateSourceTrigger=PropertyChanged}"   Foreground="White"  FontSize="15" Margin="-280,-33,49,5" Grid.RowSpan="2">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -185,7 +188,7 @@
         <!--the money-->
         <Button x:Name="money100" Width="150"
                 BorderThickness="1"
-                Content="100 $"   Foreground="GreenYellow" Grid.Row="4"  FontSize="15" Margin="309,131,-18,-91">
+                Content="100 $"   Foreground="GreenYellow" Grid.Row="6"  FontSize="15" Margin="491,152,-158,-72">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -206,7 +209,7 @@
 
         <Button x:Name="money200" Width="150"
                 BorderThickness="1"
-                Content="200 $"   Foreground="GreenYellow" Grid.Row="4"  FontSize="15" Margin="309,108,-18,-68">
+                Content="200 $"   Foreground="GreenYellow" Grid.Row="6"  FontSize="15" Margin="491,129,-158,-49">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -227,7 +230,7 @@
 
         <Button x:Name="money300" Width="150"
                 BorderThickness="1"
-                Content="300 $"   Foreground="GreenYellow" Grid.Row="4"  FontSize="15" Margin="309,85,-18,-45">
+                Content="300 $"   Foreground="GreenYellow" Grid.Row="6"  FontSize="15" Margin="491,106,-158,-26">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -248,7 +251,7 @@
         </Button>
         <Button x:Name="money400" Width="150"
                 BorderThickness="1"
-                Content="400 $"   Foreground="GreenYellow" Grid.Row="4"  FontSize="15" Margin="309,62,-18,-22">
+                Content="400 $"   Foreground="GreenYellow" Grid.Row="6"  FontSize="15" Margin="491,83,-158,-3">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -269,7 +272,7 @@
 
         <Button x:Name="money500" Width="150"
                 BorderThickness="1"
-                Content="500 $"   Foreground="Black" Grid.Row="4"  FontSize="15" Margin="309,38,-18,2">
+                Content="500 $"   Foreground="Black" Grid.Row="6"  FontSize="15" Margin="491,59,-158,21">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -290,7 +293,7 @@
 
         <Button x:Name="money2000" Width="150"
                 BorderThickness="1"
-                Content="2,000 $"   Foreground="GreenYellow" Grid.Row="4"  FontSize="15" Margin="309,13,-18,27">
+                Content="2,000 $"   Foreground="GreenYellow" Grid.Row="6"  FontSize="15" Margin="491,34,-158,46">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -311,7 +314,7 @@
 
         <Button x:Name="money4000" Width="150"
                 BorderThickness="1"
-                Content="4,000 $"   Foreground="GreenYellow" Grid.Row="3"  FontSize="15" Margin="309,30,-18,50" Grid.RowSpan="2">
+                Content="4,000 $"   Foreground="GreenYellow" Grid.Row="6"  FontSize="15" Margin="491,11,-158,69">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -332,7 +335,7 @@
 
         <Button x:Name="money8000" Width="150"
                 BorderThickness="1"
-                Content="8,000 $"   Foreground="greenyellow" Grid.Row="3"  FontSize="15" Margin="309,7,-18,13">
+                Content="8,000 $"   Foreground="greenyellow" Grid.Row="5"  FontSize="15" Margin="491,19,-158,92" Grid.RowSpan="2">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -353,7 +356,7 @@
         </Button>
         <Button x:Name="money16000" Width="150"
                 BorderThickness="1"
-                Content="16,000 $"   Foreground="greenyellow" Grid.Row="2"  FontSize="15" Margin="309,24,-18,36" Grid.RowSpan="2">
+                Content="16,000 $"   Foreground="greenyellow" Grid.Row="4"  FontSize="15" Margin="491,5,-158,15" Grid.RowSpan="2">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -374,7 +377,7 @@
 
         <Button x:Name="money32000" Width="150"
                 BorderThickness="1"
-                Content="32,000 $"   Foreground="Black" Grid.Row="2"  FontSize="15" Margin="309,0,-18,20" Click="money32000_Click">
+                Content="32,000 $"   Foreground="Black" Grid.Row="3"  FontSize="15" Margin="491,7,-158,8" Grid.RowSpan="2">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -395,7 +398,7 @@
 
         <Button x:Name="money64000" Width="150"
                 BorderThickness="1"
-                Content="64,000 $"   Foreground="greenyellow" Grid.Row="1"  FontSize="15" Margin="318,16,-7,4" HorizontalAlignment="Left">
+                Content="64,000 $"   Foreground="greenyellow"  FontSize="15" Margin="491,37,-158,23" HorizontalAlignment="Left" Grid.RowSpan="4">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -416,7 +419,7 @@
 
         <Button x:Name="money125000" Width="150"
                 BorderThickness="1"
-                Content="125,000 $"   Foreground="greenyellow"  FontSize="15" Margin="309,34,-18,26" Grid.RowSpan="2">
+                Content="125,000 $"   Foreground="greenyellow"  FontSize="15" Margin="491,15,-158,5">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -437,7 +440,7 @@
 
         <Button x:Name="money250000" Width="150"
                 BorderThickness="1"
-                Content="250,000 $"   Foreground="greenyellow"  FontSize="15" Margin="309,13,-18,7">
+                Content="250,000 $"   Foreground="greenyellow"  FontSize="15" Margin="491,-6,-158,26">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -458,7 +461,7 @@
         </Button>
         <Button x:Name="money500000" Width="150"
                 BorderThickness="1"
-                Content="50,0000 $"   Foreground="greenyellow"  FontSize="15" Margin="309,-10,-18,30">
+                Content="50,0000 $"   Foreground="greenyellow"  FontSize="15" Margin="491,-29,-158,49">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -479,7 +482,7 @@
 
         <Button x:Name="money1million" Width="150"
                 BorderThickness="1"
-                Content="1 MILLION $"   Foreground="Black"  FontSize="15" Margin="309,-33,-18,53">
+                Content="1 MILLION $"   Foreground="Black"  FontSize="15" Margin="491,-52,-158,72">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -497,6 +500,13 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+        <Image x:Name="questionArrow" HorizontalAlignment="Left" Height="32" Opacity="0.8" Source="/images/picQ.png" Margin="617,150,-294,-82" Grid.Row="6" VerticalAlignment="Top" Width="160"/>
+        <Image x:Name="clueImg" HorizontalAlignment="Left" Height="66" Opacity="0.7" Margin="628,-146,-224,0" VerticalAlignment="Top" Width="79" Source="images/clueLogo.png"/>
+        <Button Content="Clue" HorizontalAlignment="Left" Height="24" Margin="625,-97,-198,0" VerticalAlignment="Top" Width="56" FontWeight="Bold" Click="Button_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="-148,175,0,-142" TextWrapping="Wrap" Text="{Binding Path=CurrentClue,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Grid.Row="6" FontWeight="Bold" FontSize="14" Height="67" Width="419" Foreground="#FFFDFD05"/>
+        <Label Content="My Money:" HorizontalAlignment="Left" Margin="461,-98,-52,0" VerticalAlignment="Top" FontWeight="Bold" Background="#FF2BE80D"/>
+        <TextBlock x:Name="moneyTxtBlock" Margin="540,-93,-58,0" TextWrapping="Wrap" Text="{Binding Path=CurrentMoney,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF1CF931"/>
+        <Label x:Name="correctAnsLbl" Content="{Binding Path=CurrentCorrectAnsNumber,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="406,-122,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>

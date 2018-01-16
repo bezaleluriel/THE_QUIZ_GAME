@@ -12,5 +12,26 @@ namespace QUIZ_GAME
         string buildClue();
         string[] buildAnswers();
         string buildTrueAnswer();
+        void updateRelevantSkills(bool correctAnswer);
+        string Clue
+        {
+            get;
+            set;
+        }
+        string Question
+        {
+            get;
+            set;
+        }
+        string[] WrongAnswers
+        {
+            get;
+            set;
+        }
+        string TrueAnswer
+        {
+            get;
+            set;
+        }
     }
 }

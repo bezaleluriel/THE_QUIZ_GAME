@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QUIZ_GAME
 {
-    class Q1 : Iquestion
+    class Q2: Iquestion
     {
         private int Level;
         private string question;
@@ -15,14 +15,13 @@ namespace QUIZ_GAME
         private string[] wrongAnswers;
         private string trueAnswer;
         private DB_Connect db;
-        private string song_id;
-        private string song = null, year = null, artist_name = null, artist_id = null;
-        private List<string>[] yearSkillTable = null, songSkillTable = null, artistSkillTable = null;
+        string song = null, album_name = null, artist_name = null, artist_id = null, song_id = null, year = null;
+        List<string>[] songSkillTable = null, artistSkillTable = null;
 
         public string Question
         {
-            get {return question; }
-            set { question = value;}
+            get { return question; }
+            set { question = value; }
         }
 
         public string Clue
@@ -43,28 +42,40 @@ namespace QUIZ_GAME
             set { trueAnswer = value; }
         }
 
-        public Q1(int level1, string user_email1)
+        public Q2(int level1, string user_email1)
         {
             Level = level1;
             User_email = user_email1;
             db = new DB_Connect();
             Question = buildQuestion();
             updateRelevantSkills(true);
-            WrongAnswers = buildAnswers();
+            string[] answers = buildAnswers();
             Clue = buildClue();
         }
 
-        public void updateRelevantSkills(bool correctAnswer) {
-            
+        public string[] buildAnswers()
+        {
+            string query = "select album_name from songs where album_name != '" + TrueAnswer + "'";
+            List<string>[] args = db.getAlbumName(query);
+            Random rnd = new Random();
+            List<string> albums = args[0];
+            int albumsSize = (albums).Count - 1;
+            int index1 = rnd.Next(0, albumsSize / 3);
+            int index2 = rnd.Next((albumsSize / 3) + 1, (albumsSize / 3) * 2);
+            int index3 = rnd.Next(((albumsSize / 3) * 2) + 1, albumsSize);
+            string[] answers = { albums.ElementAt(index1), albums.ElementAt(index2), albums.ElementAt(index3) };
+            WrongAnswers = answers;
+            return answers;
+        }
+
+        public void updateRelevantSkills(bool correctAnswer)
+        {
             int toAdd = 0;
             if (correctAnswer)
                 toAdd = 1;
             else
                 toAdd = -1;
             bool hasLocationsSkill = false, hasSongsSkill = false, hasArtistsSkill = false, hasYearsSkill = false;
-            //string songID = songForQuiestion.Song_id;
-            //string artistID = songForQuiestion.Artist_id;
-            //int songYear = songForQuiestion.Year;
             string artist_location = db.GetArtistLocation(artist_id);
             hasSongsSkill = db.CheckSpecificSkill("songs_skills", song_id, this.User_email);
             hasArtistsSkill = db.CheckSpecificSkill("artists_skills", artist_id, this.User_email);
@@ -89,95 +100,65 @@ namespace QUIZ_GAME
                 db.UpdateRate("user_years_skills", this.User_email, "year", year.ToString(), toAdd);
             else
                 db.InsertNewSkill("user_years_skills", this.User_email, year.ToString(), toAdd);
-        
+
         }
 
-        public string[] buildAnswers()
-        {
-            string query = "select year from songs where year != '" + TrueAnswer + "'";
-            List<string>[] args = db.getYear(query);
-            Random rnd = new Random();
-            List<string> years = args[0];
-            int yearsSize = (years).Count - 1;
-            int index1 = rnd.Next(0, yearsSize/3);
-            int index2 = rnd.Next((yearsSize / 3) + 1, (yearsSize/3) * 2);
-            int index3 = rnd.Next(((yearsSize / 3) * 2) + 1, yearsSize);
-            string[] answers = { years.ElementAt(index1), years.ElementAt(index2), years.ElementAt(index3) };
-            return answers;
-        }
 
         public string buildClue()
         {
-            string query, localArtistId = null, sameYear = null;
-            List<string>[] artists;
-            List<string>[] years;
-            List<string>[] args;
-            bool stop = false;
+            string query, sameSongName = null;
+            List<string>[] song_name = null;
+            int i;
 
-            if (isArtistSkill())
+            if (isSongSkill())
             {
-                query = "Select artist_id from user_artists_skills where user_email ='" + User_email +
-                    "' and  rate > 0";
-                artists = db.getArtistId(query);
-                for (int i = 0; i < (artists[0]).Count; i++){
-                    if (!stop)
+                Random rnd = new Random();
+                int skillSize = (songSkillTable[0]).Count;
+                int index = rnd.Next(0, skillSize);
+                for (i = 0; i < skillSize; i++)
+                {
+                    string s = (songSkillTable[1]).ElementAt(i);
+                    if (!s.Equals(song_id))
                     {
-                        localArtistId = (artists[0]).ElementAt(i);
-                        query = "Select year from songs where artist_id ='" + localArtistId + "'";
-                        years = db.getYear(query); //get all years this artist outed a new song.
-                        for (int j = 0; j < (years[0]).Count; j++)
-                        {
-                            if ((years[0]).ElementAt(j) == year)
-                            {
-                                stop = true;
-                                sameYear = (years[0]).ElementAt(j);
-                                break;
-                            }
-                        }
+                        query = "SELECT song_name from songs WHERE album_name = '" + album_name +
+                            "' AND song_id = '" + s + "'";
+                        song_name = db.getSongName(query);                        
                     }
-                    if (stop) {
-                        query = "select song_name from songs where artist_id = '" + localArtistId + "'";
-                        args = db.getSongName(query);
-                        string localSongName = (args[0]).ElementAt(0);
-                        query = "select artist_name from artists where artist_id = '" + localArtistId + "'";
-                        args = db.getArtistName(query);
-                        string localArtistName = (args[0]).ElementAt(0);
-                        clue = "The same year the song " + localSongName + " of artist " + localArtistName + " came out.";
-                        break;
-                    }
-                }
+                    if (song_name != null) { break; }
+                }               
                 
             }
-            if(stop == false)
+            if(song_name == null)
             {
-                query = "select song_name from songs where year = '" + year + "'";
-                args = db.getSongName(query);
-                clue = "At the same year the songs '" + (args[0]).ElementAt(0) + "', " +
-                    (args[0]).ElementAt(1) + "' and " + (args[0]).ElementAt(2) + "' came out.";
-
+                query = "SELECT song_name from songs WHERE album_name = '" + album_name + "'";
+                song_name = db.getSongName(query);
+                i = 0;
+                int size = (song_name[0]).Count;
+                while (i < size)
+                {
+                    sameSongName = (song_name[0]).ElementAt(i);
+                    if (!song.Equals(sameSongName)) { break; }
+                    i++;
+                }
             }
             
+            clue = "In the same album there is the song " + sameSongName + ".";
             return clue;
         }
 
-        private bool isSongSkill() {
+        private bool isSongSkill()
+        {
             songSkillTable = db.SelectUserSkills(User_email, "user_songs_skills");
-            if (songSkillTable != null){ return true; }
+            if (songSkillTable != null) { return true; }
             return false;
         }
 
-        private bool isArtistSkill() {
+        private bool isArtistSkill()
+        {
             artistSkillTable = db.SelectUserSkills(User_email, "user_artists_skills");
             if (artistSkillTable != null) { return true; }
             return false;
         }
-
-        private bool isYearSkill() {
-            yearSkillTable = db.SelectUserSkills(User_email, "user_years_skills");
-            if (yearSkillTable != null) { return true; }
-            return false;
-        }
-
 
         public string buildQuestion()
         {
@@ -187,28 +168,21 @@ namespace QUIZ_GAME
             string skillTable = null;
             int skillSize = 0;
 
-            
+
             if (isSongSkill() == true)
             {
                 skillTable = "songs";
                 skillSize = (songSkillTable[0]).Count - 1;
             }
             else
-            {                
+            {
                 if (isArtistSkill() == true)
                 {
                     skillTable = "artist";
                     skillSize = (artistSkillTable[0]).Count - 1;
+                    
                 }
-                else
-                {
-                    if (isYearSkill() == true)
-                    {
-                        skillTable = "year";
-                        skillSize = (yearSkillTable[0]).Count - 1;
-                    }
-                    else { isSkill = false; }
-                }
+                else { isSkill = false; }
             }
 
             if (!isSkill) { getQuestionWithNoSkill(Level); }
@@ -237,11 +211,11 @@ namespace QUIZ_GAME
             query = "Select artist_name from artists where artist_id = '" + artist_id + "'";
             args = db.getArtistName(query);
             artist_name = (args[0]).ElementAt(0);
-            TrueAnswer = year;
-            question = "In which year the song " + song + " of artist " + artist_name + " came out?";
+            TrueAnswer = album_name;
+            question = "What is the album's name which " + song + " of the " + artist_name + ", belongs to?";
             return question;
-        }  
-        
+        }
+
         private void getQuestionWithSkill(string skillTable, int index)
         {
             string query;
@@ -250,34 +224,32 @@ namespace QUIZ_GAME
             switch (skillTable)
             {
                 case "songs":
-                    
+                   
                     song_id = (songSkillTable[1]).ElementAt(index);
-                    query = "select artist_id, song_name, year from songs where song_id = '" + song_id + "'";
-                    args = db.getSongYearAndArtistID(query);
+                    query = "select song_name, artist_id, year, album_name from songs where song_id = '" + song_id + "'";
+                    args = db.getSongAndArtistIDAndYearAndAlbum(query);
                     song = (args[0]).ElementAt(0);
-                    year = (args[1]).ElementAt(0);
-                    artist_id = (args[2]).ElementAt(0);
+                    artist_id = (args[1]).ElementAt(0);
+                    year = (args[2]).ElementAt(0);
+                    album_name = (args[3]).ElementAt(0);
                     break;
 
                 case "artist":
                     artist_id = (artistSkillTable[1]).ElementAt(index);
-                    query = "Select song_name, song_id, year from songs where artist_id = '" + artist_id + "' order by rand() limit 1";
-                    args = db.getSongAndSongIDAndYear(query);
-                    song = (args[0]).ElementAt(0);
-                    song_id = (args[1]).ElementAt(0);
-                    year = (args[2]).ElementAt(0);
-                    break;
-
-                case "year":
-                    year = (yearSkillTable[1]).ElementAt(index);
-                    query = "select song_name, song_id, artist_id from songs where year = '" + year + "' order by rand() limit 1";
-                    args = db.getSongAndSongIDAndArtistId(query);
-                    song = (args[0]).ElementAt(0);
-                    song_id = (args[1]).ElementAt(0);
-                    artist_id = (args[2]).ElementAt(0);
+                    getInfo();
                     break;
             }
 
+        }
+
+        private void getInfo()
+        {
+            string query = "Select song_name, song_id, year, album_name from songs where artist_id = '" + artist_id + "' order by rand() limit 1";
+            List<string>[] args = db.getSongAndSongIDAndYearAndAlbum(query);
+            song = (args[0]).ElementAt(0);
+            song_id = (args[1]).ElementAt(0);
+            year = (args[2]).ElementAt(0);
+            album_name = (args[3]).ElementAt(0);
         }
 
         private void getQuestionWithNoSkill(int level)
@@ -305,18 +277,13 @@ namespace QUIZ_GAME
                     artist_id = (args[0]).ElementAt(0);
                     break;
             }
-            query = "Select song_name, song_id, year from songs where artist_id = '" + artist_id + "' order by rand() limit 1";
-            args = db.getSongAndSongIDAndYear(query);
-            song = (args[0]).ElementAt(0);
-            song_id = (args[1]).ElementAt(0);
-            year = (args[2]).ElementAt(0);
+            getInfo();
         }
 
         public string buildTrueAnswer()
         {
-            return null;
+            return TrueAnswer;
         }
-    }  
-
-
+    }
 }
+
