@@ -21,6 +21,37 @@ namespace QUIZ_GAME
         string answer1_song_id = null;
         string answer2_song_id = null;
 
+
+        public string Year
+        {
+            get { return year; }
+            set
+            {
+                year = value;
+                this.year = this.year.Replace("'", "''");
+            }
+        }
+
+        public string Answer2
+        {
+            get { return answer2; }
+            set
+            {
+                answer2 = value;
+                this.answer2 = this.answer2.Replace("'", "''");
+            }
+        }
+
+        public string Answer1
+        {
+            get { return answer1; }
+            set
+            {
+                answer1 = value;
+                this.answer1 = this.answer1.Replace("'", "''");
+            }
+        }
+
         // the song_id of the first answer.
         public string Answer1_song_id
         {
@@ -65,14 +96,24 @@ namespace QUIZ_GAME
         public string TrueAnswer
         {
             get { return trueAnswer; }
-            set { trueAnswer = value; }
+            set
+            {
+                trueAnswer = value;
+                this.trueAnswer = this.trueAnswer.Replace("'", "''");
+            }
         }
 
         // the other 3 options that are not correct.
         public string[] WrongAnswers
         {
             get { return wrongAnswers; }
-            set { wrongAnswers = value; }
+            set
+            {
+                wrongAnswers = value;
+                this.wrongAnswers[0] = this.wrongAnswers[0].Replace("'", "''");
+                this.wrongAnswers[1] = this.wrongAnswers[1].Replace("'", "''");
+                this.wrongAnswers[2] = this.wrongAnswers[2].Replace("'", "''");
+            }
         }
 
         /**
