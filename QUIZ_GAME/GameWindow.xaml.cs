@@ -19,11 +19,11 @@ namespace QUIZ_GAME
     /// </summary>
     public partial class Game : Window
     {
-        GameFlow gameFlow;
-        public Game()
+        private GameFlow gameFlow;
+        public Game(GameFlow gf)
         {
-            gameFlow = new GameFlow("halfonamir1@gmail.com");
-            
+            //gameFlow = new GameFlow("halfonamir1@gmail.com");
+            this.gameFlow = gf;
             InitializeComponent();
             this.DataContext = gameFlow;
             

@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace QUIZ_GAME
 {
-    class GameFlow : INotifyPropertyChanged
+    public class GameFlow : INotifyPropertyChanged
     {
         private ArrayList questionsList;
         private int currentQuestionNumber = 0;
@@ -52,12 +53,12 @@ namespace QUIZ_GAME
         public string CurrentThirdAns
         {
             get { return currentThirdAns; }
-            set { currentThirdAns = value; NotifyPropertyChanged("currentThirdAns"); }
+            set { currentThirdAns = value; NotifyPropertyChanged("CurrentThirdAns"); }
         }
         public string CurrentFourthAns
         {
-            get { return currentFourthAns; NotifyPropertyChanged("CurrentFourthAns"); }
-            set { currentFourthAns = value; }
+            get { return currentFourthAns; ; }
+            set { currentFourthAns = value; NotifyPropertyChanged("CurrentFourthAns"); }
         }
         public int CurrentCorrectAnsNumber
         {
@@ -71,10 +72,24 @@ namespace QUIZ_GAME
             CurrentMoney = 0;
             questionsList = new ArrayList(15);
             this.user_email = mail;
-            //Building First Level 
-            buildFirstLevel();
+            //Building two Questions.
+            buildFirstTwoQuestions();
             //Activate The first Question.
             ActivateQuestion((Iquestion)questionsList[0]);
+            new Thread(() =>
+            {
+                buildFirstLevel();
+                new Thread(() =>
+                {
+                    //Building Second Level 
+                    buildSecondLevel();
+                    new Thread(() =>
+                    {
+                        buildThirdLevel();
+                    }).Start();
+                }).Start();
+            }).Start();
+
         }
 
         private void ActivateQuestion(Iquestion question)
@@ -121,16 +136,52 @@ namespace QUIZ_GAME
             }
         }
 
+        private void buildFirstTwoQuestions()
+        {
+            ////////////////////////////
+            Random rnd = new Random();
+            for (int i = 0; i < 2; i++)
+            {
+                //TODO: Change it to 1,9 when we have all the questions.
+                int quesitonType = rnd.Next(1, 7); // Random question type between 1-6
+                this.questionsList.Insert(i, buildQuestionByTypeAndLevel(quesitonType, 1, user_email));
+                //this.questionsList.Add(buildQuestionByTypeAndLevel(quesitonType, 1,user_email));
+            }
+        }
 
         private void buildFirstLevel()
         {
             ////////////////////////////
             Random rnd = new Random();
-            for(int i = 0; i < 2; i++)
+            for(int i = 2; i < 5; i++)
             {
                 //TODO: Change it to 1,9 when we have all the questions.
                 int quesitonType = rnd.Next(1, 7); // Random question type between 1-6
-                this.questionsList.Add(buildQuestionByTypeAndLevel(quesitonType, 1,user_email));
+                this.questionsList.Insert(i, buildQuestionByTypeAndLevel(quesitonType, 1, user_email));
+                //this.questionsList.Add(buildQuestionByTypeAndLevel(quesitonType, 1,user_email));
+            }
+        }
+        private void buildSecondLevel()
+        {
+            ////////////////////////////
+            Random rnd = new Random();
+            for (int i = 5; i < 10; i++)
+            {
+                //TODO: Change it to 1,9 when we have all the questions.
+                int quesitonType = rnd.Next(1, 7); // Random question type between 1-6
+                this.questionsList.Insert(i, buildQuestionByTypeAndLevel(quesitonType, 2, user_email));
+            }
+        }
+        private void buildThirdLevel()
+        {
+            ////////////////////////////
+            Random rnd = new Random();
+            for (int i = 10; i < 15; i++)
+            {
+                //TODO: Change it to 1,9 when we have all the questions.
+                int quesitonType = rnd.Next(1, 7); // Random question type between 1-6
+                this.questionsList.Insert(i, buildQuestionByTypeAndLevel(quesitonType, 3, user_email));
+                // this.questionsList.Add(buildQuestionByTypeAndLevel(quesitonType, 2, user_email));
             }
         }
 
@@ -139,7 +190,8 @@ namespace QUIZ_GAME
             switch (type)
             {
                 case 1:
-                    return new Q1(level, user_email);
+                    //TODO: Change it to Q1 after Shani will fix the bag.
+                    return new Q2(level, user_email);
                 case 2:
                     return new Q2(level, user_email);
                 case 3:
