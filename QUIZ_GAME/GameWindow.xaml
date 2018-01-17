@@ -486,7 +486,7 @@
         <Label Content="My Money:" HorizontalAlignment="Left" Margin="461,-98,-52,0" VerticalAlignment="Top" FontWeight="Bold" Background="#FF2BE80D"/>
         <TextBlock x:Name="moneyTxtBlock" Margin="540,-93,-58,0" TextWrapping="Wrap" Text="{Binding Path=CurrentMoney,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF1CF931"/>
         <Label x:Name="correctAnsLbl" Content="{Binding Path=CurrentCorrectAnsNumber,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="540,-175,-80,0" VerticalAlignment="Top" Foreground="#FFF9F9F9" FontSize="22" FontWeight="Bold"/>
-        <TextBlock HorizontalAlignment="Left" Margin="-72,47,-81,-3" Grid.Row="6" TextWrapping="Wrap" Text="{Binding Path=CurrentQuestion,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Foreground="#FFFDE3E3" FontSize="24" Width="636" Height="56" FontFamily="Arial Black" Grid.RowSpan="2"/>
+        <TextBlock HorizontalAlignment="Left" Margin="-105,34,-97,-26" Grid.Row="6" TextWrapping="Wrap" Text="{Binding Path=CurrentQuestion,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Foreground="#FFFDE3E3" FontSize="18" Width="685" Height="92" FontFamily="Arial Black" Grid.RowSpan="2"/>
 
 
     </Grid>

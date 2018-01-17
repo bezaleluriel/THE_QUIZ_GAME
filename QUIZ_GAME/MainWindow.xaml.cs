@@ -30,25 +30,31 @@ namespace QUIZ_GAME
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             Login login = new Login();
-            login.Show();
+            login.ShowDialog();
+            txtHello.Text = "Hello " + Properties.Settings.Default.user_name;
             //this.Close();
         }
 
         private void Register_Click(object sender, RoutedEventArgs e)
         {
             Register register = new Register();
-            register.Show();
+            register.ShowDialog();
+            txtHello.Text = "Hello " + Properties.Settings.Default.user_name;
         }
 
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
+            if(Properties.Settings.Default.user_name.Length == 0)
+            {
+                return;
+            }
             WaitingWindow waitingWin = new WaitingWindow();
             waitingWin.Show();
             this.Close();
             
             new Thread(() =>
             {
-                GameFlow gameFlow = new GameFlow("halfonamir1@gmail.com");
+                GameFlow gameFlow = new GameFlow(Properties.Settings.Default.user_email);
                 Application.Current.Dispatcher.Invoke(new Action(() => {
                     Game game = new Game(gameFlow);
                     game.Show();

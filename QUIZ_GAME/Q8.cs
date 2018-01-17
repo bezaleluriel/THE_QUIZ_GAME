@@ -25,14 +25,22 @@ namespace QUIZ_GAME
         public string Answer1_song_id
         {
             get { return answer1_song_id; }
-            set { answer1_song_id = value; }
+            set
+            {
+                answer1_song_id = value;
+                this.answer1_song_id = this.answer1_song_id.Replace("'", "''");
+            }
         }
 
         // the song_id of the second answer.
         public string Answer2_song_id
         {
             get { return answer2_song_id; }
-            set { answer2_song_id = value; }
+            set
+            {
+                answer2_song_id = value;
+                this.answer2_song_id = this.answer2_song_id.Replace("'", "''");
+            }
         }
 
         // the question itself.
@@ -46,7 +54,11 @@ namespace QUIZ_GAME
         public string Clue
         {
             get { return clue; }
-            set { clue = value; }
+            set
+            {
+                clue = value;
+                this.clue = this.clue.Replace("'", "''");
+            }
         }
 
         // the answer to this question.
@@ -102,15 +114,12 @@ namespace QUIZ_GAME
         public string[] buildAnswers()
         {
             List<string>[] answer1 = null;
-            List<string>[] answer2 = null;
-            List<string>[] answer3 = null;
+
             // randomley choosing 3 artists for 3 wrong answers.
-            answer1 = db.selectQ8("select song_name from songs order by rand() limit 2","song_name");
-            answer2 = db.selectQ8("select song_name from songs order by rand() limit 2", "song_name");
-            answer3 = db.selectQ8("select song_name from songs order by rand() limit 2", "song_name");
+            answer1 = db.selectQ8("select song_name from songs order by rand() limit 6","song_name");
 
             // if one of the querys returns null we return null.
-            if ((answer1 == null) || (answer2 == null) || (answer3 == null))
+            if (answer1 == null)
             {
                 return null;
             }
@@ -119,8 +128,8 @@ namespace QUIZ_GAME
                 // if qeurys are not null we will return an array of size 3 with 3 wrong answers.
                 string[] answers = new string[3];
                 answers[0] = answer1[0][0] + "," + answer1[0][1];
-                answers[1] = answer2[0][0] + "," + answer2[0][1]; ;
-                answers[2] = answer3[0][0] + "," + answer3[0][1]; ;
+                answers[1] = answer1[0][2] + "," + answer1[0][3]; ;
+                answers[2] = answer1[0][4] + "," + answer1[0][5]; ;
                 return answers;
             }
         }
@@ -135,6 +144,7 @@ namespace QUIZ_GAME
             // give a clue without skills - give the name of the singer of one of the songs.
             List<string>[] answer = null;
             answer = db.selectQ8("select artist_name from songs natural join artists where song_name = '" + this.answer1 + "'", "artist_name");
+            if (answer == null) { return null; }
             string clue = "The artist of one of the two songs is " + answer[0][0];
             return clue;
         }

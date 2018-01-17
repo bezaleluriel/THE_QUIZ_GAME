@@ -139,6 +139,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+        <TextBlock x:Name="txtHello" HorizontalAlignment="Left" Margin="159,-35,0,0" TextWrapping="Wrap" Text="Hello " VerticalAlignment="Top" RenderTransformOrigin="0.347,-1.25" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Width="202"/>
 
     </Grid>
 </Window>

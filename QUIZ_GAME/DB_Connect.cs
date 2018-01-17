@@ -115,13 +115,14 @@ namespace QUIZ_GAME
         //Select statement
         public List<string>[] Select(string email, string password)
         {
-            string query = "SELECT user_email, user_password FROM users Where user_email = '" + email
+            string query = "SELECT * FROM users Where user_email = '" + email
                 + "' AND user_password = '" + password + "'";
 
             //Create a list to store the result
             List<string>[] list = new List<string>[3];
             list[0] = new List<string>();
             list[1] = new List<string>();
+            list[2] = new List<string>();
 
             //Open connection
             if (this.OpenConnection() == true)
@@ -136,6 +137,8 @@ namespace QUIZ_GAME
                 {
                     list[0].Add(dataReader["user_email"] + "");
                     list[1].Add(dataReader["user_password"] + "");
+                    list[2].Add(dataReader["user_name"] + "");
+
                 }
 
                 if (dataReader.HasRows == false)
@@ -364,7 +367,7 @@ namespace QUIZ_GAME
         public Song GetOthersYearSkillsSong(string locationInTable)
         {
             Song songToReturn = null;
-            MySqlDataReader dataReader;
+            MySqlDataReader dataReader,dataReader2;
             //Create a list to store the result
             List<string>[] yearsList = new List<string>[1];
             yearsList[0] = new List<string>();
@@ -400,18 +403,18 @@ namespace QUIZ_GAME
                 cmd = new MySqlCommand(secondQuery, connection);
                 dataReader.Close();
                 //Create a data reader and Execute the command
-                dataReader = cmd.ExecuteReader();
-                if (dataReader.Read())
+                dataReader2 = cmd.ExecuteReader();
+                if (dataReader2.Read())
                 {
-                    string song_id = dataReader.GetString(1);
+                    string song_id = dataReader2.GetString(1);
                     songToReturn = new Song(song_id);
-                    songToReturn.Version_id = dataReader.GetString(2);
-                    songToReturn.Song_name = dataReader.GetString(3);
-                    songToReturn.Album_name = dataReader.GetString(4);
-                    songToReturn.Duration = dataReader.GetFloat(5);
-                    songToReturn.Year = dataReader.GetInt32(6);
-                    songToReturn.Artist_id = dataReader.GetString(0);
-                    songToReturn.Artist_name = dataReader.GetString(7);
+                    songToReturn.Version_id = dataReader2.GetString(2);
+                    songToReturn.Song_name = dataReader2.GetString(3);
+                    songToReturn.Album_name = dataReader2.GetString(4);
+                    songToReturn.Duration = dataReader2.GetFloat(5);
+                    songToReturn.Year = dataReader2.GetInt32(6);
+                    songToReturn.Artist_id = dataReader2.GetString(0);
+                    songToReturn.Artist_name = dataReader2.GetString(7);
                 }
             }
             else
@@ -419,7 +422,7 @@ namespace QUIZ_GAME
                 return null;
             }
             //close Data Reader
-            dataReader.Close();
+            dataReader2.Close();
             //close Connection
             this.CloseConnection();
             return songToReturn;
@@ -1297,7 +1300,7 @@ namespace QUIZ_GAME
                 {
                     list[0].Add(dataReader["album_name"] + "");
                 }
-
+                
                 if (dataReader.HasRows == false)
                 {
                     list = null;
@@ -1359,6 +1362,12 @@ namespace QUIZ_GAME
                         {
                             list[0].Add(dataReader["artist_name"] + "");
                             list[0].Add(dataReader["artist_id"] + "");
+                        }
+                        break;
+                    case "3_artist_names":
+                        while (dataReader.Read())
+                        {
+                            list[0].Add(dataReader["artist_name"] + "");
                         }
                         break;
                 }
