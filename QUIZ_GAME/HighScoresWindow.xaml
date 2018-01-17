@@ -11,17 +11,13 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Window}">
-                        <Border x:Name="Border" BorderThickness="3" CornerRadius="110" BorderBrush="DarkBlue">
+
+                        <Border x:Name="Border" BorderThickness="3" BorderBrush="DarkBlue">
                             <Border.Background>
-                                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
-                                    <GradientStop Color="{Binding Color, RelativeSource={RelativeSource TemplatedParent}}" Offset="0.0"/>
-                                    <GradientStop Color="BlueViolet" Offset="0.9"/>
-                                </LinearGradientBrush>
+                                <ImageBrush ImageSource="images/BACKGROUNDWIN.jpg" Stretch="UniformToFill"/>
+
                             </Border.Background>
-                            <Border.Effect>
-                                <DropShadowEffect ShadowDepth="0" Color="Orange" Opacity="15"
-                                                  BlurRadius="5" Direction="45"  RenderingBias="Quality"/>
-                            </Border.Effect>
+
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -84,29 +80,28 @@
 
         </Grid.ColumnDefinitions>
         <TextBlock x:Name ="errormessage" Height="20" HorizontalAlignment="Left" Margin="-51,4,0,0" VerticalAlignment="Top" Width="247"  OpacityMask="Crimson" Foreground="#FFE5572C" Grid.Row="8" Grid.ColumnSpan="2" />
-        <DataGrid x:Name="highScoresTable" HorizontalAlignment="Left" Height="253" Margin="-754,-121,0,0" Grid.RowSpan="4"  ItemsSource="{Binding}" VerticalAlignment="Top" Width="535"/>
-        <Label Content="User Name" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Arial Black" FontSize="22" Height="34" Width="146" Grid.Row="1" Margin="0,34,0,0" Grid.RowSpan="2"/>
-        <Label Content="Score" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Arial Black" Grid.Column="1" Width="88" FontSize="22" Height="34" Grid.Row="1" Grid.RowSpan="2"/>
-        <Label x:Name="lblUsr1" Visibility="Hidden" Content="lblUsr1" HorizontalAlignment="Left" Margin="48,38,0,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Width="47" Grid.RowSpan="2"/>
-        <Label x:Name="lblScr1" Visibility="Hidden" Content="lblScr1" HorizontalAlignment="Left" Margin="19,38,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="45" Grid.RowSpan="2"/>
-        <Label x:Name="lblUsr2" Visibility="Hidden" Content="lblUsr1" HorizontalAlignment="Left" Margin="48,28,0,0" Grid.Row="3" VerticalAlignment="Top" Height="26" Width="47" Grid.RowSpan="2"/>
-        <Label x:Name="lblUsr3" Visibility="Hidden" Content="lblUsr3" HorizontalAlignment="Left" Margin="48,28,0,0" Grid.Row="4" VerticalAlignment="Top" Height="26" Width="47" Grid.RowSpan="2"/>
-        <Label x:Name="lblUsr4" Visibility="Hidden" Content="lblUsr4" HorizontalAlignment="Left" Margin="48,28,0,0" Grid.Row="5" VerticalAlignment="Top" Height="26" Width="47"/>
-        <Label x:Name="lblUsr5" Visibility="Hidden" Content="lblUsr5" HorizontalAlignment="Left" Margin="48,8,0,0" Grid.Row="6" VerticalAlignment="Top" Height="26" Width="47"/>
-        <Label x:Name="lblUsr6" Visibility="Hidden" Content="lblUsr6" HorizontalAlignment="Left" Margin="48,8,0,0" Grid.Row="7" VerticalAlignment="Top" Height="26" Width="47"/>
-        <Label x:Name="lblUsr7" Visibility="Hidden" Content="lblUsr4" HorizontalAlignment="Left" Margin="48,8,0,0" Grid.Row="8" VerticalAlignment="Top" Height="26" Width="47"/>
-        <Label x:Name="lblUsr8" Visibility="Hidden" Content="lblUsr4" HorizontalAlignment="Left" Margin="48,8,0,0" Grid.Row="9" VerticalAlignment="Top" Height="26" Width="47"/>
-        <Label x:Name="lblUsr9" Visibility="Hidden" Content="lblUsr4" HorizontalAlignment="Left" Margin="48,68,0,-34" Grid.Row="9" VerticalAlignment="Top" Height="26" Width="47"/>
-        <Label x:Name="lblUsr10" Visibility="Hidden" Content="lblUsr4" HorizontalAlignment="Left" Margin="48,68,0,-34" Grid.Row="9" VerticalAlignment="Top" Height="26" Width="47"/>
-        <Label x:Name="lblScr2" Visibility="Hidden" Content="lblScr1" HorizontalAlignment="Left" Margin="19,29,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="45" Grid.RowSpan="2"/>
-        <Label x:Name="lblScr3" Visibility="Hidden" Content="lblScr3" HorizontalAlignment="Left" Margin="19,29,0,0" Grid.Row="4" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="45" Grid.RowSpan="2"/>
-        <Label x:Name="lblScr4" Visibility="Hidden" Content="lblScr3" HorizontalAlignment="Left" Margin="19,29,0,0" Grid.Row="5" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="45"/>
-        <Label x:Name="lblScr5" Visibility="Hidden" Content="lblScr3" HorizontalAlignment="Left" Margin="19,9,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="45"/>
-        <Label x:Name="lblScr6" Visibility="Hidden" Content="lblScr3" HorizontalAlignment="Left" Margin="19,9,0,0" Grid.Row="7" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="45"/>
-        <Label x:Name="lblScr7" Visibility="Hidden" Content="lblScr3" HorizontalAlignment="Left" Margin="19,9,0,0" Grid.Row="8" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="45"/>
-        <Label x:Name="lblScr8" Visibility="Hidden" Content="lblScr3" HorizontalAlignment="Left" Margin="19,9,0,0" Grid.Row="9" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="45"/>
-        <Label x:Name="lblScr9" Visibility="Hidden" Content="lblScr3" HorizontalAlignment="Left" Margin="19,69,0,-35" Grid.Row="9" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="45"/>
-        <Label x:Name="lblScr10" Visibility="Hidden" Content="lblScr3" HorizontalAlignment="Left" Margin="19,69,0,-35" Grid.Row="9" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="45"/>
+        <Label Foreground="#FFF7F1F1" Content="User Name" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Arial Black" FontSize="22" Height="34" Width="146" Grid.Row="1" Margin="0,34,0,0" Grid.RowSpan="2" />
+        <Label Foreground="#FFF7F1F1" Content="Score" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Arial Black" Grid.Column="1" Width="88" FontSize="22" Height="34" Grid.Row="1" Grid.RowSpan="2" />
+        <Label Foreground="#FFF7F1F1" x:Name="lblUsr1" Visibility="Hidden" Content="lblUsr1" HorizontalAlignment="Left" Margin="48,38,0,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Width="47" Grid.RowSpan="2"/>
+        <Label Foreground="#FFF7F1F1" x:Name="lblScr1" Visibility="Hidden" Content="lblScr1" HorizontalAlignment="Left" Margin="19,38,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="45" Grid.RowSpan="2"/>
+        <Label Foreground="#FFF7F1F1" x:Name="lblUsr2" Visibility="Hidden" Content="lblUsr1" HorizontalAlignment="Left" Margin="48,28,0,0" Grid.Row="3" VerticalAlignment="Top" Height="26" Width="47" Grid.RowSpan="2"/>
+        <Label Foreground="#FFF7F1F1" x:Name="lblUsr3" Visibility="Hidden" Content="lblUsr3" HorizontalAlignment="Left" Margin="48,28,0,0" Grid.Row="4" VerticalAlignment="Top" Height="26" Width="47" Grid.RowSpan="2"/>
+        <Label Foreground="#FFF7F1F1" x:Name="lblUsr4" Visibility="Hidden" Content="lblUsr4" HorizontalAlignment="Left" Margin="48,28,0,0" Grid.Row="5" VerticalAlignment="Top" Height="26" Width="47"/>
+        <Label Foreground="#FFF7F1F1" x:Name="lblUsr5" Visibility="Hidden" Content="lblUsr5" HorizontalAlignment="Left" Margin="48,8,0,0" Grid.Row="6" VerticalAlignment="Top" Height="26" Width="47"/>
+        <Label Foreground="#FFF7F1F1" x:Name="lblUsr6" Visibility="Hidden" Content="lblUsr6" HorizontalAlignment="Left" Margin="48,8,0,0" Grid.Row="7" VerticalAlignment="Top" Height="26" Width="47"/>
+        <Label Foreground="#FFF7F1F1" x:Name="lblUsr7" Visibility="Hidden" Content="lblUsr4" HorizontalAlignment="Left" Margin="48,8,0,0" Grid.Row="8" VerticalAlignment="Top" Height="26" Width="47"/>
+        <Label Foreground="#FFF7F1F1" x:Name="lblUsr8" Visibility="Hidden" Content="lblUsr4" HorizontalAlignment="Left" Margin="48,8,0,0" Grid.Row="9" VerticalAlignment="Top" Height="26" Width="47"/>
+        <Label Foreground="#FFF7F1F1" x:Name="lblUsr9" Visibility="Hidden" Content="lblUsr4" HorizontalAlignment="Left" Margin="48,68,0,-34" Grid.Row="9" VerticalAlignment="Top" Height="26" Width="47"/>
+        <Label Foreground="#FFF7F1F1" x:Name="lblUsr10" Visibility="Hidden" Content="lblUsr4" HorizontalAlignment="Left" Margin="48,68,0,-34" Grid.Row="9" VerticalAlignment="Top" Height="26" Width="47"/>
+        <Label Foreground="#FFF7F1F1" x:Name="lblScr2" Visibility="Hidden" Content="lblScr1" HorizontalAlignment="Left" Margin="19,29,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="45" Grid.RowSpan="2"/>
+        <Label Foreground="#FFF7F1F1" x:Name="lblScr3" Visibility="Hidden" Content="lblScr3" HorizontalAlignment="Left" Margin="19,29,0,0" Grid.Row="4" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="45" Grid.RowSpan="2"/>
+        <Label Foreground="#FFF7F1F1" x:Name="lblScr4" Visibility="Hidden" Content="lblScr3" HorizontalAlignment="Left" Margin="19,29,0,0" Grid.Row="5" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="45"/>
+        <Label Foreground="#FFF7F1F1" x:Name="lblScr5" Visibility="Hidden" Content="lblScr3" HorizontalAlignment="Left" Margin="19,9,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="45"/>
+        <Label Foreground="#FFF7F1F1" x:Name="lblScr6" Visibility="Hidden" Content="lblScr3" HorizontalAlignment="Left" Margin="19,9,0,0" Grid.Row="7" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="45"/>
+        <Label Foreground="#FFF7F1F1" x:Name="lblScr7" Visibility="Hidden" Content="lblScr3" HorizontalAlignment="Left" Margin="19,9,0,0" Grid.Row="8" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="45"/>
+        <Label Foreground="#FFF7F1F1" x:Name="lblScr8" Visibility="Hidden" Content="lblScr3" HorizontalAlignment="Left" Margin="19,9,0,0" Grid.Row="9" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="45"/>
+        <Label Foreground="#FFF7F1F1" x:Name="lblScr9" Visibility="Hidden" Content="lblScr3" HorizontalAlignment="Left" Margin="19,69,0,-35" Grid.Row="9" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="45"/>
+        <Label Foreground="#FFF7F1F1" x:Name="lblScr10" Visibility="Hidden" Content="lblScr3" HorizontalAlignment="Left" Margin="19,69,0,-35" Grid.Row="9" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="45"/>
         <Button x:Name="btnBackToMenu"
             BorderThickness="1"
             Foreground="White" Grid.Row="9"  FontSize="15" Margin="-14,68,-15,-61" Click="btnA3_Click" HorizontalAlignment="Left" Width="303" Grid.ColumnSpan="2">

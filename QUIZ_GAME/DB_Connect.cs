@@ -25,8 +25,8 @@ namespace QUIZ_GAME
             server = "localhost";
             database = "mydb"; //change the name of the db
             uid = "root";
-            password = "1234";
-            //password = "a1b2c3";
+            //password = "1234";
+            password = "a1b2c3";
             string connectionString;
             connectionString = "SERVER=" + server + ";" + "DATABASE=" +
             database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
@@ -1487,7 +1487,33 @@ namespace QUIZ_GAME
                 return null;
             }
         }
+        /*************************************************************************/
 
+        public void insertHighScore(string user_email,int score)
+        {
+            string query = "INSERT INTO high_scores (user_email,score) VALUES('" + user_email + "',"+ score.ToString() +" ); ";
+
+            //open connection
+            if (this.OpenConnection() == true)
+            {
+                //create command and assign the query and connection from the constructor
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                //Execute command
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+
+                    //close connection
+                    this.CloseConnection();
+                }
+                //close connection
+                this.CloseConnection();
+            }
+        }
 
 
 

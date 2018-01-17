@@ -76,9 +76,6 @@
       <DependentUpon>Register.xaml</DependentUpon>
     </Compile>
     <Compile Include="Song.cs" />
-    <Compile Include="TestWindow.xaml.cs">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="WaitingWindow.xaml.cs">
       <DependentUpon>WaitingWindow.xaml</DependentUpon>
     </Compile>
@@ -110,10 +107,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Register.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -167,7 +160,13 @@
     <Resource Include="images\waitingImg.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="images\background2NEW.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="images\arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\BACKGROUNDWIN.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

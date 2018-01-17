@@ -24,7 +24,9 @@ namespace QUIZ_GAME
     {
         public MainWindow()
         {
+            
             InitializeComponent();
+            txtHello.Text = "Hello " + Properties.Settings.Default.user_name;
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)

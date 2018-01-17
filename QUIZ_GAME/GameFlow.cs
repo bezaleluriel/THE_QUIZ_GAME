@@ -11,6 +11,7 @@ namespace QUIZ_GAME
 {
     public class GameFlow : INotifyPropertyChanged
     {
+        private DB_Connect db;
         private ArrayList questionsList;
         private int currentQuestionNumber = 0;
         private int currentMoney;
@@ -68,6 +69,7 @@ namespace QUIZ_GAME
 
         public GameFlow(string mail)
         {
+            db = new DB_Connect();
             CurrentClue = "";
             CurrentMoney = 0;
             questionsList = new ArrayList(15);
@@ -228,6 +230,11 @@ namespace QUIZ_GAME
         public void UpdateSkills(bool rightAnswer)
         {
             ((Iquestion)questionsList[currentQuestionNumber]).updateRelevantSkills(rightAnswer);
+        }
+
+        public void finishGame()
+        {
+            db.insertHighScore(this.user_email, CurrentMoney);
         }
 
         public int getMoneyByQuestionNumber(int questionNumber)

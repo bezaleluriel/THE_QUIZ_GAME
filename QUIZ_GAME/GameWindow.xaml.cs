@@ -33,13 +33,14 @@ namespace QUIZ_GAME
         {
             if(this.gameFlow.CurrentCorrectAnsNumber == 0)
             {
-                questionArrow.Margin = new Thickness(questionArrow.Margin.Left, questionArrow.Margin.Top - 22, questionArrow.Margin.Right, questionArrow.Margin.Bottom);
+                questionArrow.Margin = new Thickness(questionArrow.Margin.Left, questionArrow.Margin.Top - 28, questionArrow.Margin.Right, questionArrow.Margin.Bottom);
                 MessageBeforeNextWin(true);
                 gameFlow.UpdateSkills(true);
                 gameFlow.MoveToNextQuestion();
             }
             else
             {
+                gameFlow.finishGame();
                 MessageBeforeNextWin(false);
                 gameFlow.UpdateSkills(false);
                 HighScoresWindow highScoresWindow = new HighScoresWindow();
@@ -52,13 +53,14 @@ namespace QUIZ_GAME
         {
             if (this.gameFlow.CurrentCorrectAnsNumber == 1)
             {
-                questionArrow.Margin = new Thickness(questionArrow.Margin.Left, questionArrow.Margin.Top - 22, questionArrow.Margin.Right, questionArrow.Margin.Bottom);
+            questionArrow.Margin = new Thickness(questionArrow.Margin.Left, questionArrow.Margin.Top - 28, questionArrow.Margin.Right, questionArrow.Margin.Bottom);
                 MessageBeforeNextWin(true);
                 gameFlow.UpdateSkills(true);
                 gameFlow.MoveToNextQuestion();
             }
             else
             {
+                gameFlow.finishGame();
                 MessageBeforeNextWin(false);
                 gameFlow.UpdateSkills(false);
                 HighScoresWindow highScoresWindow = new HighScoresWindow();
@@ -71,13 +73,14 @@ namespace QUIZ_GAME
         {
             if (this.gameFlow.CurrentCorrectAnsNumber == 2)
             {
-                questionArrow.Margin = new Thickness(questionArrow.Margin.Left, questionArrow.Margin.Top - 22, questionArrow.Margin.Right, questionArrow.Margin.Bottom);
+                questionArrow.Margin = new Thickness(questionArrow.Margin.Left, questionArrow.Margin.Top - 28, questionArrow.Margin.Right, questionArrow.Margin.Bottom);
                 MessageBeforeNextWin(true);
                 gameFlow.UpdateSkills(true);
                 gameFlow.MoveToNextQuestion();
             }
             else
             {
+                gameFlow.finishGame();
                 MessageBeforeNextWin(false);
                 gameFlow.UpdateSkills(false);
                 HighScoresWindow highScoresWindow = new HighScoresWindow();
@@ -90,13 +93,14 @@ namespace QUIZ_GAME
         {
             if (this.gameFlow.CurrentCorrectAnsNumber == 3)
             {
-                questionArrow.Margin = new Thickness(questionArrow.Margin.Left, questionArrow.Margin.Top - 22, questionArrow.Margin.Right, questionArrow.Margin.Bottom);
+                questionArrow.Margin = new Thickness(questionArrow.Margin.Left, questionArrow.Margin.Top - 28, questionArrow.Margin.Right, questionArrow.Margin.Bottom);
                 MessageBeforeNextWin(true);
                 gameFlow.UpdateSkills(true);
                 gameFlow.MoveToNextQuestion();
             }
             else
             {
+                gameFlow.finishGame();
                 MessageBeforeNextWin(false);
                 gameFlow.UpdateSkills(false);
                 HighScoresWindow highScoresWindow = new HighScoresWindow();
