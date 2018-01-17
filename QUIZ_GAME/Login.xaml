@@ -79,7 +79,7 @@
 
         <TextBox x:Name="emailBox" Tag="Email" Grid.Row="0"  FontSize="20"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                  Style="{StaticResource MyWaterMarkStyle}"/>
-        <PasswordBox x:Name="PasswordBox" Tag="Password" Grid.Row="2" Password="Password" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <PasswordBox x:Name="PasswordBox" Tag="Password" Grid.Row="2" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
 
         <Button x:Name="btnLogin" Width="150" Height="60"

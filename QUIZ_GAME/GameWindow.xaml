@@ -484,17 +484,6 @@
         <TextBlock x:Name="moneyTxtBlock" Margin="540,-93,-58,0" TextWrapping="Wrap" Text="{Binding Path=CurrentMoney,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF1CF931"/>
         <Label x:Name="correctAnsLbl" Content="{Binding Path=CurrentCorrectAnsNumber,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="540,-175,-80,0" VerticalAlignment="Top" Foreground="#FFF9F9F9" FontSize="22" FontWeight="Bold"/>
         <TextBlock HorizontalAlignment="Left" Margin="-72,47,-81,-3" Grid.Row="6" TextWrapping="Wrap" Text="{Binding Path=CurrentQuestion,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Foreground="#FFFDE3E3" FontSize="24" Width="636" Height="56" FontFamily="Arial Black" Grid.RowSpan="2"/>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Opacity="0.45" Height="23" Margin="618,81,-292,-74" Grid.Row="7" Stroke="#FFFFE800" VerticalAlignment="Top" Width="157" RadiusX="4" RadiusY="4"/>
-        <Image x:Name="questionArrow_Copy" HorizontalAlignment="Left" Height="28" Opacity="0.8" Source="images/arrow.png" Margin="625,77,-197,-75" Grid.Row="7" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.5,0.5">
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-179.993"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Image.RenderTransform>
-        </Image>
 
 
     </Grid>

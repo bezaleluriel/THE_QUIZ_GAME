@@ -65,7 +65,13 @@ namespace QUIZ_GAME
                 if (answer != null)
                 {
                     errormessage.Text = "Login successfully";
+                    string user_name = answer[2][0];
+                    // here we will want to save the user email and nickname in app.config/ settings .
+                    Properties.Settings.Default["user_name"] = user_name;
+                    Properties.Settings.Default["user_email"] = email;
+                    Properties.Settings.Default.Save();
                     Reset();
+                    this.Close();
                 }
                 else
                 {
