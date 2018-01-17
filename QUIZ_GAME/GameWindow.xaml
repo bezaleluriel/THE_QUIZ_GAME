@@ -8,9 +8,6 @@
         xmlns:local="clr-namespace:QUIZ_GAME"
         mc:Ignorable="d"
         Title="MainWindow" Width="1101" Height="621.5" WindowStartupLocation="CenterScreen"  >
-    <Window.Background>
-        <ImageBrush ImageSource="images/background.jpg" Stretch="UniformToFill"/>
-    </Window.Background>
     <Window.Style>
         <Style TargetType="{x:Type Window}">
             <Setter Property="Template">
@@ -479,14 +476,14 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Image x:Name="questionArrow" HorizontalAlignment="Left" Height="32" Opacity="0.8" Source="/images/picQ.png" Margin="744,80,-421,-82" Grid.Row="7" VerticalAlignment="Top" Width="160"/>
+        <Image x:Name="questionArrow" HorizontalAlignment="Left" Height="32" Opacity="0.8" Source="/images/arrow.png" Margin="703,78,-283,-80" Grid.Row="7" VerticalAlignment="Top" Width="63"/>
         <Image x:Name="clueImg" HorizontalAlignment="Left" Height="66" Opacity="0.7" Margin="666,-146,-262,0" VerticalAlignment="Top" Width="79" Source="images/clueLogo.png"/>
         <Button Content="Clue" HorizontalAlignment="Left" Height="24" Margin="663,-97,-236,0" VerticalAlignment="Top" Width="56" FontWeight="Bold" Click="Button_Click"/>
         <TextBlock HorizontalAlignment="Left" Margin="-258,-127,0,0" TextWrapping="Wrap" Text="{Binding Path=CurrentClue,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" FontWeight="Bold" FontSize="24" Height="201" Width="344" Foreground="#FFFDFD05" FontFamily="Arial Black" Grid.RowSpan="4"/>
         <Label Content="My Money:" HorizontalAlignment="Left" Margin="461,-98,-52,0" VerticalAlignment="Top" FontWeight="Bold" Background="#FF2BE80D"/>
         <TextBlock x:Name="moneyTxtBlock" Margin="540,-93,-58,0" TextWrapping="Wrap" Text="{Binding Path=CurrentMoney,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF1CF931"/>
         <Label x:Name="correctAnsLbl" Content="{Binding Path=CurrentCorrectAnsNumber,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="540,-175,-80,0" VerticalAlignment="Top" Foreground="#FFF9F9F9" FontSize="22" FontWeight="Bold"/>
-        <TextBlock HorizontalAlignment="Left" Margin="-105,34,-97,-26" Grid.Row="6" TextWrapping="Wrap" Text="{Binding Path=CurrentQuestion,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Foreground="#FFFDE3E3" FontSize="18" Width="685" Height="92" FontFamily="Arial Black" Grid.RowSpan="2"/>
+        <TextBlock HorizontalAlignment="Left" Margin="-72,47,-81,-3" Grid.Row="6" TextWrapping="Wrap" Text="{Binding Path=CurrentQuestion,UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Foreground="#FFFDE3E3" FontSize="24" Width="636" Height="56" FontFamily="Arial Black" Grid.RowSpan="2"/>
 
 
     </Grid>

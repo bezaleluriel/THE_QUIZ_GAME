@@ -192,6 +192,37 @@ namespace QUIZ_GAME
                 return null;
             }
         }
+        public List<string>[] GetHighScores()
+        {
+            string query = "SELECT user_name,score FROM high_scores natural join users order by score desc limit 10;";
+            //Create a list to store the result
+            List<string>[] list = new List<string>[2];
+            list[0] = new List<string>();
+            list[1] = new List<string>();
+            //Open connection
+            if (this.OpenConnection() == true)
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                //Create a data reader and Execute the command
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+                while (dataReader.Read()) {
+                    list[0].Add(dataReader.GetString(0));
+                    list[1].Add(dataReader.GetInt32(1).ToString());
+                }
+                    
+                //close Data Reader
+                dataReader.Close();
+                //close Connection
+                this.CloseConnection();
+                //return list to be displayed
+                return list;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         public Song GetSongOfArtistByPopularity(double from, double to)
         {
