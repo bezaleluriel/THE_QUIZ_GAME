@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using QUIZ_GAME;
+using System.Threading;
 
 namespace QUIZ_GAME
 {
@@ -41,9 +42,21 @@ namespace QUIZ_GAME
 
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
-            Game game = new Game();
-            game.Show();
+            WaitingWindow waitingWin = new WaitingWindow();
+            waitingWin.Show();
             this.Close();
+            
+            new Thread(() =>
+            {
+                GameFlow gameFlow = new GameFlow("halfonamir1@gmail.com");
+                Application.Current.Dispatcher.Invoke(new Action(() => {
+                    Game game = new Game(gameFlow);
+                    game.Show();
+                    waitingWin.Close();
+                }));
+            }).Start();
+            
+            
         }
     }
 }

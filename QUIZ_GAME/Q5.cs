@@ -100,6 +100,8 @@ namespace QUIZ_GAME
                     choose = rnd.Next((numOfRows / 3) * 2, numOfRows + 1);
                     break;
             }
+            if (numOfRows == 1)
+                choose = 0;
             return answer[0].ElementAt(choose);
         }
 
