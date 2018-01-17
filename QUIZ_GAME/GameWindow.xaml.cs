@@ -42,8 +42,8 @@ namespace QUIZ_GAME
             {
                 MessageBeforeNextWin(false);
                 gameFlow.UpdateSkills(false);
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
+                HighScoresWindow highScoresWindow = new HighScoresWindow();
+                highScoresWindow.Show();
                 this.Close();
             }
         }
@@ -61,8 +61,8 @@ namespace QUIZ_GAME
             {
                 MessageBeforeNextWin(false);
                 gameFlow.UpdateSkills(false);
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
+                HighScoresWindow highScoresWindow = new HighScoresWindow();
+                highScoresWindow.Show();
                 this.Close();
             }
         }
@@ -80,8 +80,8 @@ namespace QUIZ_GAME
             {
                 MessageBeforeNextWin(false);
                 gameFlow.UpdateSkills(false);
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
+                HighScoresWindow highScoresWindow = new HighScoresWindow();
+                highScoresWindow.Show();
                 this.Close();
             }
         }
@@ -99,8 +99,8 @@ namespace QUIZ_GAME
             {
                 MessageBeforeNextWin(false);
                 gameFlow.UpdateSkills(false);
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
+                HighScoresWindow highScoresWindow = new HighScoresWindow();
+                highScoresWindow.Show();
                 this.Close();
             }
         }
