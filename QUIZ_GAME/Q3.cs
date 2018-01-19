@@ -90,7 +90,7 @@ namespace QUIZ_GAME
                     choose = rnd.Next((numOfRows / 3), ((numOfRows / 3) * 2) + 1);
                     break;
                 case 3:
-                    choose = rnd.Next((numOfRows / 3) * 2, numOfRows + 1);
+                    choose = rnd.Next((numOfRows / 3) * 2, numOfRows);
                     break;
             }
             return answer[0].ElementAt(choose);
@@ -120,47 +120,69 @@ namespace QUIZ_GAME
             
            
             string art_name = "";
+            Random rnd2 = new Random();
+            //For mixing the choices between with skills and without.
+            int chooseWithSkills = rnd2.Next(100) % 10;
 
-             if ((skillParameter = getSkill("artist")) != null )
+            if (chooseWithSkills < 3)
             {
-                ar_id = db.GetRandomArtistID(User_email);
-                loc = db.GetLocationByArtistId(ar_id);
-                art_name = db.getArtistNameById(ar_id);
-                TrueAnswer = loc;
-            }
-           else if ((skillParameter = getSkill("location")) != null)
-             {
-                loc = db.GetLocationBySkill(User_email, Level);
-                 ar_id = db.GetArtistIdByLocation(loc);
-                art_name = db.getArtistNameById(ar_id);
-                 TrueAnswer = loc;
-             }
 
+                if ((skillParameter = getSkill("artist")) != null)
+                {
+                    DDDD:
+                    ar_id = db.GetRandomArtistIDWithLocation(User_email);
+                    loc = db.GetLocationByArtistId(ar_id);
+                    art_name = db.getArtistNameById(ar_id);
+                    TrueAnswer = loc;
+                    if ((TrueAnswer == null) || (TrueAnswer == ""))
+                    {
+                        goto DDDD;
+                    }
+                }
+                else if ((skillParameter = getSkill("location")) != null)
+                {
+                    EEEE:
+                    loc = db.GetLocationBySkill(User_email, Level);
+                    ar_id = db.GetArtistIdByLocation(loc);
+                    art_name = db.getArtistNameById(ar_id);
+                    TrueAnswer = loc;
+                    if ((TrueAnswer == null) || (TrueAnswer == ""))
+                    {
+                        goto EEEE;
+                    }
+                }
+            }
             //If there is no skill - choose question by other random parameter
-            else
+            if(ar_id == "")
             {
 
                 do
                 {
                     //The case of no skills
                     Random rnd = new Random();
-                    int chooseQuestionMethod = rnd.Next(1, 4); // creates a number between 1 and 3
-                    switch (chooseQuestionMethod)
+                    int chooseQuestionMethod =
+                        rnd.Next(1, 4); // creates a number between 1 and 3
+                    switch (1)
                     {
                         case 1:
                             AAAA:
                             ar_id = db.GetUserIDByPopularity(Level);
-                            break;
+                            loc = db.GetLocationByArtistId(ar_id);
+                            art_name = db.getArtistNameById(ar_id);
+                            TrueAnswer = loc;
+                            if ((TrueAnswer == null) || (TrueAnswer == ""))
+                            {
+                                goto AAAA;
+                            }
+                                break;
                         case 2:
                             goto AAAA;
-                          // loc = db.getLocationByOtherSkills();
+                            // loc = db.getLocationByOtherSkills();
                             break;
                         //todo- something with album
                     }
                 } while (ar_id == null);
-                loc = db.GetLocationByArtistId(ar_id);
-                art_name = db.getArtistNameById(ar_id);
-                TrueAnswer = loc;
+               
             }
 
             this.Question = this.Question.Replace("<artist_name>", art_name);
@@ -175,36 +197,61 @@ namespace QUIZ_GAME
            
             string art_name = "";
 
-            if ((skillParameter = getSkill("artist")) != null)
-            {
-                ar_id = db.GetRandomArtistID(User_email);
-                loc = db.GetLocationByArtistId(ar_id);
-                art_name = db.getArtistNameById(ar_id);
-                TrueAnswer = loc;
-            }
-            else if ((skillParameter = getSkill("location")) != null)
-            {
-                loc = db.GetLocationBySkill(User_email, Level);
-                ar_id = db.GetArtistIdByLocation(loc);
-                art_name = db.getArtistNameById(ar_id);
-                TrueAnswer = loc;
-            }
+            Random rnd2 = new Random();
+            //For mixing the choices between with skills and without.
+            int chooseWithSkills = rnd2.Next(100) % 10;
 
+            if (chooseWithSkills < 3)
+            {
+                if ((skillParameter = getSkill("artist")) != null)
+                {
+                    FFFF:
+                    ar_id = db.GetRandomArtistID(User_email);
+                    loc = db.GetLocationByArtistId(ar_id);
+                    art_name = db.getArtistNameById(ar_id);
+                    TrueAnswer = loc;
+                    if ((TrueAnswer == null) || (TrueAnswer == ""))
+                    {
+                        goto FFFF;
+                    }
+                }
+                else if ((skillParameter = getSkill("location")) != null)
+                {
+                    GGGG:
+                    loc = db.GetLocationBySkill(User_email, Level);
+                    ar_id = db.GetArtistIdByLocation(loc);
+                    art_name = db.getArtistNameById(ar_id);
+                    TrueAnswer = loc;
+                    if ((TrueAnswer == null) || (TrueAnswer == ""))
+                    {
+                        goto GGGG;
+                    }
+                }
+            }
             //If there is no skill - choose question by other random parameter
-            else
+            if(ar_id == "")
             {
 
                 do
                 {
                     //The case of no skills
                     Random rnd = new Random();
-                    int chooseQuestionMethod = rnd.Next(1, 4); // creates a number between 1 and 3
-                    switch (chooseQuestionMethod)
+                    int chooseQuestionMethod =
+                        rnd.Next(1, 4); // creates a number between 1 and 3
+                    switch (1)
                     {
                         case 1:
                             AAAA:
+
                             ar_id = db.GetUserIDByPopularity(Level);
-                            break;
+                            loc = db.GetLocationByArtistId(ar_id);
+                            art_name = db.getArtistNameById(ar_id);
+                            TrueAnswer = loc;
+                            if ((TrueAnswer == null) || (TrueAnswer == ""))
+                            {
+                                goto AAAA;
+                            }
+                                break;
                         case 2:
                             goto AAAA;
                             // loc = db.getLocationByOtherSkills();
@@ -212,9 +259,7 @@ namespace QUIZ_GAME
                         //todo- something with album
                     }
                 } while (ar_id == null);
-                loc = db.GetLocationByArtistId(ar_id);
-                art_name = db.getArtistNameById(ar_id);
-                TrueAnswer = loc;
+                
             }
 
             this.Question = this.Question.Replace("<artist_name>", art_name);
@@ -229,36 +274,63 @@ namespace QUIZ_GAME
             
             string art_name = "";
 
-            if ((skillParameter = getSkill("artist")) != null)
-            {
-                ar_id = db.GetRandomArtistID(User_email);
-                loc = db.GetLocationByArtistId(ar_id);
-                art_name = db.getArtistNameById(ar_id);
-                TrueAnswer = loc;
-            }
-            else if ((skillParameter = getSkill("location")) != null)
-            {
-                loc = db.GetLocationBySkill(User_email, Level);
-                ar_id = db.GetArtistIdByLocation(loc);
-                art_name = db.getArtistNameById(ar_id);
-                TrueAnswer = loc;
-            }
+            bool checker;
+            Random rnd2 = new Random();
+            //For mixing the choices between with skills and without.
+            int chooseWithSkills = rnd2.Next(100) % 10;
 
+            if (chooseWithSkills < 3)
+            {
+
+                if ((skillParameter = getSkill("artist")) != null )
+                {
+                    BBBB:
+                    ar_id = db.GetRandomArtistID(User_email);
+                    loc = db.GetLocationByArtistId(ar_id);
+                    art_name = db.getArtistNameById(ar_id);
+                    TrueAnswer = loc;
+                    if ((TrueAnswer == null) || (TrueAnswer == ""))
+                    {
+                        goto BBBB;
+                    }
+                }
+                else if ((skillParameter = getSkill("location")) != null)
+                {
+                    CCCC:
+                    loc = db.GetLocationBySkill(User_email, Level);
+                    ar_id = db.GetArtistIdByLocation(loc);
+                    art_name = db.getArtistNameById(ar_id);
+                    TrueAnswer = loc;
+                    if ((TrueAnswer == null) || (TrueAnswer == ""))
+                    {
+                        goto CCCC;
+                    }
+                    
+                }
+            }
             //If there is no skill - choose question by other random parameter
-            else
+            if((ar_id == ""))
             {
 
                 do
                 {
                     //The case of no skills
                     Random rnd = new Random();
-                    int chooseQuestionMethod = rnd.Next(1, 4); // creates a number between 1 and 3
-                    switch (chooseQuestionMethod)
+                    int chooseQuestionMethod =
+                        rnd.Next(1, 4); // creates a number between 1 and 3
+                    switch (1)
                     {
                         case 1:
                             AAAA:
                             ar_id = db.GetUserIDByPopularity(Level);
-                            break;
+                            loc = db.GetLocationByArtistId(ar_id);
+                            art_name = db.getArtistNameById(ar_id);
+                            TrueAnswer = loc;
+                            if ((TrueAnswer == null) || (TrueAnswer == ""))
+                            {
+                                goto AAAA;
+                            }
+                                break;
                         case 2:
                             goto AAAA;
                             // loc = db.getLocationByOtherSkills();
@@ -266,9 +338,7 @@ namespace QUIZ_GAME
                         //todo- something with album
                     }
                 } while (ar_id == null);
-                loc = db.GetLocationByArtistId(ar_id);
-                art_name = db.getArtistNameById(ar_id);
-                TrueAnswer = loc;
+               
             }
 
             this.Question = this.Question.Replace("<artist_name>", art_name);

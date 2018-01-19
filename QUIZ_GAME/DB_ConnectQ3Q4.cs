@@ -540,13 +540,13 @@ namespace QUIZ_GAME
             switch (level)
             {
                 case 1:
-                    query = "Select artist_location from(Select * from user_locations_skills where user_email = '" + userEmail + "' order by rate desc) as bla order by rand() > 0.7 limit 1;";
+                    query = "Select artist_location from(Select * from user_locations_skills natural join artists_locations where user_email = '" + userEmail + "' order by rate desc) as bla order by rand() > 0.7 limit 1;";
                     break;
                 case 2:
-                    query = "Select artist_location from(Select * from user_locations_skills where user_email = '" + userEmail + "' order by rate desc) as bla order by rand() between 0.3 and 0.7 limit 1;";
+                    query = "Select artist_location from(Select * from user_locations_skills natural join artists_locations where user_email = '" + userEmail + "' order by rate desc) as bla order by rand() between 0.3 and 0.7 limit 1;";
                     break;
                 case 3:
-                    query = "Select artist_location from(Select * from user_locations_skills where user_email = '" + userEmail + "' order by rate desc) as bla order by rand() < 0.3 limit 1;";
+                    query = "Select artist_location from(Select * from user_locations_skills natural join artists_locations where user_email = '" + userEmail + "' order by rate desc) as bla order by rand() < 0.3 limit 1;";
                     break;
                 default:
                     query = "";
@@ -614,13 +614,13 @@ namespace QUIZ_GAME
             switch (level)
             {
                 case 1:
-                    query = "Select artist_id FROM artists WHERE artist_familiarity >= 0.8 order by rand() limit 1;";
+                    query = "Select artist_id FROM artists natural join artists_locations WHERE artist_familiarity >= 0.8 order by rand() limit 1;";
                     break;
                 case 2:
-                    query = "Select artist_id FROM artists WHERE artist_familiarity between 0.5 and 0.7 order by rand() limit 1;";
+                    query = "Select artist_id FROM artists natural join artists_locations WHERE artist_familiarity between 0.5 and 0.7 order by rand() limit 1;";
                     break;
                 case 3:
-                    query = "Select artist_id FROM artists WHERE artist_familiarity <= 0.4 order by rand() limit 1;";
+                    query = "Select artist_id FROM artists natural join artists_locations WHERE artist_familiarity <= 0.4 order by rand() limit 1;";
                     break;
                 default:
                     query = "";
@@ -993,6 +993,43 @@ namespace QUIZ_GAME
                 return true;
             }
             return false;
+        }
+
+        public string GetRandomArtistIDWithLocation(string userEmail)
+        {
+            Song songToReturn = null;
+            string query;
+            string artistId = "";
+            //SELECT artist_location FROM mydb.artists_locations WHERE artist_id = 'AR003FB1187B994355';
+            //  query = "Select * from user_artists_skills where user_email = " + userEmail + "order by rate desc;";
+            query = "Select artist_id from(Select* from user_artists_skills natural join artists_locations where user_email ='" + userEmail + "' order by rate desc) as bla order by rand() limit 1;";
+            MySqlDataReader dataReader;
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                //Create a data reader and Execute the command
+                dataReader = cmd.ExecuteReader();
+                if (dataReader.Read())
+                {
+                    artistId = dataReader.GetString(0);
+
+                }
+                /*
+                query = "SELECT artist_location FROM mydb.artists_locations WHERE artist_id = '"+ artistId +"';";
+                MySqlCommand cmd2 = new MySqlCommand(query, connection);
+                //Create a data reader and Execute the command
+                dataReader = cmd2.ExecuteReader();
+                string artist_location = dataReader.GetString(0);*/
+            }
+            else
+            {
+                return null;
+            }
+            //close Data Reader
+            dataReader.Close();
+            //close Connection
+            this.CloseConnection();
+            return artistId;
         }
     }
 }
