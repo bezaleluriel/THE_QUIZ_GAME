@@ -38,7 +38,10 @@ namespace QUIZ_GAME
             set
             {
                 answer2 = value;
-                this.answer2 = this.answer2.Replace("'", "''");
+                if(answer2!=null)
+                {
+                    this.answer2 = this.answer2.Replace("'", "''");
+                }
             }
         }
 
@@ -48,7 +51,10 @@ namespace QUIZ_GAME
             set
             {
                 answer1 = value;
-                this.answer1 = this.answer1.Replace("'", "''");
+                if(answer1 != null)
+                {
+                    this.answer1 = this.answer1.Replace("'", "''");
+                }
             }
         }
 
@@ -59,7 +65,10 @@ namespace QUIZ_GAME
             set
             {
                 answer1_song_id = value;
-                this.answer1_song_id = this.answer1_song_id.Replace("'", "''");
+                if (Answer1_song_id != null)
+                {
+                    this.answer1_song_id = this.answer1_song_id.Replace("'", "''");
+                }
             }
         }
 
@@ -99,7 +108,10 @@ namespace QUIZ_GAME
             set
             {
                 trueAnswer = value;
-                this.trueAnswer = this.trueAnswer.Replace("'", "''");
+                if (trueAnswer != null)
+                {
+                    this.trueAnswer = this.trueAnswer.Replace("'", "''");
+                }
             }
         }
 
@@ -208,6 +220,10 @@ namespace QUIZ_GAME
             this.answer1 = helper();
             //setting the second answer
             this.answer2 = helper();
+            if (Answer1 == null || Answer2==null)
+            {
+                return null;
+            }
             //return a final answer made of these 2 answers.
             string result = answer1 + "," + answer2;
             return result;

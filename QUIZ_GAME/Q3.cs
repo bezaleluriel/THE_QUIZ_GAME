@@ -1,0 +1,376 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace QUIZ_GAME
+{
+    class Q3:Iquestion
+    {
+        private int Level;
+        private string question;
+        private string User_email;
+        //private string TrueAnswer;
+        private string clue;
+        // Song songForQuiestion;
+        private DB_ConnectQ3Q4 db;
+        string ar_id = "";
+        string loc = "";
+
+        public string Clue
+        {
+            get { return clue; }
+            set { clue = value; }
+        }
+        public string Question
+        {
+            get { return question; }
+            set { question = value; }
+        }
+
+        public string[] WrongAnswers { get; set; }
+        public string TrueAnswer { get; set; }
+
+        public Q3(int level, string user_email)
+        {
+            db = new DB_ConnectQ3Q4();
+            this.Level = level;
+            this.Question = "Where the artist <artist_name> was born?";
+            this.User_email = user_email;
+            this.Question = buildQuestion();
+            this.Clue = buildClue();
+            //string[] Answers = buildAnswers();
+            WrongAnswers = buildAnswers();
+        }
+
+
+        //Returning a skill property with regard to the current level.
+        public string getSkill(string skillName)
+        {
+            int numOfRows = 0;
+            string table_name;
+            List<string>[] answer = null;
+            switch (skillName)
+            {
+                //string query;
+                case "artist":
+                    table_name = "user_artists_skills";
+                    answer = db.SelectUserSkills(this.User_email, table_name, false);
+                    break;
+                case "song":
+                    table_name = "user_songs_skills";
+                    answer = db.SelectUserSkills(this.User_email, table_name, false);
+                    break;
+                case "year":
+                    table_name = "user_years_skills";
+                    answer = db.SelectUserSkills(this.User_email, table_name, false);
+                    break;
+                case "location":
+                    table_name = "user_locations_skills";
+                    answer = db.SelectUserSkills(this.User_email, table_name, false);
+                    break;
+
+            }
+            if (answer == null)
+                return null;
+            numOfRows = answer[0].Count;
+            //TODO : Add check if enough rows for skill, if not enough - return null
+            if (numOfRows == 0)
+                return null;
+
+            Random rnd = new Random();
+            int choose = 0;
+            switch (this.Level)
+            {
+                case 1:
+                    choose = rnd.Next(0, (numOfRows / 3) + 1);
+                    break;
+                case 2:
+                    choose = rnd.Next((numOfRows / 3), ((numOfRows / 3) * 2) + 1);
+                    break;
+                case 3:
+                    choose = rnd.Next((numOfRows / 3) * 2, numOfRows + 1);
+                    break;
+            }
+            return answer[0].ElementAt(choose);
+        }
+
+
+        public string buildQuestion()
+        {
+            switch (this.Level)
+            {
+                case 1:
+                    return buildQuestionToFirstLevel();
+                case 2:
+                   
+                    return buildQuestionToSecondLevel();
+                case 3:
+                    return buildQuestionToThirdLevel();
+                    return null;
+            }
+            throw new NotImplementedException();
+        }
+
+
+        public string buildQuestionToFirstLevel()
+        {
+            string skillParameter = "";
+            
+           
+            string art_name = "";
+
+             if ((skillParameter = getSkill("artist")) != null )
+            {
+                ar_id = db.GetRandomArtistID(User_email);
+                loc = db.GetLocationByArtistId(ar_id);
+                art_name = db.getArtistNameById(ar_id);
+                TrueAnswer = loc;
+            }
+           else if ((skillParameter = getSkill("location")) != null)
+             {
+                loc = db.GetLocationBySkill(User_email, Level);
+                 ar_id = db.GetArtistIdByLocation(loc);
+                art_name = db.getArtistNameById(ar_id);
+                 TrueAnswer = loc;
+             }
+
+            //If there is no skill - choose question by other random parameter
+            else
+            {
+
+                do
+                {
+                    //The case of no skills
+                    Random rnd = new Random();
+                    int chooseQuestionMethod = rnd.Next(1, 4); // creates a number between 1 and 3
+                    switch (chooseQuestionMethod)
+                    {
+                        case 1:
+                            AAAA:
+                            ar_id = db.GetUserIDByPopularity(Level);
+                            break;
+                        case 2:
+                            goto AAAA;
+                          // loc = db.getLocationByOtherSkills();
+                            break;
+                        //todo- something with album
+                    }
+                } while (ar_id == null);
+                loc = db.GetLocationByArtistId(ar_id);
+                art_name = db.getArtistNameById(ar_id);
+                TrueAnswer = loc;
+            }
+
+            this.Question = this.Question.Replace("<artist_name>", art_name);
+          //  this.Question = this.Question.Replace("<album_name>", this.songForQuiestion.Album_name);
+            return this.Question;
+        }
+
+        public string buildQuestionToSecondLevel()
+        {
+            string skillParameter = "";
+            string ar_id = "";
+           
+            string art_name = "";
+
+            if ((skillParameter = getSkill("artist")) != null)
+            {
+                ar_id = db.GetRandomArtistID(User_email);
+                loc = db.GetLocationByArtistId(ar_id);
+                art_name = db.getArtistNameById(ar_id);
+                TrueAnswer = loc;
+            }
+            else if ((skillParameter = getSkill("location")) != null)
+            {
+                loc = db.GetLocationBySkill(User_email, Level);
+                ar_id = db.GetArtistIdByLocation(loc);
+                art_name = db.getArtistNameById(ar_id);
+                TrueAnswer = loc;
+            }
+
+            //If there is no skill - choose question by other random parameter
+            else
+            {
+
+                do
+                {
+                    //The case of no skills
+                    Random rnd = new Random();
+                    int chooseQuestionMethod = rnd.Next(1, 4); // creates a number between 1 and 3
+                    switch (chooseQuestionMethod)
+                    {
+                        case 1:
+                            AAAA:
+                            ar_id = db.GetUserIDByPopularity(Level);
+                            break;
+                        case 2:
+                            goto AAAA;
+                            // loc = db.getLocationByOtherSkills();
+                            break;
+                        //todo- something with album
+                    }
+                } while (ar_id == null);
+                loc = db.GetLocationByArtistId(ar_id);
+                art_name = db.getArtistNameById(ar_id);
+                TrueAnswer = loc;
+            }
+
+            this.Question = this.Question.Replace("<artist_name>", art_name);
+            //  this.Question = this.Question.Replace("<album_name>", this.songForQuiestion.Album_name);
+            return this.Question;
+        }
+
+        public string buildQuestionToThirdLevel()
+        {
+            string skillParameter = "";
+            string ar_id = "";
+            
+            string art_name = "";
+
+            if ((skillParameter = getSkill("artist")) != null)
+            {
+                ar_id = db.GetRandomArtistID(User_email);
+                loc = db.GetLocationByArtistId(ar_id);
+                art_name = db.getArtistNameById(ar_id);
+                TrueAnswer = loc;
+            }
+            else if ((skillParameter = getSkill("location")) != null)
+            {
+                loc = db.GetLocationBySkill(User_email, Level);
+                ar_id = db.GetArtistIdByLocation(loc);
+                art_name = db.getArtistNameById(ar_id);
+                TrueAnswer = loc;
+            }
+
+            //If there is no skill - choose question by other random parameter
+            else
+            {
+
+                do
+                {
+                    //The case of no skills
+                    Random rnd = new Random();
+                    int chooseQuestionMethod = rnd.Next(1, 4); // creates a number between 1 and 3
+                    switch (chooseQuestionMethod)
+                    {
+                        case 1:
+                            AAAA:
+                            ar_id = db.GetUserIDByPopularity(Level);
+                            break;
+                        case 2:
+                            goto AAAA;
+                            // loc = db.getLocationByOtherSkills();
+                            break;
+                        //todo- something with album
+                    }
+                } while (ar_id == null);
+                loc = db.GetLocationByArtistId(ar_id);
+                art_name = db.getArtistNameById(ar_id);
+                TrueAnswer = loc;
+            }
+
+            this.Question = this.Question.Replace("<artist_name>", art_name);
+            //  this.Question = this.Question.Replace("<album_name>", this.songForQuiestion.Album_name);
+            return this.Question;
+        }
+
+        public string buildClue()
+        {
+            Song songForClue = null;
+           
+
+            //The place is the same place that the artist Moses was born
+            this.Clue = "The place is the same place that the artist <artist_name> was born";
+
+            songForClue = db.GetSongbyjoin(ar_id, User_email);
+            if (songForClue != null)
+            {
+                this.Clue = this.Clue.Replace("<artist_name>", songForClue.Artist_name);
+                return this.Clue;
+            }
+            //without skills
+            string artistNameByPopAndLoc = db.getArtistNameByPopAndLoc(ar_id, User_email, loc);
+            if(artistNameByPopAndLoc != "")
+            {
+                this.Clue = this.Clue.Replace("<artist_name>", artistNameByPopAndLoc);
+                return this.Clue;
+            }
+
+            else if(loc != "")
+            {
+                Clue = "The first letter is X";
+                this.Clue = this.Clue.Replace("X", loc[0].ToString());
+                return this.Clue;
+            }
+            else
+            {
+                Clue = "NO LOCATION Found";
+                return Clue;
+            }
+        }
+
+        public string[] buildAnswers()
+        {
+            //select artist_name from artists  order by rand() limit 3;
+            TrueAnswer = loc;
+
+           // string query = "select artist_name from artists where artist_name != '" + TrueAnswer + "'";// order by rand() limit 3;";
+            string query = "select artist_location from artists_locations where artist_location != '" + loc + "'";
+            // List<string>[] args = db.getYear(query);
+            //string query = "select year from songs where year != '" + TrueAnswer + "'";
+            List<string>[] args = db.getArtistNameByJoin3(query);
+            Random rnd = new Random();
+            List<string> artistsList = args[0];
+            int locationSize = (artistsList).Count - 1;
+            int index1 = rnd.Next(0, locationSize / 3);
+            int index2 = rnd.Next((locationSize / 3) + 1, (locationSize / 3) * 2);
+            int index3 = rnd.Next(((locationSize / 3) * 2) + 1, locationSize);
+            string[] answers = { artistsList.ElementAt(index1), artistsList.ElementAt(index2), artistsList.ElementAt(index3) };
+            return answers;
+        }
+
+        public string buildTrueAnswer()
+        {
+            return this.TrueAnswer;
+        }
+
+        public void updateRelevantSkills(bool correctAnswer)
+        {
+            int toAdd = 0;
+            if (correctAnswer)
+                toAdd = 1;
+            else
+                toAdd = -1;
+            bool hasLocationsSkill = false, hasSongsSkill = false, hasArtistsSkill = false, hasYearsSkill = false;
+            //string songID = songForQuiestion.Song_id;
+            string artistID = ar_id;
+            //int songYear = songForQuiestion.Year;
+            string artist_location = db.GetArtistLocation(artistID);
+           // hasSongsSkill = db.CheckSpecificSkill("songs_skills", songID, this.User_email);
+            hasArtistsSkill = db.CheckSpecificSkill("artists_skills", artistID, this.User_email);
+           // hasYearsSkill = db.CheckSpecificSkill("years_skills", songYear.ToString(), this.User_email);
+            if (artist_location != null)
+            {
+                hasLocationsSkill = db.CheckSpecificSkill("locations_skills", artist_location, this.User_email);
+                if (hasLocationsSkill)
+                    db.UpdateRate("user_locations_skills", this.User_email, "artist_location", artist_location, toAdd);
+                else
+                    db.InsertNewSkill("user_locations_skills", this.User_email, artist_location, toAdd);
+            }
+//            if (hasSongsSkill)
+//                db.UpdateRate("user_songs_skills", this.User_email, "song_id", songID, toAdd);
+//            else
+//                db.InsertNewSkill("user_songs_skills", this.User_email, songID, toAdd);
+            if (hasArtistsSkill)
+                db.UpdateRate("user_artists_skills", this.User_email, "artist_id", artistID, toAdd);
+            else
+                db.InsertNewSkill("user_artists_skills", this.User_email, artistID, toAdd);
+//            if (hasYearsSkill)
+//                db.UpdateRate("user_years_skills", this.User_email, "year", songYear.ToString(), toAdd);
+//            else
+//                db.InsertNewSkill("user_years_skills", this.User_email, songYear.ToString(), toAdd);
+        }
+    }
+}
