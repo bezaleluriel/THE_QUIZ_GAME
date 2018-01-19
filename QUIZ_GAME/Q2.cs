@@ -49,13 +49,13 @@ namespace QUIZ_GAME
             User_email = user_email1;
             db = new DB_Connect();
             Question = buildQuestion();
-            updateRelevantSkills(true);
             string[] answers = buildAnswers();
             Clue = buildClue();
         }
 
         public string[] buildAnswers()
         {
+            TrueAnswer = TrueAnswer.Replace("'", "''");
             string query = "select album_name from songs where album_name != '" + TrueAnswer + "'";
             List<string>[] args = db.getAlbumName(query);
             Random rnd = new Random();
@@ -116,16 +116,21 @@ namespace QUIZ_GAME
                 Random rnd = new Random();
                 int skillSize = (songSkillTable[0]).Count;
                 int index = rnd.Next(0, skillSize);
+                album_name = album_name.Replace("'", "''");
                 for (i = 0; i < skillSize; i++)
                 {
                     string s = (songSkillTable[1]).ElementAt(i);
                     if (!s.Equals(song_id))
                     {
+                        
                         query = "SELECT song_name from songs WHERE album_name = '" + album_name +
                             "' AND song_id = '" + s + "'";
                         song_name = db.getSongName(query);                        
                     }
-                    if (song_name != null) { break; }
+                    if (song_name != null) {
+                        sameSongName = (song_name[0]).ElementAt(0);
+                        break;
+                    }
                 }               
                 
             }
@@ -134,11 +139,24 @@ namespace QUIZ_GAME
                 query = "SELECT song_name from songs WHERE album_name = '" + album_name + "'";
                 song_name = db.getSongName(query);
                 i = 0;
+                int j = 0;
                 int size = (song_name[0]).Count;
                 while (i < size)
                 {
                     sameSongName = (song_name[0]).ElementAt(i);
-                    if (!song.Equals(sameSongName)) { break; }
+                    if (!song.Equals(sameSongName)) {
+                        break;
+                    }else if(i + 1 == size)
+                    {
+                        char firstLetter;
+                        do
+                        {
+                            firstLetter = TrueAnswer[j];
+                            j++;
+                        } while (!((firstLetter >= 65 && firstLetter <= 90) || (firstLetter >= 97 && firstLetter <= 122)));
+                        clue = "album name starts with the letter " +firstLetter;
+                        return clue;
+                    }
                     i++;
                 }
             }
@@ -149,16 +167,24 @@ namespace QUIZ_GAME
 
         private bool isSongSkill()
         {
-            songSkillTable = db.SelectUserSkills(User_email, "user_songs_skills");
-            if (songSkillTable != null) { return true; }
-            return false;
+            if (songSkillTable == null)
+            {
+                songSkillTable = db.SelectUserSkills(User_email, "user_songs_skills");
+                if (songSkillTable != null) { return true; }
+                return false;
+            }
+            else return true;
         }
 
         private bool isArtistSkill()
         {
-            artistSkillTable = db.SelectUserSkills(User_email, "user_artists_skills");
-            if (artistSkillTable != null) { return true; }
-            return false;
+            if (artistSkillTable == null)
+            {
+                artistSkillTable = db.SelectUserSkills(User_email, "user_artists_skills");
+                if (artistSkillTable != null) { return true; }
+                return false;
+            }
+            else return true;
         }
 
         public string buildQuestion()
@@ -170,7 +196,8 @@ namespace QUIZ_GAME
             int skillSize = 0;
 
             Random rnd = new Random();
-            int chooseWithSkills = rnd.Next(100) % 3;
+            //int chooseWithSkills = rnd.Next(100) % 3;
+            int chooseWithSkills = 1;
 
             if (chooseWithSkills == 1)
             {
@@ -216,7 +243,7 @@ namespace QUIZ_GAME
             args = db.getArtistName(query);
             artist_name = (args[0]).ElementAt(0);
             TrueAnswer = album_name;
-            question = "What is the album's name which " + song + " of the " + artist_name + ", belongs to?";
+            question = "What is the album's name which the song " + song + " of the " + artist_name + ", belongs to?";
             return question;
         }
 
