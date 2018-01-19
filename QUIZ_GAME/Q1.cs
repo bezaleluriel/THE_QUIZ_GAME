@@ -94,15 +94,18 @@ namespace QUIZ_GAME
 
         public string[] buildAnswers()
         {
-            string query = "select year from songs where year != '" + TrueAnswer + "'";
-            List<string>[] args = db.getYear(query);
             Random rnd = new Random();
-            List<string> years = args[0];
-            int yearsSize = (years).Count - 1;
-            int index1 = rnd.Next(0, yearsSize/3);
-            int index2 = rnd.Next((yearsSize / 3) + 1, (yearsSize/3) * 2);
-            int index3 = rnd.Next(((yearsSize / 3) * 2) + 1, yearsSize);
-            string[] answers = { years.ElementAt(index1), years.ElementAt(index2), years.ElementAt(index3) };
+            string index1, index2, index3;
+            do{
+            index1 = rnd.Next(1960, 1980).ToString();
+            } while(index1 == TrueAnswer);
+            do{
+            index2 = rnd.Next(1981, 2000).ToString();
+            } while(index2 == TrueAnswer);
+            do{
+            index3 = rnd.Next(2001, 2017).ToString();
+            } while(index3 == TrueAnswer);
+            string[] answers = { index1, index2, index3};
             return answers;
         }
 
@@ -187,51 +190,58 @@ namespace QUIZ_GAME
             string skillTable = null;
             int skillSize = 0;
 
-            
-            if (isSongSkill() == true)
+            Random rnd = new Random();
+            int chooseWithSkills = rnd.Next(100) % 3;
+
+            if (chooseWithSkills == 1)
             {
-                skillTable = "songs";
-                skillSize = (songSkillTable[0]).Count - 1;
-            }
-            else
-            {                
-                if (isArtistSkill() == true)
+                if (isSongSkill() == true)
                 {
-                    skillTable = "artist";
-                    skillSize = (artistSkillTable[0]).Count - 1;
+                    skillTable = "songs";
+                    skillSize = (songSkillTable[0]).Count - 1;
                 }
                 else
                 {
-                    if (isYearSkill() == true)
+                    if (isArtistSkill() == true)
                     {
-                        skillTable = "year";
-                        skillSize = (yearSkillTable[0]).Count - 1;
+                        skillTable = "artist";
+                        skillSize = (artistSkillTable[0]).Count - 1;
                     }
-                    else { isSkill = false; }
+                    else
+                    {
+                        if (isYearSkill() == true)
+                        {
+                            skillTable = "year";
+                            skillSize = (yearSkillTable[0]).Count - 1;
+                        }
+                        else { isSkill = false; }
+                    }
+                }
+
+                if (isSkill)
+                {
+                    switch (Level)
+                    {
+                        case 1:
+                            int index = rnd.Next(0, skillSize / 3);
+                            getQuestionWithSkill(skillTable, index);
+                            break;
+
+                        case 2:
+                            index = rnd.Next(skillSize / 3, (skillSize / 3) * 2);
+                            getQuestionWithSkill(skillTable, index);
+                            break;
+
+                        case 3:
+                            index = rnd.Next((skillSize / 3) * 2, skillSize);
+                            getQuestionWithSkill(skillTable, index);
+                            break;
+                    }
                 }
             }
-
-            if (!isSkill) { getQuestionWithNoSkill(Level); }
-            else
+            if (chooseWithSkills != 1 || !isSkill)
             {
-                Random rnd = new Random();
-                switch (Level)
-                {
-                    case 1:
-                        int index = rnd.Next(0, skillSize / 3);
-                        getQuestionWithSkill(skillTable, index);
-                        break;
-
-                    case 2:
-                        index = rnd.Next(skillSize / 3, (skillSize / 3) * 2);
-                        getQuestionWithSkill(skillTable, index);
-                        break;
-
-                    case 3:
-                        index = rnd.Next((skillSize / 3) * 2, skillSize);
-                        getQuestionWithSkill(skillTable, index);
-                        break;
-                }
+                getQuestionWithNoSkill(Level);
             }
 
             query = "Select artist_name from artists where artist_id = '" + artist_id + "'";

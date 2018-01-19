@@ -169,45 +169,48 @@ namespace QUIZ_GAME
             string skillTable = null;
             int skillSize = 0;
 
+            Random rnd = new Random();
+            int chooseWithSkills = rnd.Next(100) % 3;
 
-            if (isSongSkill() == true)
+            if (chooseWithSkills == 1)
             {
-                skillTable = "songs";
-                skillSize = (songSkillTable[0]).Count - 1;
-            }
-            else
-            {
-                if (isArtistSkill() == true)
+                if (isSongSkill() == true)
                 {
-                    skillTable = "artist";
-                    skillSize = (artistSkillTable[0]).Count - 1;
-                    
+                    skillTable = "songs";
+                    skillSize = (songSkillTable[0]).Count - 1;
                 }
-                else { isSkill = false; }
-            }
-
-            if (!isSkill) { getQuestionWithNoSkill(Level); }
-            else
-            {
-                Random rnd = new Random();
-                switch (Level)
+                else
                 {
-                    case 1:
-                        int index = rnd.Next(0, skillSize / 3);
-                        getQuestionWithSkill(skillTable, index);
-                        break;
+                    if (isArtistSkill() == true)
+                    {
+                        skillTable = "artist";
+                        skillSize = (artistSkillTable[0]).Count - 1;
 
-                    case 2:
-                        index = rnd.Next(skillSize / 3, (skillSize / 3) * 2);
-                        getQuestionWithSkill(skillTable, index);
-                        break;
+                    }
+                    else { isSkill = false; }
+                }
+                if (isSkill)
+                {
+                    switch (Level)
+                    {
+                        case 1:
+                            int index = rnd.Next(0, skillSize / 3);
+                            getQuestionWithSkill(skillTable, index);
+                            break;
 
-                    case 3:
-                        index = rnd.Next((skillSize / 3) * 2, skillSize);
-                        getQuestionWithSkill(skillTable, index);
-                        break;
+                        case 2:
+                            index = rnd.Next(skillSize / 3, (skillSize / 3) * 2);
+                            getQuestionWithSkill(skillTable, index);
+                            break;
+
+                        case 3:
+                            index = rnd.Next((skillSize / 3) * 2, skillSize);
+                            getQuestionWithSkill(skillTable, index);
+                            break;
+                    }
                 }
             }
+            if(chooseWithSkills != 1 || !isSkill) { getQuestionWithNoSkill(Level); }
 
             query = "Select artist_name from artists where artist_id = '" + artist_id + "'";
             args = db.getArtistName(query);
