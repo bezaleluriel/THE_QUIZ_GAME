@@ -231,7 +231,12 @@ namespace QUIZ_GAME
             string song_id = "";
             MySqlDataReader rdr = null;
             //TODO: Maybe this qury isn't good because it returns null sometimes.
-            string query = " Select * from (select * from songs where year>0) as one  natural join(Select* from artists where artist_familiarity between " + from.ToString("0.000000") + " and " + to.ToString("0.000000") + " order by rand() limit 1) as two order by rand() limit 1;";
+            //string query = " Select * from (select * from songs where year>0) as one  natural join" +
+            //    "(Select* from artists where artist_familiarity between " + from.ToString("0.000000") +
+            //    " and " + to.ToString("0.000000") + " order by rand() limit 1) as two order by rand() limit 1;";
+            string query = " Select * from " +
+                "(Select* from artists where artist_familiarity between "+ from.ToString("0.000000") + " and "+ to.ToString("0.000000") + " order by rand() limit 1) as two" +
+                " natural join (select * from songs where year>0) as one  order by rand() limit 1;";
             //Open connection
             if (this.OpenConnection() == true)
             {
@@ -239,15 +244,15 @@ namespace QUIZ_GAME
                 rdr = cmd.ExecuteReader();
                 if (rdr.Read())
                 {
-                    song_id = rdr.GetString(1);
+                    song_id = rdr.GetString(4);
                     songToReturn = new Song(song_id);
                     songToReturn.Artist_id = rdr.GetString(0);
-                    songToReturn.Version_id = rdr.GetString(2);
-                    songToReturn.Song_name = rdr.GetString(3);
-                    songToReturn.Album_name = rdr.GetString(4);
-                    songToReturn.Duration = rdr.GetFloat(5);
-                    songToReturn.Year = rdr.GetInt32(6);
-                    songToReturn.Artist_name = rdr.GetString(7);
+                    songToReturn.Version_id = rdr.GetString(5);
+                    songToReturn.Song_name = rdr.GetString(6);
+                    songToReturn.Album_name = rdr.GetString(7);
+                    songToReturn.Duration = rdr.GetFloat(8);
+                    songToReturn.Year = rdr.GetInt32(9);
+                    songToReturn.Artist_name = rdr.GetString(1);
                 }
 
             }
@@ -298,17 +303,29 @@ namespace QUIZ_GAME
 
         public Song GetRandomTopYearSkillsSong()
         {
+
             Song songToReturn = null;
             string song_id = "";
             MySqlDataReader rdr = null;
-            string query = "Select * from (SELECT year,SUM(rate) as AccumulatedRate from user_years_skills GROUP BY year " +
-                            "order by AccumulatedRate desc limit 5) as topYears " +
-                            "natural join songs natural join artists order by rand() limit 1;";
+            string query = "Select * from (SELECT year,SUM(rate) as AccumulatedRate " +
+                "from user_years_skills where year!=0 " +
+                "GROUP BY year order by AccumulatedRate desc limit 5 ) as topYears" +
+                " natural join (select * from songs where year>0) as two natural join artists" +
+                " order by rand() limit 1;";
             //Open connection
             if (this.OpenConnection() == true)
             {
                 MySqlCommand cmd = new MySqlCommand(query, this.connection);
-                rdr = cmd.ExecuteReader();
+                try
+                {
+                    rdr = cmd.ExecuteReader();
+                }catch(Exception e)
+                {
+                    //rdr.Close();
+                    this.CloseConnection();
+                    return null;
+                }
+                
                 if (rdr.Read())
                 {
                     song_id = rdr.GetString(3);
@@ -362,7 +379,7 @@ namespace QUIZ_GAME
                         randomChoose = rnd.Next(numOfSongs / 3, ((numOfSongs / 3) * 2) + 1);
                         break;
                     case "BOTTOM":
-                        randomChoose = rnd.Next((numOfSongs / 3) * 2, numOfSongs + 1);
+                        randomChoose = rnd.Next((numOfSongs / 3) * 2, numOfSongs );
                         break;
                 }
                 string song_id = songsList[0].ElementAt(randomChoose);
@@ -405,7 +422,7 @@ namespace QUIZ_GAME
             //Open connection
             if (this.OpenConnection() == true)
             {
-                string firstQuery = "SELECT year,SUM(rate) as AccumulatedRate from user_years_skills GROUP BY year order by AccumulatedRate desc;";
+                string firstQuery = "SELECT year,SUM(rate) as AccumulatedRate from user_years_skills where year>0 GROUP BY year order by AccumulatedRate desc;";
                 //Create Command
                 MySqlCommand cmd = new MySqlCommand(firstQuery, connection);
                 //Create a data reader and Execute the command
