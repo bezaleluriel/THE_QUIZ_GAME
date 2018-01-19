@@ -82,8 +82,8 @@ namespace QUIZ_GAME
             if (answer == null)
                 return null;
             numOfRows = answer[0].Count;
-            //TODO : Add check if enough rows for skill, if not enough - return null
-            if (numOfRows == 0)
+            //if less than 10 rows, it's not enough for relate it as a skill.
+            if (numOfRows < 10)
                 return null;
             
             Random rnd = new Random();
@@ -97,7 +97,7 @@ namespace QUIZ_GAME
                     choose = rnd.Next((numOfRows / 3), ((numOfRows / 3)*2)+1);
                     break;
                 case 3:
-                    choose = rnd.Next((numOfRows / 3) * 2, numOfRows + 1);
+                    choose = rnd.Next((numOfRows / 3) * 2, numOfRows );
                     break;
             }
             if (numOfRows == 1)
@@ -147,27 +147,32 @@ namespace QUIZ_GAME
 
         public string buildQuestionToFirstLevel()
         {
-            string skillParameter = "";
-            if ((skillParameter = getSkill("song")) != null)
-            {
-                this.songForQuiestion = db.GetSongByID(skillParameter);
-            }
-            else if (((skillParameter = getSkill("artist")) != null) && (songForQuiestion == null))
-            {
-                this.songForQuiestion = db.GetRandomSongByArtistID(skillParameter);
-            }
-            else if (((skillParameter = getSkill("year")) != null) && (songForQuiestion == null))
-            {
-                this.songForQuiestion = db.GetRandomSongByYear(skillParameter,false);
-            }
-            //If there is no skill - choose question by other random parameter
-            else
-            {
+            Random rnd = new Random();
+            //For mixing the choices between with skills and without.
+            int chooseWithSkills = rnd.Next(100)%2;
 
+            if (chooseWithSkills == 1)
+            {
+                string skillParameter = "";
+                if ((skillParameter = getSkill("song")) != null)
+                {
+                    this.songForQuiestion = db.GetSongByID(skillParameter);
+                }
+                else if (((skillParameter = getSkill("artist")) != null) && (songForQuiestion == null))
+                {
+                    this.songForQuiestion = db.GetRandomSongByArtistID(skillParameter);
+                }
+                else if (((skillParameter = getSkill("year")) != null) && (songForQuiestion == null))
+                {
+                    this.songForQuiestion = db.GetRandomSongByYear(skillParameter, false);
+                }
+                //If there is no skill - choose question by other random parameter
+            }
+            if (this.songForQuiestion == null)
+            {
                 do
                 {
-                    //The case of no skills
-                    Random rnd = new Random();
+
                     int chooseQuestionMethod = rnd.Next(1, 4); // creates a number between 1 and 3
                     switch (chooseQuestionMethod)
                     {
@@ -191,26 +196,32 @@ namespace QUIZ_GAME
 
         public string buildQuestionToSecondLevel()
         {
-            string skillParameter = "";
-            if ((skillParameter = getSkill("song")) != null)
+            Random rnd = new Random();
+            //For mixing the choices between with skills and without.
+            int chooseWithSkills = rnd.Next(100) % 2;
+            if (chooseWithSkills == 1)
             {
-                this.songForQuiestion = db.GetSongByID(skillParameter);
+                string skillParameter = "";
+                if ((skillParameter = getSkill("song")) != null)
+                {
+                    this.songForQuiestion = db.GetSongByID(skillParameter);
+                }
+                else if (((skillParameter = getSkill("artist")) != null) && (songForQuiestion == null))
+                {
+                    this.songForQuiestion = db.GetRandomSongByArtistID(skillParameter);
+                }
+                else if (((skillParameter = getSkill("year")) != null) && (songForQuiestion == null))
+                {
+                    this.songForQuiestion = db.GetRandomSongByYear(skillParameter, false);
+                }
+                //If there is no skill - choose question by other random parameter
             }
-            else if ( ((skillParameter = getSkill("artist")) != null)&&(songForQuiestion == null))
-            {
-                this.songForQuiestion = db.GetRandomSongByArtistID(skillParameter);
-            }
-            else if (((skillParameter = getSkill("year")) != null) && (songForQuiestion == null))
-            {
-                this.songForQuiestion = db.GetRandomSongByYear(skillParameter,false);
-            }
-            //If there is no skill - choose question by other random parameter
-            else 
+            if (this.songForQuiestion == null)
             {
                 do
                 {
-                    //The case of no skills
-                    Random rnd = new Random();
+
+
                     int chooseQuestionMethod = rnd.Next(1, 4); // creates a number between 1 and 3
                     switch (chooseQuestionMethod)
                     {
@@ -234,26 +245,31 @@ namespace QUIZ_GAME
 
         public string buildQuestionToThirdLevel()
         {
+            Random rnd = new Random();
+            //For mixing the choices between with skills and without.
+            int chooseWithSkills = rnd.Next(100) % 2;
+
             string skillParameter = "";
-            if ((skillParameter = getSkill("song")) != null)
+            if (chooseWithSkills == 1)
             {
-                this.songForQuiestion = db.GetSongByID(skillParameter);
+                if ((skillParameter = getSkill("song")) != null)
+                {
+                    this.songForQuiestion = db.GetSongByID(skillParameter);
+                }
+                else if (((skillParameter = getSkill("artist")) != null) && (songForQuiestion == null))
+                {
+                    this.songForQuiestion = db.GetRandomSongByArtistID(skillParameter);
+                }
+                else if (((skillParameter = getSkill("year")) != null) && (songForQuiestion == null))
+                {
+                    this.songForQuiestion = db.GetRandomSongByYear(skillParameter, false);
+                }
+                //If there is no skill - choose question by other random parameter
             }
-            else if (((skillParameter = getSkill("artist")) != null) && (songForQuiestion == null))
-            {
-                this.songForQuiestion = db.GetRandomSongByArtistID(skillParameter);
-            }
-            else if (((skillParameter = getSkill("year")) != null) && (songForQuiestion == null))
-            {
-                this.songForQuiestion = db.GetRandomSongByYear(skillParameter,false);
-            }
-            //If there is no skill - choose question by other random parameter
-            else
+            if (this.songForQuiestion == null)
             {
                 do
                 {
-                    //The case of no skills
-                    Random rnd = new Random();
                     int chooseQuestionMethod = rnd.Next(1, 4); // creates a number between 1 and 3
                     switch (chooseQuestionMethod)
                     {

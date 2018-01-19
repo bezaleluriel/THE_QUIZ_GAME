@@ -6,13 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace QUIZ_GAME
 {
     public class GameFlow : INotifyPropertyChanged
     {
         private DB_Connect db;
-        private ArrayList questionsList;
+        private Iquestion[] questionsList;
         private int currentQuestionNumber = 0;
         private int currentMoney;
         private string user_email;
@@ -23,6 +24,7 @@ namespace QUIZ_GAME
         private string currentFourthAns;
         private string currentClue;
         private int currentCorrectAnsNumber;
+        private bool gameFinished;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -69,10 +71,12 @@ namespace QUIZ_GAME
 
         public GameFlow(string mail)
         {
+            //Sign for threads that the game finished.
+            gameFinished = false;
             db = new DB_Connect();
             CurrentClue = "";
             CurrentMoney = 0;
-            questionsList = new ArrayList(15);
+            questionsList = new Iquestion[15];
             this.user_email = mail;
             //Building two Questions.
             buildFirstTwoQuestions();
@@ -81,15 +85,15 @@ namespace QUIZ_GAME
             new Thread(() =>
             {
                 buildFirstLevel();
-                new Thread(() =>
-                {
-                    //Building Second Level 
-                    buildSecondLevel();
-                    new Thread(() =>
-                    {
-                        buildThirdLevel();
-                    }).Start();
-                }).Start();
+            }).Start();
+            new Thread(() =>
+            {
+                //Building Second Level 
+                buildSecondLevel();
+            }).Start();
+            new Thread(() =>
+            {
+                buildThirdLevel();
             }).Start();
 
         }
@@ -144,9 +148,12 @@ namespace QUIZ_GAME
             Random rnd = new Random();
             for (int i = 0; i < 2; i++)
             {
+                //If the game finished - kill the thread.
+                if (gameFinished == true)
+                    break;
                 //TODO: Change it to 1,9 when we have all the questions.
                 int quesitonType = rnd.Next(1, 7); // Random question type between 1-6
-                this.questionsList.Insert(i, buildQuestionByTypeAndLevel(quesitonType, 1, user_email));
+                this.questionsList[i]= buildQuestionByTypeAndLevel(quesitonType, 1, user_email);
                 //this.questionsList.Add(buildQuestionByTypeAndLevel(quesitonType, 1,user_email));
             }
         }
@@ -157,9 +164,12 @@ namespace QUIZ_GAME
             Random rnd = new Random();
             for(int i = 2; i < 5; i++)
             {
+                //If the game finished - kill the thread.
+                if (gameFinished == true)
+                    break;
                 //TODO: Change it to 1,9 when we have all the questions.
                 int quesitonType = rnd.Next(1, 7); // Random question type between 1-6
-                this.questionsList.Insert(i, buildQuestionByTypeAndLevel(quesitonType, 1, user_email));
+                this.questionsList[i] = buildQuestionByTypeAndLevel(quesitonType, 1, user_email);
                 //this.questionsList.Add(buildQuestionByTypeAndLevel(quesitonType, 1,user_email));
             }
         }
@@ -169,9 +179,12 @@ namespace QUIZ_GAME
             Random rnd = new Random();
             for (int i = 5; i < 10; i++)
             {
+                //If the game finished - kill the thread.
+                if (gameFinished == true)
+                    break;
                 //TODO: Change it to 1,9 when we have all the questions.
                 int quesitonType = rnd.Next(1, 7); // Random question type between 1-6
-                this.questionsList.Insert(i, buildQuestionByTypeAndLevel(quesitonType, 2, user_email));
+                this.questionsList[i] = buildQuestionByTypeAndLevel(quesitonType, 2, user_email);
             }
         }
         private void buildThirdLevel()
@@ -180,9 +193,12 @@ namespace QUIZ_GAME
             Random rnd = new Random();
             for (int i = 10; i < 15; i++)
             {
+                //If the game finished - kill the thread.
+                if (gameFinished == true)
+                    break;
                 //TODO: Change it to 1,9 when we have all the questions.
                 int quesitonType = rnd.Next(1, 7); // Random question type between 1-6
-                this.questionsList.Insert(i, buildQuestionByTypeAndLevel(quesitonType, 3, user_email));
+                this.questionsList[i] = buildQuestionByTypeAndLevel(quesitonType, 3, user_email);
                 // this.questionsList.Add(buildQuestionByTypeAndLevel(quesitonType, 2, user_email));
             }
         }
@@ -193,17 +209,17 @@ namespace QUIZ_GAME
             {
                 case 1:
                     //TODO: Change it to Q1 after Shani will fix the bag.
-                    return new Q7(level, user_email);
+                    return new Q5(level, user_email);
                 case 2:
-                    return new Q7(level, user_email);
+                    return new Q5(level, user_email);
                 case 3:
-                    return new Q7(level, user_email);
+                    return new Q5(level, user_email);
                 case 4:
-                    return new Q7(level, user_email);
+                    return new Q5(level, user_email);
                 case 5:
-                    return new Q7(level, user_email);
+                    return new Q5(level, user_email);
                 case 6:
-                    return new Q7(level, user_email);
+                    return new Q5(level, user_email);
                 case 7:
 
                     break;
@@ -216,11 +232,20 @@ namespace QUIZ_GAME
         }
         public void MoveToNextQuestion()
         {
+            //Waiting to tje next question calculation
+            while (questionsList[currentQuestionNumber + 1] == null) { }
+            //TODO :Maybe Problem
+            if (currentQuestionNumber >= questionsList.Length)
+            {
+                string message = "Please wait, the  next question calculation is still in progress.";
+                MessageBoxResult result = MessageBox.Show(message, "Who Wants To Be A Millionaire?", MessageBoxButton.OK);
+                return;
+            }
+
             CurrentMoney = getMoneyByQuestionNumber(currentQuestionNumber);
             CurrentClue = "";
             currentQuestionNumber++;
-            if(currentQuestionNumber< questionsList.Count)
-                ActivateQuestion((Iquestion)questionsList[currentQuestionNumber]);
+            ActivateQuestion((Iquestion)questionsList[currentQuestionNumber]);
         }
         public void NotifyPropertyChanged(string propertyName)
         {
@@ -234,6 +259,7 @@ namespace QUIZ_GAME
 
         public void finishGame()
         {
+            this.gameFinished = true;
             db.insertHighScore(this.user_email, CurrentMoney);
         }
 
