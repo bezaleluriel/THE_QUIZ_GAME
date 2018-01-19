@@ -78,7 +78,7 @@
                    Style="{StaticResource TextBlockStyle}" Margin="-8,-100,8,0" />
 
         <TextBox x:Name="emailBox" Tag="Email" Grid.Row="0"  FontSize="20"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                 Style="{StaticResource MyWaterMarkStyle}" Text="halfonamir1@gmail.com"/>
+                 Style="{StaticResource MyWaterMarkStyle}" Text="shani@gmail.com"/>
         <PasswordBox x:Name="PasswordBox" Tag="Password" Grid.Row="2" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Password="1234"/>
 
 
