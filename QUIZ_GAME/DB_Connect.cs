@@ -26,10 +26,10 @@ namespace QUIZ_GAME
             database = "mydb"; //change the name of the db
             uid = "root";
             //password = "1234";
-            password = "a1b2c3";
+            password = "1234";
             string connectionString;
             connectionString = "SERVER=" + server + ";" + "DATABASE=" +
-            database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
+                               database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
 
             connection = new MySqlConnection(connectionString);
         }
@@ -37,7 +37,7 @@ namespace QUIZ_GAME
         //open connection to database
         private bool OpenConnection()
         {
-            
+
             try
             {
                 connection.Open();
@@ -83,7 +83,7 @@ namespace QUIZ_GAME
         public bool Insert(string name, string password, string email)
         {
             string query = "INSERT INTO users (user_name, user_password, user_email) VALUES('" + name + "','" + password
-                + "','" + email + "')";
+                           + "','" + email + "')";
 
             //open connection
             if (this.OpenConnection() == true)
@@ -116,7 +116,7 @@ namespace QUIZ_GAME
         public List<string>[] Select(string email, string password)
         {
             string query = "SELECT * FROM users Where user_email = '" + email
-                + "' AND user_password = '" + password + "'";
+                           + "' AND user_password = '" + password + "'";
 
             //Create a list to store the result
             List<string>[] list = new List<string>[3];
@@ -161,11 +161,11 @@ namespace QUIZ_GAME
             }
         }
 
-        public List<string>[] SelectUserSkills(string user_email, string table_name,Boolean justPositiveRate)
+        public List<string>[] SelectUserSkills(string user_email, string table_name, Boolean justPositiveRate)
         {
             string query;
             if (!justPositiveRate)
-                 query = "Select * from " + table_name + " where user_email ='" + user_email + "' order by rate desc;";
+                query = "Select * from " + table_name + " where user_email ='" + user_email + "' order by rate desc;";
             else
                 query = "Select * from " + table_name + " where user_email ='" + user_email + "' and rate>0 order by rate desc;";
             //Create a list to store the result
@@ -206,11 +206,12 @@ namespace QUIZ_GAME
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 //Create a data reader and Execute the command
                 MySqlDataReader dataReader = cmd.ExecuteReader();
-                while (dataReader.Read()) {
+                while (dataReader.Read())
+                {
                     list[0].Add(dataReader.GetString(0));
                     list[1].Add(dataReader.GetInt32(1).ToString());
                 }
-                    
+
                 //close Data Reader
                 dataReader.Close();
                 //close Connection
@@ -235,8 +236,8 @@ namespace QUIZ_GAME
             //    "(Select* from artists where artist_familiarity between " + from.ToString("0.000000") +
             //    " and " + to.ToString("0.000000") + " order by rand() limit 1) as two order by rand() limit 1;";
             string query = " Select * from " +
-                "(Select* from artists where artist_familiarity between "+ from.ToString("0.000000") + " and "+ to.ToString("0.000000") + " order by rand() limit 1) as two" +
-                " natural join (select * from songs where year>0) as one  order by rand() limit 1;";
+                           "(Select* from artists where artist_familiarity between " + from.ToString("0.000000") + " and " + to.ToString("0.000000") + " order by rand() limit 1) as two" +
+                           " natural join (select * from songs where year>0) as one  order by rand() limit 1;";
             //Open connection
             if (this.OpenConnection() == true)
             {
@@ -308,10 +309,10 @@ namespace QUIZ_GAME
             string song_id = "";
             MySqlDataReader rdr = null;
             string query = "Select * from (SELECT year,SUM(rate) as AccumulatedRate " +
-                "from user_years_skills where year!=0 " +
-                "GROUP BY year order by AccumulatedRate desc limit 5 ) as topYears" +
-                " natural join (select * from songs where year>0) as two natural join artists" +
-                " order by rand() limit 1;";
+                           "from user_years_skills where year!=0 " +
+                           "GROUP BY year order by AccumulatedRate desc limit 5 ) as topYears" +
+                           " natural join (select * from songs where year>0) as two natural join artists" +
+                           " order by rand() limit 1;";
             //Open connection
             if (this.OpenConnection() == true)
             {
@@ -319,13 +320,14 @@ namespace QUIZ_GAME
                 try
                 {
                     rdr = cmd.ExecuteReader();
-                }catch(Exception e)
+                }
+                catch (Exception e)
                 {
                     //rdr.Close();
                     this.CloseConnection();
                     return null;
                 }
-                
+
                 if (rdr.Read())
                 {
                     song_id = rdr.GetString(3);
@@ -379,7 +381,7 @@ namespace QUIZ_GAME
                         randomChoose = rnd.Next(numOfSongs / 3, ((numOfSongs / 3) * 2) + 1);
                         break;
                     case "BOTTOM":
-                        randomChoose = rnd.Next((numOfSongs / 3) * 2, numOfSongs );
+                        randomChoose = rnd.Next((numOfSongs / 3) * 2, numOfSongs);
                         break;
                 }
                 string song_id = songsList[0].ElementAt(randomChoose);
@@ -415,7 +417,7 @@ namespace QUIZ_GAME
         public Song GetOthersYearSkillsSong(string locationInTable)
         {
             Song songToReturn = null;
-            MySqlDataReader dataReader,dataReader2;
+            MySqlDataReader dataReader, dataReader2;
             //Create a list to store the result
             List<string>[] yearsList = new List<string>[1];
             yearsList[0] = new List<string>();
@@ -509,12 +511,12 @@ namespace QUIZ_GAME
             this.CloseConnection();
             return songToReturn;
         }
-        public Song GetRandomSongByYear(string year,bool popular)
+        public Song GetRandomSongByYear(string year, bool popular)
         {
             Song songToReturn = null;
             string query;
             if (popular)
-                query = "select * from (select * from songs where year = " + year +") as artistYears natural join (select * from artists where artist_familiarity>0.7)as populars order by rand() limit 1;";
+                query = "select * from (select * from songs where year = " + year + ") as artistYears natural join (select * from artists where artist_familiarity>0.7)as populars order by rand() limit 1;";
             else
                 query = "Select * from (select * from songs where year=" + year + ") as TheSong natural join artists order by rand() limit 1;";
 
@@ -581,10 +583,10 @@ namespace QUIZ_GAME
             return songToReturn;
         }
 
-        public Song GetRandomSongByArtistIDAndYear(string artistID,string year)
+        public Song GetRandomSongByArtistIDAndYear(string artistID, string year)
         {
             Song songToReturn = null;
-            string query = "Select * from (select * from songs where artist_id='" + artistID + "' and year =" +year+") as TheSong natural join artists order by rand() limit 1;";
+            string query = "Select * from (select * from songs where artist_id='" + artistID + "' and year =" + year + ") as TheSong natural join artists order by rand() limit 1;";
             MySqlDataReader dataReader;
             if (this.OpenConnection() == true)
             {
@@ -631,7 +633,7 @@ namespace QUIZ_GAME
                 MySqlDataReader dataReader = cmd.ExecuteReader();
                 //while (dataReader.Read())
                 //    list[0].Add(dataReader.GetString(1));
-                for(int i = 0; i < 3; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     dataReader.Read();
                     songsToReturn[i] = dataReader.GetString(0);
@@ -661,7 +663,7 @@ namespace QUIZ_GAME
                 if (dataReader.Read())
                 {
                     albumToReturn = new Album(artistID);
-                    albumToReturn.Artist_name =  dataReader.GetString(3);
+                    albumToReturn.Artist_name = dataReader.GetString(3);
                     albumToReturn.Year = int.Parse(dataReader.GetString(2));
                 }
             }
@@ -690,7 +692,7 @@ namespace QUIZ_GAME
                 if (dataReader.Read())
                 {
                     albumToReturn = new Album(dataReader.GetString(0));
-                    albumToReturn.Artist_name =  dataReader.GetString(3);
+                    albumToReturn.Artist_name = dataReader.GetString(3);
                     albumToReturn.Year = int.Parse(dataReader.GetString(2));
                     albumToReturn.Album_name = dataReader.GetString(1);
                 }
@@ -706,7 +708,7 @@ namespace QUIZ_GAME
             return albumToReturn;
         }
 
-        public Album GetSpecificAlbumOfArtist(string artistID,string albumName)
+        public Album GetSpecificAlbumOfArtist(string artistID, string albumName)
         {
             Album albumToReturn = null;
             albumName = albumName.Replace("'", "''");
@@ -738,7 +740,7 @@ namespace QUIZ_GAME
         }
 
         //Returning another song from song skills that released at year
-        public Song SongFromSongsSkillsByYear(string userEmail,int year)
+        public Song SongFromSongsSkillsByYear(string userEmail, int year)
         {
             Song songToReturn = null;
             string query = "select * from (Select * from user_songs_skills where user_email='" + userEmail + "' and rate>0) as user natural join (select * from songs where year=" + year.ToString() + ") as years natural join artists order by rand() limit 1;";
@@ -774,7 +776,7 @@ namespace QUIZ_GAME
 
 
 
-     
+
         public bool InsertNewSkill(string table, string email, string param, int toAdd)
         {
             string query = "INSERT INTO " + table + " VALUES('" + email + "','" + param + "'," + toAdd + ")";
@@ -809,8 +811,8 @@ namespace QUIZ_GAME
         public void UpdateRate(string table, string email, string param, string paramInfo, int toAdd)
         {
             string query = "UPDATE " + table +
-                            " SET rate = rate + " + toAdd +
-                            " WHERE user_email = '" + email + "' and " + param + " = '" + paramInfo + "'";
+                           " SET rate = rate + " + toAdd +
+                           " WHERE user_email = '" + email + "' and " + param + " = '" + paramInfo + "'";
 
             if (this.OpenConnection() == true)
             {
@@ -831,7 +833,7 @@ namespace QUIZ_GAME
         public string GetArtistLocation(string artist_id)
         {
             string artistLocation = null;
-            string query = "select artist_location from artists_locations where artist_id='" + artist_id+"';";
+            string query = "select artist_location from artists_locations where artist_id='" + artist_id + "';";
             MySqlDataReader dataReader;
             if (this.OpenConnection() == true)
             {
@@ -853,7 +855,7 @@ namespace QUIZ_GAME
             this.CloseConnection();
             return artistLocation;
         }
-        public bool CheckSpecificSkill(string skillProperty,string skill,string user_email)
+        public bool CheckSpecificSkill(string skillProperty, string skill, string user_email)
         {
             MySqlDataReader dataReader;
             bool skillExist = false;
@@ -869,7 +871,7 @@ namespace QUIZ_GAME
                 case "locations_skills":
                     query = "select rate from user_locations_skills where user_email='" + user_email + "' and artist_location ='" + skill + "';";
                     break;
-                 //Default = Years skills
+                //Default = Years skills
                 default:
                     query = "select rate from user_years_skills where user_email='" + user_email + "' and year =" + skill + ";";
                     break;
@@ -881,7 +883,7 @@ namespace QUIZ_GAME
                 dataReader = cmd.ExecuteReader();
                 if (dataReader.Read())
                 {
-                    skillExist= true;
+                    skillExist = true;
                 }
                 else
                 {
@@ -892,7 +894,7 @@ namespace QUIZ_GAME
             {
                 return false;
             }
-            if(dataReader!=null)
+            if (dataReader != null)
                 dataReader.Close();
 
             //close Connection
@@ -1060,8 +1062,8 @@ namespace QUIZ_GAME
                 return null;
             }
         }
-       
-     
+
+
 
         public List<string>[] getSongAndSongIDAndYear(string query)
         {
@@ -1348,7 +1350,7 @@ namespace QUIZ_GAME
                 {
                     list[0].Add(dataReader["album_name"] + "");
                 }
-                
+
                 if (dataReader.HasRows == false)
                 {
                     list = null;
@@ -1506,10 +1508,9 @@ namespace QUIZ_GAME
         }
         /*************************************************************************/
 
-        /*************************************************************************/
-        public void insertHighScore(string user_email,int score)
+        public void insertHighScore(string user_email, int score)
         {
-            string query = "INSERT INTO high_scores (user_email,score) VALUES('" + user_email + "',"+ score.ToString() +" ); ";
+            string query = "INSERT INTO high_scores (user_email,score) VALUES('" + user_email + "'," + score.ToString() + " ); ";
 
             //open connection
             if (this.OpenConnection() == true)
