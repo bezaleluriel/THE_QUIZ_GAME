@@ -208,6 +208,10 @@ namespace QUIZ_GAME
             this.answer1 = helper();
             //setting the second answer
             this.answer2 = helper();
+            if (Answer1 == null || Answer2==null)
+            {
+                return null;
+            }
             //return a final answer made of these 2 answers.
             string result = answer1 + "," + answer2;
             return result;
