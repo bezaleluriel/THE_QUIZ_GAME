@@ -149,7 +149,7 @@ namespace QUIZ_GAME
         {
             Random rnd = new Random();
             //For mixing the choices between with skills and without.
-            int chooseWithSkills = rnd.Next(100)%2;
+            int chooseWithSkills = rnd.Next(100)%2;//
 
             if (chooseWithSkills == 1)
             {
