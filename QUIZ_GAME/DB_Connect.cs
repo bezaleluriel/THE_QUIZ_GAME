@@ -1506,6 +1506,7 @@ namespace QUIZ_GAME
         }
         /*************************************************************************/
 
+        /*************************************************************************/
         public void insertHighScore(string user_email,int score)
         {
             string query = "INSERT INTO high_scores (user_email,score) VALUES('" + user_email + "',"+ score.ToString() +" ); ";
