@@ -166,13 +166,13 @@ namespace QUIZ_GAME
         **/
         public string[] buildAnswers()
         {
-            List<string>[] answer1 = null;
+            List<string>[] answer = null;
 
             // randomley choosing 3 artists for 3 wrong answers.
-            answer1 = db.selectQ8("select song_name from songs order by rand() limit 6","song_name");
+            answer = db.selectQ8("select song_name from songs order by rand() limit 6","song_name");
 
             // if one of the querys returns null we return null.
-            if (answer1 == null)
+            if (answer == null)
             {
                 return null;
             }
@@ -180,9 +180,9 @@ namespace QUIZ_GAME
             {
                 // if qeurys are not null we will return an array of size 3 with 3 wrong answers.
                 string[] answers = new string[3];
-                answers[0] = answer1[0][0] + "," + answer1[0][1];
-                answers[1] = answer1[0][2] + "," + answer1[0][3]; ;
-                answers[2] = answer1[0][4] + "," + answer1[0][5]; ;
+                answers[0] = answer[0][0] + "," + answer[0][1];
+                answers[1] = answer[0][2] + "," + answer[0][3]; ;
+                answers[2] = answer[0][4] + "," + answer[0][5]; ;
                 return answers;
             }
         }
@@ -196,7 +196,7 @@ namespace QUIZ_GAME
             // there is no skill that can be used to give a clue..
             // give a clue without skills - give the name of the singer of one of the songs.
             List<string>[] answer = null;
-            answer = db.selectQ8("select artist_name from songs natural join artists where song_name = '" + this.answer1 + "'", "artist_name");
+            answer = db.selectQ8("select artist_name from songs natural join artists where song_name = '" + this.Answer1 + "'", "artist_name");
             if (answer == null) { return null; }
             string clue = "The artist of one of the two songs is " + answer[0][0];
             return clue;
@@ -217,15 +217,15 @@ namespace QUIZ_GAME
         public string buildTrueAnswer()
         {
             //setting the first answer
-            this.answer1 = helper();
+            Answer1 = helper();
             //setting the second answer
-            this.answer2 = helper();
+            Answer2 = helper();
             if (Answer1 == null || Answer2==null)
             {
                 return null;
             }
             //return a final answer made of these 2 answers.
-            string result = answer1 + "," + answer2;
+            string result = Answer1 + "," + Answer2;
             return result;
         }
 
@@ -253,9 +253,9 @@ namespace QUIZ_GAME
                     answer = db.selectQ8("select song_name,song_id from (select * from user_songs_skills natural join songs where user_songs_skills.song_id = songs.song_id AND user_email = '" + User_email + "' order by rate desc limit " + thirdOfTable + ") AS B order by rand() limit 1", "song_name,song_id");
                     if (answer != null)
                     {
-                        if (answer1_song_id == null)
+                        if (Answer1_song_id == null)
                         {
-                            answer1_song_id = answer[0][1];
+                            Answer1_song_id = answer[0][1];
                         }
                         else
                         {
@@ -268,9 +268,9 @@ namespace QUIZ_GAME
                     answer = db.selectQ8("select song_name,song_id from (select * from user_songs_skills natural join songs where user_songs_skills.song_id = songs.song_id and user_email != '" + User_email + "' group by user_email order by rate desc limit 5) as A limit 1", "song_name,song_id");
                     if (answer != null)
                     {
-                        if (answer1_song_id == null)
+                        if (Answer1_song_id == null)
                         {
-                            answer1_song_id = answer[0][1];
+                            Answer1_song_id = answer[0][1];
                         }
                         else
                         {
@@ -282,9 +282,9 @@ namespace QUIZ_GAME
                     answer = db.selectQ8("select song_name,song_id from songs natural join artists where songs.artist_id = artists.artist_id AND year = '" + this.year + "' AND artist_familiarity > 0.6 order by rand() limit 1", "song_name,song_id");
                     if (answer != null)
                     {
-                        if (answer1_song_id == null)
+                        if (Answer1_song_id == null)
                         {
-                            answer1_song_id = answer[0][1];
+                            Answer1_song_id = answer[0][1];
                         }
                         else
                         {
@@ -300,9 +300,9 @@ namespace QUIZ_GAME
                     answer = db.selectQ8("select song_name,song_id from (select * from (select * from user_songs_skills natural join songs where user_songs_skills.song_id = songs.song_id AND user_email = '" + User_email + "' order by rate desc limit " + twoThirdsOfTable + ")AS B order by rate ASC limit " + thirdOfTable + ") AS C order by rand() limit 1", "song_name,song_id");
                     if (answer != null)
                     {
-                        if (answer1_song_id == null)
+                        if (Answer1_song_id == null)
                         {
-                            answer1_song_id = answer[0][1];
+                            Answer1_song_id = answer[0][1];
                         }
                         else
                         {
@@ -315,9 +315,9 @@ namespace QUIZ_GAME
                     answer = db.selectQ8("select song_name,song_id from (select * from user_songs_skills natural join songs where user_songs_skills.song_id = songs.song_id and user_email != '" + User_email + "' group by user_email order by rate desc limit 10) as A order by rand() limit 1", "song_name,song_id");
                     if (answer != null)
                     {
-                        if (answer1_song_id == null)
+                        if (Answer1_song_id == null)
                         {
-                            answer1_song_id = answer[0][1];
+                            Answer1_song_id = answer[0][1];
                         }
                         else
                         {
@@ -329,9 +329,9 @@ namespace QUIZ_GAME
                     answer = db.selectQ8("select song_name,song_id from songs natural join artists where songs.artist_id = artists.artist_id AND year = '" + this.year + "' AND artist_familiarity < 0.6 AND artist_familiarity > 0.4 order by rand() limit 1", "song_name,song_id");
                     if (answer != null)
                     {
-                        if (answer1_song_id == null)
+                        if (Answer1_song_id == null)
                         {
-                            answer1_song_id = answer[0][1];
+                            Answer1_song_id = answer[0][1];
                         }
                         else
                         {
@@ -347,9 +347,9 @@ namespace QUIZ_GAME
                     answer = db.selectQ8("select song_name,song_id from (select * from user_songs_skills natural join songs where user_songs_skills.song_id = songs.song_id AND user_email = '" + User_email + "' order by rate asc limit " + thirdOfTable + ") AS B order by rand() limit 1", "song_name,song_id");
                     if (answer != null)
                     {
-                        if (answer1_song_id == null)
+                        if (Answer1_song_id == null)
                         {
-                            answer1_song_id = answer[0][1];
+                            Answer1_song_id = answer[0][1];
                         }
                         else
                         {
@@ -362,9 +362,9 @@ namespace QUIZ_GAME
                     answer = db.selectQ8("select song_name,song_id from (select * from user_songs_skills natural join songs where user_songs_skills.song_id = songs.song_id and user_email != '" + User_email + "' group by user_email order by rate desc limit 15) as A order by rand() limit 1", "song_name,song_id");
                     if (answer != null)
                     {
-                        if (answer1_song_id == null)
+                        if (Answer1_song_id == null)
                         {
-                            answer1_song_id = answer[0][1];
+                            Answer1_song_id = answer[0][1];
                         }
                         else
                         {
@@ -376,9 +376,9 @@ namespace QUIZ_GAME
                     answer = db.selectQ8("select song_name,song_id from songs natural join artists where songs.artist_id = artists.artist_id AND year = '" + this.year + "' AND artist_familiarity < 0.4 order by rand() limit 1", "song_name,song_id");
                     if (answer != null)
                     {
-                        if (answer1_song_id == null)
+                        if (Answer1_song_id == null)
                         {
-                            answer1_song_id = answer[0][1];
+                            Answer1_song_id = answer[0][1];
                         }
                         else
                         {
