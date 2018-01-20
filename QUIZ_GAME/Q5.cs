@@ -149,9 +149,9 @@ namespace QUIZ_GAME
         {
             Random rnd = new Random();
             //For mixing the choices between with skills and without.
-            int chooseWithSkills = rnd.Next(100)%2;
+            int chooseWithSkills = rnd.Next(100)%10;
 
-            if (chooseWithSkills == 1)
+            if (chooseWithSkills < 4)
             {
                 string skillParameter = "";
                 if ((skillParameter = getSkill("song")) != null)
@@ -198,8 +198,8 @@ namespace QUIZ_GAME
         {
             Random rnd = new Random();
             //For mixing the choices between with skills and without.
-            int chooseWithSkills = rnd.Next(100) % 2;
-            if (chooseWithSkills == 1)
+            int chooseWithSkills = rnd.Next(100) % 10;
+            if (chooseWithSkills < 4)
             {
                 string skillParameter = "";
                 if ((skillParameter = getSkill("song")) != null)
@@ -247,10 +247,10 @@ namespace QUIZ_GAME
         {
             Random rnd = new Random();
             //For mixing the choices between with skills and without.
-            int chooseWithSkills = rnd.Next(100) % 2;
+            int chooseWithSkills = rnd.Next(100) % 10;
 
             string skillParameter = "";
-            if (chooseWithSkills == 1)
+            if (chooseWithSkills < 4)
             {
                 if ((skillParameter = getSkill("song")) != null)
                 {

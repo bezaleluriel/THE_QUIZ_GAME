@@ -209,17 +209,17 @@ namespace QUIZ_GAME
             {
                 case 1:
                     //TODO: Change it to Q1 after Shani will fix the bag.
-                    return new Q8(level, user_email);
+                    return new Q6(level, user_email);
                 case 2:
-                    return new Q8(level, user_email);
+                    return new Q6(level, user_email);
                 case 3:
-                    return new Q8(level, user_email);
+                    return new Q6(level, user_email);
                 case 4:
-                    return new Q8(level, user_email);
+                    return new Q6(level, user_email);
                 case 5:
-                    return new Q8(level, user_email);
+                    return new Q6(level, user_email);
                 case 6:
-                    return new Q8(level, user_email);
+                    return new Q6(level, user_email);
                 case 7:
 
                     break;

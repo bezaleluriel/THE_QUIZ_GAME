@@ -122,15 +122,6 @@ namespace QUIZ_GAME
             else
                 message = "You Were Wrong!\nGAME OVER!";
             MessageBoxResult result = MessageBox.Show(message, "Who Wants To Be A Millionaire?", MessageBoxButton.OK);
-            //switch (result)
-            //{
-            //    case MessageBoxResult.Yes:
-            //        MessageBox.Show("Hello to you too!", "My App");
-            //        break;
-            //    case MessageBoxResult.No:
-            //        MessageBox.Show("Oh well, too bad!", "My App");
-            //        break;
-            //}
         }
     }
 }
