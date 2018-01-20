@@ -210,5 +210,8 @@
   <ItemGroup>
     <Resource Include="images\BACKGROUNDWIN.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\retireLogo.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

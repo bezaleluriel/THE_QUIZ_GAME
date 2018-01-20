@@ -110,7 +110,7 @@ namespace QUIZ_GAME
         {
             string songYear = this.songForQuiestion.Year.ToString();
             Song songForClue = null;
-             this.Clue = "In this year <artist_name> also released released the song <song_name> ";
+             this.Clue = "In this year <artist_name> also released the song <song_name> ";
             //Build Clue by Artist skill
             List<string>[] answer = null;
             answer = db.SelectUserSkills(this.User_email, "user_artists_skills",true);

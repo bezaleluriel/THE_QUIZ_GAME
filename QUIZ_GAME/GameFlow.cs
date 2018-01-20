@@ -232,8 +232,16 @@ namespace QUIZ_GAME
             //TODO: Remove the return null
             return null;
         }
-        public void MoveToNextQuestion()
+        public bool MoveToNextQuestion()
         {
+            //Returning false when the game is finished
+            if (currentQuestionNumber == 14)
+            {
+                CurrentMoney = getMoneyByQuestionNumber(currentQuestionNumber);
+                finishGame();
+                return false;
+            }
+                
             //Waiting to tje next question calculation
             while (questionsList[currentQuestionNumber + 1] == null) { }
             //TODO :Maybe Problem
@@ -241,13 +249,14 @@ namespace QUIZ_GAME
             {
                 string message = "Please wait, the  next question calculation is still in progress.";
                 MessageBoxResult result = MessageBox.Show(message, "Who Wants To Be A Millionaire?", MessageBoxButton.OK);
-                return;
+                return false;
             }
 
             CurrentMoney = getMoneyByQuestionNumber(currentQuestionNumber);
             CurrentClue = "";
             currentQuestionNumber++;
             ActivateQuestion((Iquestion)questionsList[currentQuestionNumber]);
+            return true;
         }
         public void NotifyPropertyChanged(string propertyName)
         {

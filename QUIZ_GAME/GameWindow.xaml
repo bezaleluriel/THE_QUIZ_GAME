@@ -74,11 +74,16 @@
             <Image x:Name="clueImg" Margin="0,-20,0,0" HorizontalAlignment="Left"  Height="66" Opacity="0.7"  VerticalAlignment="Top"  Width="48" Source="images/clueLogo.png"/>
             <Button Content="" Height="65" Margin="-4,-65,254,-20" Background="Transparent" VerticalAlignment="Top" FontWeight="Bold" Click="Button_Click"/>
             <TextBlock HorizontalAlignment="Left" Background="Transparent" TextWrapping="Wrap" Text="{Binding Path=CurrentClue,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" FontWeight="Bold" FontSize="24" Height="133" Width="292" Foreground="#FFFDFD05" FontFamily="Arial Black" />
+
         </StackPanel>
         <StackPanel HorizontalAlignment="Left" Height="93" Margin="717,-320,-242,0" VerticalAlignment="Top" Width="205">
-            <Label Content="My Money:" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Top" FontWeight="Bold" Background="#FFBBFF05" FontFamily="Arial Black" FontSize="16"/>
-            <TextBlock x:Name="moneyTxtBlock" Background="#FFBBFF05" TextWrapping="Wrap" Margin="50,0,53,0" Text="{Binding Path=CurrentMoney,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF031905" Height="30"/>
-            <Label x:Name="correctAnsLbl" Height="30" Margin="50,0,0,0" Content="{Binding Path=CurrentCorrectAnsNumber,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="#FFF9F9F9" FontSize="14" FontWeight="Bold" Width="40"/>
+            <Label Content="My Money:" HorizontalAlignment="Left" Margin="68,0,0,0" VerticalAlignment="Top" FontWeight="Bold" Background="#FFBBFF05" FontFamily="Arial Black" FontSize="16"/>
+            <TextBlock x:Name="moneyTxtBlock" Background="#FFBBFF05" TextWrapping="Wrap" Margin="68,0,35,0" Text="{Binding Path=CurrentMoney,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF031905" Height="30"/>
+            <Image  x:Name="retireImg" Margin="0,-50,0,0" HorizontalAlignment="Left"  Height="78" Opacity="0.7"  VerticalAlignment="Top"  Width="68" Source="images/retireLogo.jpg" RenderTransformOrigin="0.5,0.5"/>
+
+            <Button x:Name="btnRetire" Content="" Height="78" Margin="-4,-77,142,-20" Background="Transparent" VerticalAlignment="Top" FontWeight="Bold" Click="btnRetire_Click" />
+            <Label x:Name="correctAnsLbl" Height="30" Margin="70,-25,0,0" Content="{Binding Path=CurrentCorrectAnsNumber,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="#FFF9F9F9" FontSize="14" FontWeight="Bold" Width="40"/>
+
         </StackPanel>
     </Grid>
 

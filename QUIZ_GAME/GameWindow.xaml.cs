@@ -35,7 +35,12 @@ namespace QUIZ_GAME
             {
                 MessageBeforeNextWin(true);
                 gameFlow.UpdateSkills(true);
-                gameFlow.MoveToNextQuestion();
+                if (gameFlow.MoveToNextQuestion() == false)
+                {
+                    HighScoresWindow highScoresWindow = new HighScoresWindow(true, gameFlow.CurrentMoney.ToString());
+                    highScoresWindow.Show();
+                    this.Close();
+                }
                 moneyImg.Source = new BitmapImage(new Uri(@"/images/money/" + gameFlow.CurrentQuestionNumber.ToString() + ".jpg", UriKind.Relative));
             }
             else
@@ -55,7 +60,13 @@ namespace QUIZ_GAME
             {
                 MessageBeforeNextWin(true);
                 gameFlow.UpdateSkills(true);
-                gameFlow.MoveToNextQuestion();
+                if (gameFlow.MoveToNextQuestion() == false)
+                {
+                    HighScoresWindow highScoresWindow = new HighScoresWindow(true, gameFlow.CurrentMoney.ToString());
+                    highScoresWindow.Show();
+                    this.Close();
+
+                }
                 moneyImg.Source = new BitmapImage(new Uri(@"/images/money/" + gameFlow.CurrentQuestionNumber.ToString() + ".jpg", UriKind.Relative));
             }
             else
@@ -75,7 +86,12 @@ namespace QUIZ_GAME
             {
                 MessageBeforeNextWin(true);
                 gameFlow.UpdateSkills(true);
-                gameFlow.MoveToNextQuestion();
+                if (gameFlow.MoveToNextQuestion() == false)
+                {
+                    HighScoresWindow highScoresWindow = new HighScoresWindow(true, gameFlow.CurrentMoney.ToString());
+                    highScoresWindow.Show();
+                    this.Close();
+                }
                 moneyImg.Source = new BitmapImage(new Uri(@"/images/money/" + gameFlow.CurrentQuestionNumber.ToString() + ".jpg", UriKind.Relative));
             }
             else
@@ -95,7 +111,12 @@ namespace QUIZ_GAME
             {
                 MessageBeforeNextWin(true);
                 gameFlow.UpdateSkills(true);
-                gameFlow.MoveToNextQuestion();
+                if (gameFlow.MoveToNextQuestion() == false)
+                {
+                    HighScoresWindow highScoresWindow = new HighScoresWindow(true, gameFlow.CurrentMoney.ToString());
+                    highScoresWindow.Show();
+                    this.Close();
+                }
                 moneyImg.Source = new BitmapImage(new Uri(@"/images/money/" + gameFlow.CurrentQuestionNumber.ToString() + ".jpg", UriKind.Relative));
             }
             else
@@ -123,6 +144,19 @@ namespace QUIZ_GAME
             else
                 message = "You Were Wrong!\nGAME OVER!";
             MessageBoxResult result = MessageBox.Show(message, "Who Wants To Be A Millionaire?", MessageBoxButton.OK);
+        }
+
+        private void btnRetire_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to retire?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                gameFlow.finishGame();
+                HighScoresWindow highScoresWindow = new HighScoresWindow(true, gameFlow.CurrentMoney.ToString());
+                highScoresWindow.Show();
+                this.Close();
+            }
+
+
         }
     }
 }
