@@ -25,8 +25,8 @@ namespace QUIZ_GAME
             server = "localhost";
             database = "mydb"; //change the name of the db
             uid = "root";
-            //password = "1234";
-            password = "a1b2c3";
+            password = "1234";
+            //password = "a1b2c3";
             string connectionString;
             connectionString = "SERVER=" + server + ";" + "DATABASE=" +
             database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
@@ -1511,6 +1511,7 @@ namespace QUIZ_GAME
         }
         /*************************************************************************/
 
+        /*************************************************************************/
         public void insertHighScore(string user_email,int score)
         {
             string query = "INSERT INTO high_scores (user_email,score) VALUES('" + user_email + "',"+ score.ToString() +" ); ";
