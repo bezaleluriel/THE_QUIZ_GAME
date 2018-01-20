@@ -59,6 +59,7 @@
     <Compile Include="Album.cs" />
     <Compile Include="Answer.cs" />
     <Compile Include="DB_Connect.cs" />
+    <Compile Include="DB_ConnectQ3Q4.cs" />
     <Compile Include="GameFlow.cs" />
     <Compile Include="GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
@@ -69,6 +70,8 @@
     <Compile Include="Iquestion.cs" />
     <Compile Include="Q1.cs" />
     <Compile Include="Q2.cs" />
+    <Compile Include="Q3.cs" />
+    <Compile Include="Q4.cs" />
     <Compile Include="Q5.cs" />
     <Compile Include="Q6.cs" />
     <Compile Include="Q7.cs" />

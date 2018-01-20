@@ -431,7 +431,12 @@ namespace QUIZ_GAME
                 while (dataReader.Read())
                     yearsList[0].Add(dataReader[0] + "");
                 int numOfYears = yearsList[0].Count;
-
+                if (numOfYears == 0) {
+                    dataReader.Close();
+                    this.CloseConnection();
+                    return null;
+                }
+                    
                 Random rnd = new Random();
                 int randomChoose = 0;
                 switch (locationInTable)
@@ -1506,6 +1511,7 @@ namespace QUIZ_GAME
         }
         /*************************************************************************/
 
+        /*************************************************************************/
         public void insertHighScore(string user_email,int score)
         {
             string query = "INSERT INTO high_scores (user_email,score) VALUES('" + user_email + "',"+ score.ToString() +" ); ";
