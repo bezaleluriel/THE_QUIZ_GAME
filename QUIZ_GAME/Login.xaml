@@ -5,23 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QUIZ_GAME"
         mc:Ignorable="d"
-        Width="525" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Visibility="Visible"  WindowStyle="None"  AllowsTransparency="True">
+        Width="595.5" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Visibility="Visible"  WindowStyle="None"  AllowsTransparency="True" Height="377.6">
     <Window.Style>
         <Style TargetType="{x:Type Window}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Window}">
-                        <Border x:Name="Border" BorderThickness="3" CornerRadius="110" BorderBrush="DarkBlue">
+                        <Border x:Name="Border" BorderThickness="3" BorderBrush="DarkBlue">
                             <Border.Background>
-                                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
-                                    <GradientStop Color="{Binding Color, RelativeSource={RelativeSource TemplatedParent}}" Offset="0.0"/>
-                                    <GradientStop Color="BlueViolet" Offset="0.9"/>
-                                </LinearGradientBrush>
+                                <ImageBrush  ImageSource="images/LoginBG.jpg" Stretch="UniformToFill" />
+
                             </Border.Background>
-                            <Border.Effect>
-                                <DropShadowEffect ShadowDepth="0" Color="Orange" Opacity="15"
-                                                  BlurRadius="5" Direction="45"  RenderingBias="Quality"/>
-                            </Border.Effect>
+
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -71,20 +66,18 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="58"/>
+            <RowDefinition Height="2"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Welcome Back!" FontSize="35" Width="Auto" 
-                   Style="{StaticResource TextBlockStyle}" Margin="-8,-100,8,0" />
-
-        <TextBox x:Name="emailBox" Tag="Email" Grid.Row="0"  FontSize="20"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                 Style="{StaticResource MyWaterMarkStyle}" Text="bezaleluriel@gmail.com"/>
-        <PasswordBox x:Name="PasswordBox" Tag="Password" Grid.Row="2" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Password="1234"/>
+        <TextBox Background="Transparent" x:Name="emailBox" Tag="Email" Grid.Row="0"  FontSize="24"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                  Text="halfonamir1@gmail.com" Margin="0,-2,0,2" Foreground="White" FontWeight="Bold"/>
+        <PasswordBox Background="Transparent" x:Name="PasswordBox" Tag="Password" Grid.Row="2" FontSize="24" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Password="1234" Margin="0,19,0,21" Grid.RowSpan="2" Foreground="White" FontWeight="Bold"/>
 
 
         <Button x:Name="btnLogin" Width="150" Height="60"
                 BorderThickness="1" Click="btnLogin_Click"
-                Content="Login"   Foreground="White" Grid.Row="4"  FontSize="15">
+                Content="Login"   Foreground="White" Grid.Row="4"  FontSize="15" Margin="60,47,32,-47" Grid.RowSpan="2">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -105,7 +98,7 @@
 
         <Button x:Name="btnClose" Width="150" Height="60"
                 BorderThickness="1" Click="btnClose_Click"
-                Content="Close"   Foreground="White" Grid.Row="4"  FontSize="15" Margin="216,0,-124,0">
+                Content="Close"   Foreground="White" Grid.Row="4"  FontSize="15" Margin="230,47,-138,-47" Grid.RowSpan="2">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -126,7 +119,7 @@
 
         <Button x:Name="btnReset" Width="150" Height="60"
                 BorderThickness="1" Click="btnReset_Click"
-                Content="Reset"   Foreground="White" Grid.Row="4"  FontSize="15" Margin="-122,0,214,0">
+                Content="Reset"   Foreground="White" Grid.Row="4"  FontSize="15" Margin="-108,47,200,-47" Grid.RowSpan="2">
 
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -145,6 +138,6 @@
             </Button.Template>
         </Button>
 
-        <TextBlock x:Name ="errormessage" Height="20" HorizontalAlignment="Left" Margin="-51,116,0,-76" VerticalAlignment="Top" Width="247"  OpacityMask="Crimson" Foreground="#FFE5572C" Grid.Row="4" />
+        <TextBlock x:Name ="errormessage" Visibility="Hidden" Height="30" HorizontalAlignment="Left" Margin="-78,0,-102,0" VerticalAlignment="Top" Width="422"  OpacityMask="Crimson" Foreground="#FFE5572C" Grid.Row="4" FontSize="20" RenderTransformOrigin="0.752,0.55" FontWeight="Bold" Background="Black" />
     </Grid>
 </Window>

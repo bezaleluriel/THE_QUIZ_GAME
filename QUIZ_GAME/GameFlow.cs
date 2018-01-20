@@ -38,6 +38,11 @@ namespace QUIZ_GAME
             get { return currentMoney; }
             set { currentMoney = value; NotifyPropertyChanged("CurrentMoney"); }
         }
+        public int CurrentQuestionNumber
+        {
+            get { return currentQuestionNumber; }
+            set { currentQuestionNumber = value; NotifyPropertyChanged("CurrentQuestionNumber"); }
+        }
         public string CurrentClue
         {
             get { return currentClue; }
@@ -197,7 +202,7 @@ namespace QUIZ_GAME
                 if (gameFinished == true)
                     break;
                 //TODO: Change it to 1,9 when we have all the questions.
-                int quesitonType = rnd.Next(1, 7); // Random question type between 1-6
+                int quesitonType = rnd.Next(1, 9); // Random question type between 1-9
                 this.questionsList[i] = buildQuestionByTypeAndLevel(quesitonType, 3, user_email);
                 // this.questionsList.Add(buildQuestionByTypeAndLevel(quesitonType, 2, user_email));
             }
@@ -208,24 +213,21 @@ namespace QUIZ_GAME
             switch (type)
             {
                 case 1:
-                    //TODO: Change it to Q1 after Shani will fix the bag.
-                    return new Q6(level, user_email);
+                    return new Q1(level, user_email);
                 case 2:
-                    return new Q6(level, user_email);
+                    return new Q2(level, user_email);
                 case 3:
-                    return new Q6(level, user_email);
+                    return new Q3(level, user_email);
                 case 4:
-                    return new Q6(level, user_email);
+                    return new Q4(level, user_email);
                 case 5:
-                    return new Q6(level, user_email);
+                    return new Q5(level, user_email);
                 case 6:
                     return new Q6(level, user_email);
                 case 7:
-
-                    break;
-                default:
-
-                    break;
+                    return new Q7(level, user_email);
+                case 8:
+                    return new Q8(level, user_email);
             }
             //TODO: Remove the return null
             return null;
@@ -274,9 +276,9 @@ namespace QUIZ_GAME
                 case 2:
                     return 300;
                 case 3:
-                    return 400;
-                case 4:
                     return 500;
+                case 4:
+                    return 1000;
                 case 5:
                     return 2000;
                 case 6:

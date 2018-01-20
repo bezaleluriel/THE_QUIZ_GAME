@@ -75,6 +75,7 @@ namespace QUIZ_GAME
                 }
                 else
                 {
+                    errormessage.Visibility = Visibility.Visible;
                     errormessage.Text = "Sorry! Please enter existing email/password.";
                 }
                 

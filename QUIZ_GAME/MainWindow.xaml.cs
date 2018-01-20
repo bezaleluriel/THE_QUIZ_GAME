@@ -26,28 +26,27 @@ namespace QUIZ_GAME
         {
             
             InitializeComponent();
-            txtHello.Text = "Hello " + Properties.Settings.Default.user_name;
+            if (Properties.Settings.Default.user_name.Length == 0)
+                loginRegBtnText.Text = "Login";
+            else
+            {
+                loginRegBtnText.Text = "Log Out";
+                txtHello.Text = Properties.Settings.Default.user_name;
+                stackHello.Visibility = Visibility.Visible;
+            }
+                
+
+            //   txtHello.Text = "Hello " + Properties.Settings.Default.user_name;
         }
 
-        private void Login_Click(object sender, RoutedEventArgs e)
-        {
-            Login login = new Login();
-            login.ShowDialog();
-            txtHello.Text = "Hello " + Properties.Settings.Default.user_name;
-            //this.Close();
-        }
 
-        private void Register_Click(object sender, RoutedEventArgs e)
-        {
-            Register register = new Register();
-            register.ShowDialog();
-            txtHello.Text = "Hello " + Properties.Settings.Default.user_name;
-        }
+
 
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
             if(Properties.Settings.Default.user_name.Length == 0)
             {
+                MessageBox.Show("You need to Login/Register to start a game!");
                 return;
             }
             WaitingWindow waitingWin = new WaitingWindow();
@@ -65,6 +64,57 @@ namespace QUIZ_GAME
             }).Start();
             
             
+        }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            if (Properties.Settings.Default.user_name.Length == 0) {
+                Login login = new Login();
+                login.ShowDialog();
+            }
+            //Else - Log Out
+            else
+            {
+                btnRegister.Visibility = Visibility.Visible;
+                loginRegBtnText.Text = "Login";
+                stackHello.Visibility = Visibility.Hidden;
+                Properties.Settings.Default["user_name"] = "";
+                Properties.Settings.Default["user_email"] = "";
+                Properties.Settings.Default.Save();
+            }
+            if (Properties.Settings.Default.user_name.Length != 0)
+            {
+                loginRegBtnText.Text = "Log Out";
+                btnRegister.Visibility = Visibility.Hidden;
+                txtHello.Text = Properties.Settings.Default.user_name;
+                stackHello.Visibility = Visibility.Visible;
+
+            }
+
+
+                //txtHello.Text = "Hello " + Properties.Settings.Default.user_name;
+                //this.Close();
+            }
+
+        private void btnRegister_Click(object sender, RoutedEventArgs e)
+        {
+            Register register = new Register();
+            register.ShowDialog();
+            if (Properties.Settings.Default.user_name.Length != 0)
+            {
+                loginRegBtnText.Text = "Log Out";
+                btnRegister.Visibility = Visibility.Hidden;
+                txtHello.Text = Properties.Settings.Default.user_name;
+                stackHello.Visibility = Visibility.Visible;
+            }
+
+        }
+
+        private void btnHighScores_Click(object sender, RoutedEventArgs e)
+        {
+            HighScoresWindow hsWin = new HighScoresWindow(false, "");
+            hsWin.Show();
+            this.Close();
         }
     }
 }

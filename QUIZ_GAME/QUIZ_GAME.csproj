@@ -164,10 +164,48 @@
     <Resource Include="images\waitingImg.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="images\arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="images\background2NEW.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\arrow.png" />
+    <Resource Include="images\money\0.jpg" />
+    <Resource Include="images\money\1.jpg" />
+    <Resource Include="images\money\10.jpg" />
+    <Resource Include="images\money\11.jpg" />
+    <Resource Include="images\money\12.jpg" />
+    <Resource Include="images\money\13.jpg" />
+    <Resource Include="images\money\14.jpg" />
+    <Resource Include="images\money\2.jpg" />
+    <Resource Include="images\money\3.jpg" />
+    <Resource Include="images\money\4.jpg" />
+    <Resource Include="images\money\5.jpg" />
+    <Resource Include="images\money\6.jpg" />
+    <Resource Include="images\money\7.jpg" />
+    <Resource Include="images\money\8.jpg" />
+    <Resource Include="images\money\9.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="0.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\gameFinished.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\mainmenu.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\helloImg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\signupBackground.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\LoginBG.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\registerBG.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\BACKGROUNDWIN.jpg" />

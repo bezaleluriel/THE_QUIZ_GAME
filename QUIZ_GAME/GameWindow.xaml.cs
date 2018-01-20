@@ -33,17 +33,17 @@ namespace QUIZ_GAME
         {
             if(this.gameFlow.CurrentCorrectAnsNumber == 0)
             {
-                questionArrow.Margin = new Thickness(questionArrow.Margin.Left, questionArrow.Margin.Top - 28, questionArrow.Margin.Right, questionArrow.Margin.Bottom);
                 MessageBeforeNextWin(true);
                 gameFlow.UpdateSkills(true);
                 gameFlow.MoveToNextQuestion();
+                moneyImg.Source = new BitmapImage(new Uri(@"/images/money/" + gameFlow.CurrentQuestionNumber.ToString() + ".jpg", UriKind.Relative));
             }
             else
             {
                 gameFlow.finishGame();
                 MessageBeforeNextWin(false);
                 gameFlow.UpdateSkills(false);
-                HighScoresWindow highScoresWindow = new HighScoresWindow();
+                HighScoresWindow highScoresWindow = new HighScoresWindow(true,gameFlow.CurrentMoney.ToString());
                 highScoresWindow.Show();
                 this.Close();
             }
@@ -53,17 +53,17 @@ namespace QUIZ_GAME
         {
             if (this.gameFlow.CurrentCorrectAnsNumber == 1)
             {
-            questionArrow.Margin = new Thickness(questionArrow.Margin.Left, questionArrow.Margin.Top - 28, questionArrow.Margin.Right, questionArrow.Margin.Bottom);
                 MessageBeforeNextWin(true);
                 gameFlow.UpdateSkills(true);
                 gameFlow.MoveToNextQuestion();
+                moneyImg.Source = new BitmapImage(new Uri(@"/images/money/" + gameFlow.CurrentQuestionNumber.ToString() + ".jpg", UriKind.Relative));
             }
             else
             {
                 gameFlow.finishGame();
                 MessageBeforeNextWin(false);
                 gameFlow.UpdateSkills(false);
-                HighScoresWindow highScoresWindow = new HighScoresWindow();
+                HighScoresWindow highScoresWindow = new HighScoresWindow(true, gameFlow.CurrentMoney.ToString());
                 highScoresWindow.Show();
                 this.Close();
             }
@@ -73,17 +73,17 @@ namespace QUIZ_GAME
         {
             if (this.gameFlow.CurrentCorrectAnsNumber == 2)
             {
-                questionArrow.Margin = new Thickness(questionArrow.Margin.Left, questionArrow.Margin.Top - 28, questionArrow.Margin.Right, questionArrow.Margin.Bottom);
                 MessageBeforeNextWin(true);
                 gameFlow.UpdateSkills(true);
                 gameFlow.MoveToNextQuestion();
+                moneyImg.Source = new BitmapImage(new Uri(@"/images/money/" + gameFlow.CurrentQuestionNumber.ToString() + ".jpg", UriKind.Relative));
             }
             else
             {
                 gameFlow.finishGame();
                 MessageBeforeNextWin(false);
                 gameFlow.UpdateSkills(false);
-                HighScoresWindow highScoresWindow = new HighScoresWindow();
+                HighScoresWindow highScoresWindow = new HighScoresWindow(true, gameFlow.CurrentMoney.ToString());
                 highScoresWindow.Show();
                 this.Close();
             }
@@ -93,17 +93,17 @@ namespace QUIZ_GAME
         {
             if (this.gameFlow.CurrentCorrectAnsNumber == 3)
             {
-                questionArrow.Margin = new Thickness(questionArrow.Margin.Left, questionArrow.Margin.Top - 28, questionArrow.Margin.Right, questionArrow.Margin.Bottom);
                 MessageBeforeNextWin(true);
                 gameFlow.UpdateSkills(true);
                 gameFlow.MoveToNextQuestion();
+                moneyImg.Source = new BitmapImage(new Uri(@"/images/money/" + gameFlow.CurrentQuestionNumber.ToString() + ".jpg", UriKind.Relative));
             }
             else
             {
                 gameFlow.finishGame();
                 MessageBeforeNextWin(false);
                 gameFlow.UpdateSkills(false);
-                HighScoresWindow highScoresWindow = new HighScoresWindow();
+                HighScoresWindow highScoresWindow = new HighScoresWindow(true, gameFlow.CurrentMoney.ToString());
                 highScoresWindow.Show();
                 this.Close();
             }
@@ -116,6 +116,7 @@ namespace QUIZ_GAME
 
         public void MessageBeforeNextWin(bool trueAnswer)
         {
+            
             string message;
             if (trueAnswer)
                 message = "You Right!\nMove to next question?";

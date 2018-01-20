@@ -23,7 +23,8 @@ namespace QUIZ_GAME
             server = "localhost";
             database = "mydb"; //change the name of the db
             uid = "root";
-            password = "1234";
+            //password = "1234";
+            password = "a1b2c3";
             string connectionString;
             connectionString = "SERVER=" + server + ";" + "DATABASE=" +
                                database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 //Add MySql Library
 using MySql.Data.MySqlClient;
 using System.Windows;
+using System.Data;
 
 namespace QUIZ_GAME
 {
@@ -25,8 +26,8 @@ namespace QUIZ_GAME
             server = "localhost";
             database = "mydb"; //change the name of the db
             uid = "root";
-            password = "1234";
-            //password = "a1b2c3";
+            //password = "1234";
+            password = "a1b2c3";
             string connectionString;
             connectionString = "SERVER=" + server + ";" + "DATABASE=" +
             database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
@@ -40,7 +41,9 @@ namespace QUIZ_GAME
             
             try
             {
-                connection.Open();
+                if (connection.State != ConnectionState.Open)
+                    connection.Open();
+                //connection.Open();
                 return true;
             }
             catch (MySqlException ex)
@@ -367,7 +370,8 @@ namespace QUIZ_GAME
                 while (dataReader.Read())
                     songsList[0].Add(dataReader[0] + "");
                 int numOfSongs = songsList[0].Count;
-
+                if (numOfSongs == 0)
+                    return null;
                 Random rnd = new Random();
                 int randomChoose = 0;
                 switch (locationInTable)

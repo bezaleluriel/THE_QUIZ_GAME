@@ -45,27 +45,28 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="btnA4" Grid.Row="1" Grid.Column="1" Background="Transparent"
                 BorderThickness="1"
-                  Foreground="White"  FontSize="15" Height="50" Width="300"  Click="btnA4_Click" Margin="46,6,32,24">
+                  Foreground="White"  FontSize="15" Height="50"  Click="btnA4_Click" Margin="86,6,32,24">
                 <TextBlock TextWrapping="Wrap" Text="{Binding Path=CurrentFourthAns,UpdateSourceTrigger=PropertyChanged}"/>
             </Button>
             <Button x:Name="btnA3" Grid.Row="1" Grid.Column="0" Background="Transparent"
                 BorderThickness="1"
-                  Foreground="White"  FontSize="15" Height="50" Width="300"  Click="btnA3_Click" Margin="10,6,47,24">
+                  Foreground="White"  FontSize="15" Height="50"  Click="btnA3_Click" Margin="46,6,47,24">
                 <TextBlock TextWrapping="Wrap" Text="{Binding Path=CurrentThirdAns,UpdateSourceTrigger=PropertyChanged}"/>
             </Button>
             <Button x:Name="btnA2" Grid.Row="0" Grid.Column="1" Background="Transparent"
                 BorderThickness="1"
-                  Foreground="White"  FontSize="15" Height="50" Width="300"  Click="btnA2_Click" Margin="46,20,32,10">
+                  Foreground="White"  FontSize="15" Height="50"  Click="btnA2_Click" Margin="86,20,32,10">
                 <TextBlock TextWrapping="Wrap" Text="{Binding Path=CurrentSecondAns,UpdateSourceTrigger=PropertyChanged}"/>
             </Button>
             <Button x:Name="btnA1" Grid.Row="0" Grid.Column="0" Background="Transparent"
                 BorderThickness="1"
-                  Foreground="White"  FontSize="15" Height="50" Width="300"  Click="btnA1_Click" Margin="10,20,47,10">
+                  Foreground="White"  FontSize="15" Height="50"  Click="btnA1_Click" Margin="46,20,47,10">
                 <TextBlock TextWrapping="Wrap" Text="{Binding Path=CurrentFirstAns,UpdateSourceTrigger=PropertyChanged}"/>
             </Button>
         </Grid>
         <StackPanel HorizontalAlignment="Left" Height="408" Margin="717,-204,-273,-104" VerticalAlignment="Top" Width="236">
-            <Rectangle x:Name="questionArrow" Height="28" Stroke="#FFC6FF04" StrokeThickness="3.5"  Margin="0,374,22,0"/>
+            <Image x:Name="moneyImg" Height="408" Width="236" Margin="0,0,0,0" Source="0.jpg" Stretch="Fill"/>
+
         </StackPanel>
         <StackPanel HorizontalAlignment="Left" Height="188" Margin="-60,-306,0,0" VerticalAlignment="Top" Width="302">
 

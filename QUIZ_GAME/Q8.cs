@@ -38,7 +38,7 @@ namespace QUIZ_GAME
             set
             {
                 answer2 = value;
-                if(answer2!=null)
+                if (answer2 != null)
                 {
                     this.answer2 = this.answer2.Replace("'", "''");
                 }
@@ -51,7 +51,7 @@ namespace QUIZ_GAME
             set
             {
                 answer1 = value;
-                if(answer1 != null)
+                if (answer1 != null)
                 {
                     this.answer1 = this.answer1.Replace("'", "''");
                 }
@@ -169,7 +169,7 @@ namespace QUIZ_GAME
             List<string>[] answer = null;
 
             // randomley choosing 3 artists for 3 wrong answers.
-            answer = db.selectQ8("select song_name from songs order by rand() limit 6","song_name");
+            answer = db.selectQ8("select song_name from songs order by rand() limit 6", "song_name");
 
             // if one of the querys returns null we return null.
             if (answer == null)
@@ -220,7 +220,7 @@ namespace QUIZ_GAME
             Answer1 = helper();
             //setting the second answer
             Answer2 = helper();
-            if (Answer1 == null || Answer2==null)
+            if (Answer1 == null || Answer2 == null)
             {
                 return null;
             }
@@ -415,7 +415,7 @@ namespace QUIZ_GAME
                 toAdd = 1;
             else
                 toAdd = -1;
-            bool hasFirstSongsSkill = false, hasSecondSongsSkill = false,hasYearsSkill = false;
+            bool hasFirstSongsSkill = false, hasSecondSongsSkill = false, hasYearsSkill = false;
             string first_song_ID = this.Answer1_song_id;
             string second_song_ID = this.Answer2_song_id;
             string songYear = this.year;

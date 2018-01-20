@@ -23,13 +23,17 @@ namespace QUIZ_GAME
         DB_Connect db;
         List<Label> userLbls;
         List<Label> scrLbls;
-        public HighScoresWindow()
+        public HighScoresWindow(bool gameFinished, string wonMoney)
         {
 
 
             db = new DB_Connect();
             InitializeComponent();
-
+            if (gameFinished)
+            {
+                stackPanelGameFinish.Visibility = Visibility.Visible;
+                moneyLbl.Content = wonMoney + " $";
+            }
             userLbls = new List<Label>();
             userLbls.Add(lblUsr1);
             userLbls.Add(lblUsr2);

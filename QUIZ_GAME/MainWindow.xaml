@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QUIZ_GAME"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="441" Width="543" WindowStartupLocation="CenterScreen">
     <Window.Style>
         <Style TargetType="{x:Type Window}">
             <Setter Property="Template">
@@ -13,15 +13,10 @@
                     <ControlTemplate TargetType="{x:Type Window}">
                         <Border x:Name="Border" BorderThickness="3" BorderBrush="DarkBlue">
                             <Border.Background>
-                                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
-                                    <GradientStop Color="{Binding Color, RelativeSource={RelativeSource TemplatedParent}}" Offset="0.0"/>
-                                    <GradientStop Color="BlueViolet" Offset="0.9"/>
-                                </LinearGradientBrush>
+                                <ImageBrush ImageSource="images/mainmenu.jpg" Stretch="UniformToFill"/>
+
                             </Border.Background>
-                            <Border.Effect>
-                                <DropShadowEffect ShadowDepth="0" Color="Orange" Opacity="15"
-                                                  BlurRadius="5" Direction="45"  RenderingBias="Quality"/>
-                            </Border.Effect>
+
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -57,89 +52,39 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid>
-        <Grid.Resources>
-            <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}">
-                <Setter Property="FontFamily" Value="Arial" />
-                <Setter Property="Foreground" Value="White"></Setter>
-            </Style>
-
-
-        </Grid.Resources>
+    <Grid Margin="0,270,0,0" Height="70" Width="400">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-
-        <TextBlock Text=" Welcome to Music Quiz!" FontSize="45" Width="Auto" 
-                   Style="{StaticResource TextBlockStyle}" Margin="0,-20,0,0" Grid.RowSpan="3" />
-
-
-        <Button x:Name="btnStartGame" Width="150" Height="60"
-                BorderThickness="1" Click="btnStartGame_Click"
-                Content="Start Game!"   Foreground="White"  FontSize="15" Margin="159,38,188,22" Grid.RowSpan="3">
-
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Grid>
-                        <Border  CornerRadius="25" BorderThickness="1">
-                            <Border.Background>
-                                <LinearGradientBrush
-                                    StartPoint="0,0.5" EndPoint="0,0.5">
-                                    <GradientStop Color="MediumPurple" Offset="0.0"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
-                        </Border>
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Grid>
-                </ControlTemplate>
-            </Button.Template>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="btnStartGame" Click="btnStartGame_Click" Grid.Row="0" Grid.Column="0" Background="Transparent"
+                BorderThickness="1"
+                  Foreground="White"  FontSize="15"  Margin="-6,10,-39,27" Grid.RowSpan="2">
+            <TextBlock TextWrapping="Wrap" Text="Start Game" FontWeight="Bold"/>
         </Button>
-        <Button x:Name="btnRegister" Width="150" Height="60"
-                BorderThickness="1" Click="Register_Click"
-                Content="Register"   Foreground="White" Grid.Row="2"  FontSize="15" Margin="159,38,188,42" Grid.RowSpan="3">
-
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Grid>
-                        <Border  CornerRadius="25" BorderThickness="1">
-                            <Border.Background>
-                                <LinearGradientBrush
-                                    StartPoint="0,0.5" EndPoint="0,0.5">
-                                    <GradientStop Color="MediumPurple" Offset="0.0"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
-                        </Border>
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Grid>
-                </ControlTemplate>
-            </Button.Template>
+        <Button x:Name="btnHighScores"  Grid.Row="1" Grid.Column="0" Background="Transparent"
+            BorderThickness="1"
+            Foreground="White"  FontSize="15"  Margin="-6,9,-46,-3" Click="btnHighScores_Click">
+            <TextBlock TextWrapping="Wrap" Text="High Scores" FontWeight="Bold"/>
         </Button>
-
-        <Button x:Name="btnLogin" Width="150" Height="60"
-                BorderThickness="1" Click="Login_Click"
-                Content="Login"   Foreground="White" Grid.Row="4"  FontSize="15" Margin="159,39,188,-39">
-
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Grid>
-                        <Border  CornerRadius="25" BorderThickness="1">
-                            <Border.Background>
-                                <LinearGradientBrush
-                                    StartPoint="0,0.5" EndPoint="0,0.5">
-                                    <GradientStop Color="MediumPurple" Offset="0.0"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
-                        </Border>
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Grid>
-                </ControlTemplate>
-            </Button.Template>
+        <Button x:Name="btnLogin"  Grid.Row="0" Grid.Column="0" Background="Transparent"
+            BorderThickness="1"
+            Foreground="White"  FontSize="15"  Margin="244,10,-289,27" Grid.RowSpan="2" Click="btnLogin_Click">
+            <TextBlock x:Name="loginRegBtnText" TextWrapping="Wrap" Text="Login" FontWeight="Bold"/>
         </Button>
-        <TextBlock x:Name="txtHello" HorizontalAlignment="Left" Margin="25,-35,0,0" TextWrapping="Wrap" Text="Hello " VerticalAlignment="Top" RenderTransformOrigin="0.347,-1.25" FontSize="16" FontWeight="Bold" FontFamily="Arial Black" Width="202"/>
+        <Button x:Name="btnRegister"  Grid.Row="1" Grid.Column="0" Background="Transparent"
+            BorderThickness="1"
+            Foreground="White"  FontSize="15"  Margin="244,12,-289,-6" Click="btnRegister_Click" >
+            <TextBlock x:Name="registerTxt" TextWrapping="Wrap" Text="Register" FontWeight="Bold"/>
+        </Button>
+        <StackPanel Visibility="Hidden" x:Name="stackHello" HorizontalAlignment="Left" Height="70" Margin="-50,-263,0,0" VerticalAlignment="Top" Width="100">
+            <Image Source="images/helloImg.jpg" Height="33"/>
+            <TextBlock x:Name="txtHello" TextWrapping="Wrap" Text="UserName" HorizontalAlignment="Center" Foreground="#FFFFFCFC" FontWeight="Bold" FontFamily="Arial Black"/>
 
+        </StackPanel>
     </Grid>
+
 </Window>
