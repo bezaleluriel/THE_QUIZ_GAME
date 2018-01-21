@@ -233,10 +233,6 @@ namespace QUIZ_GAME
             Song songToReturn = null;
             string song_id = "";
             MySqlDataReader rdr = null;
-            //TODO: Maybe this qury isn't good because it returns null sometimes.
-            //string query = " Select * from (select * from songs where year>0) as one  natural join" +
-            //    "(Select* from artists where artist_familiarity between " + from.ToString("0.000000") +
-            //    " and " + to.ToString("0.000000") + " order by rand() limit 1) as two order by rand() limit 1;";
             string query = " Select * from " +
                 "(Select* from artists where artist_familiarity between "+ from.ToString("0.000000") + " and "+ to.ToString("0.000000") + " order by rand() limit 1) as two" +
                 " natural join (select * from songs where year>0) as one  order by rand() limit 1;";

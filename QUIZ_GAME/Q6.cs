@@ -115,9 +115,9 @@ namespace QUIZ_GAME
                 case 1:
                     return buildQuestionToLevel(0.8,1,"TOP");
                 case 2:
-                    return buildQuestionToLevel(0.8, 1, "MIDDLE");
+                    return buildQuestionToLevel(0.5, 0.8, "MIDDLE");
                 default:
-                    return buildQuestionToLevel(0.8, 1, "BOTTOM");
+                    return buildQuestionToLevel(0.2, 0.5, "BOTTOM");
             }
         }
 
