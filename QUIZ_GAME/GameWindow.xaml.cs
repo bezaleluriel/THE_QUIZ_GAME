@@ -22,11 +22,14 @@ namespace QUIZ_GAME
         private GameFlow gameFlow;
         public Game(GameFlow gf)
         {
-            //gameFlow = new GameFlow("halfonamir1@gmail.com");
+
             this.gameFlow = gf;
             InitializeComponent();
             this.DataContext = gameFlow;
-            
+
+
+
+
         }
 
         private void btnA1_Click(object sender, RoutedEventArgs e)
@@ -137,12 +140,26 @@ namespace QUIZ_GAME
 
         public void MessageBeforeNextWin(bool trueAnswer)
         {
+            MediaPlayer mplayer = new MediaPlayer();
+
             
+
+            mplayer.Play();
             string message;
             if (trueAnswer)
+            {
+                mplayer.Open(new Uri(@"../../images/correct.mp3", UriKind.Relative));
+                mplayer.Play();
                 message = "You Right!\nMove to next question?";
+            }
+
             else
+            {
+                mplayer.Open(new Uri(@"../../images/wrong.mp3", UriKind.Relative));
+                mplayer.Play();
                 message = "You Were Wrong!\nGAME OVER!";
+            }
+                
             MessageBoxResult result = MessageBox.Show(message, "Who Wants To Be A Millionaire?", MessageBoxButton.OK);
         }
 

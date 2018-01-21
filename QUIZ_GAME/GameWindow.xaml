@@ -74,7 +74,7 @@
             <Image x:Name="clueImg" Margin="0,-20,0,0" HorizontalAlignment="Left"  Height="66" Opacity="0.7"  VerticalAlignment="Top"  Width="48" Source="images/clueLogo.png"/>
             <Button Content="" Height="65" Margin="-4,-65,254,-20" Background="Transparent" VerticalAlignment="Top" FontWeight="Bold" Click="Button_Click"/>
             <TextBlock HorizontalAlignment="Left" Background="Transparent" TextWrapping="Wrap" Text="{Binding Path=CurrentClue,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" FontWeight="Bold" FontSize="24" Height="133" Width="292" Foreground="#FFFDFD05" FontFamily="Arial Black" />
-
+           
         </StackPanel>
         <StackPanel HorizontalAlignment="Left" Height="93" Margin="717,-320,-242,0" VerticalAlignment="Top" Width="205">
             <Label Content="My Money:" HorizontalAlignment="Left" Margin="68,0,0,0" VerticalAlignment="Top" FontWeight="Bold" Background="#FFBBFF05" FontFamily="Arial Black" FontSize="16"/>
@@ -85,6 +85,7 @@
             <Label x:Name="correctAnsLbl" Height="30" Margin="70,-25,0,0" Content="{Binding Path=CurrentCorrectAnsNumber,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="#FFF9F9F9" FontSize="14" FontWeight="Bold" Width="40"/>
 
         </StackPanel>
+        
     </Grid>
 
 </Window>

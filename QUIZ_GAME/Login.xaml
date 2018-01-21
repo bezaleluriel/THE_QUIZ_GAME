@@ -70,9 +70,8 @@
             <RowDefinition Height="2"/>
         </Grid.RowDefinitions>
 
-        <TextBox Background="Transparent" x:Name="emailBox" Tag="Email" Grid.Row="0"  FontSize="24"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                  Text="halfonamir1@gmail.com" Margin="0,-2,0,2" Foreground="White" FontWeight="Bold"/>
-        <PasswordBox Background="Transparent" x:Name="PasswordBox" Tag="Password" Grid.Row="2" FontSize="24" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Password="1234" Margin="0,19,0,21" Grid.RowSpan="2" Foreground="White" FontWeight="Bold"/>
+        <TextBox Background="Transparent" x:Name="emailBox" Tag="Email" Grid.Row="0"  FontSize="24"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-2,0,2" Foreground="White" FontWeight="Bold"/>
+        <PasswordBox Background="Transparent" x:Name="PasswordBox" Tag="Password" Grid.Row="2" FontSize="24" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,19,0,21" Grid.RowSpan="2" Foreground="White" FontWeight="Bold"/>
 
 
         <Button x:Name="btnLogin" Width="150" Height="60"

@@ -22,6 +22,7 @@ namespace QUIZ_GAME
         public WaitingWindow()
         {
             InitializeComponent();
+
         }
     }
 }
