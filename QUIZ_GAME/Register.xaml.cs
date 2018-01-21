@@ -67,7 +67,7 @@ namespace QUIZ_GAME
                 {
                     errormessage.Text = "";
                     DB_Connect db_connect = new DB_Connect();
-                    bool result = db_connect.Insert(name, password, email);
+                    bool result = db_connect.InsertNewUser(name, password, email);
 
                     if(result == true)
                     {

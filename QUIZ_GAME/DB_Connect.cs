@@ -26,8 +26,8 @@ namespace QUIZ_GAME
             server = "localhost";
             database = "mydb"; //change the name of the db
             uid = "root";
-            password = "1234";
-           // password = "a1b2c3";
+           // password = "1234";
+            password = "a1b2c3";
             string connectionString;
             connectionString = "SERVER=" + server + ";" + "DATABASE=" +
             database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
@@ -82,8 +82,8 @@ namespace QUIZ_GAME
             }
         }
 
-        //Insert statement
-        public bool Insert(string name, string password, string email)
+        //InsertNewUser statement
+        public bool InsertNewUser(string name, string password, string email)
         {
             string query = "INSERT INTO users (user_name, user_password, user_email) VALUES('" + name + "','" + password
                 + "','" + email + "')";
@@ -116,7 +116,7 @@ namespace QUIZ_GAME
         }
 
         //Select statement
-        public List<string>[] Select(string email, string password)
+        public List<string>[] SelectUser(string email, string password)
         {
             string query = "SELECT * FROM users Where user_email = '" + email
                 + "' AND user_password = '" + password + "'";

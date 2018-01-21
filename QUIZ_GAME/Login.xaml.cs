@@ -61,7 +61,7 @@ namespace QUIZ_GAME
                 string password = PasswordBox.Password;
 
                 DB_Connect db_connect = new DB_Connect();
-                List<string>[] answer = db_connect.Select(email, password);
+                List<string>[] answer = db_connect.SelectUser(email, password);
                 if (answer != null)
                 {
                     errormessage.Text = "Login successfully";
