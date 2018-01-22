@@ -382,6 +382,7 @@ namespace QUIZ_GAME
         public string[] buildAnswers()
         {
             TrueAnswer = loc;
+            TrueAnswer = TrueAnswer.Replace("'", "''");
             string query = "select artist_location from artists_locations where artist_location != '" + loc + "'";
             List<string>[] args = db.getArtistNameByJoin3(query);
             Random rnd = new Random();

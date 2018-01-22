@@ -295,6 +295,7 @@ namespace QUIZ_GAME
 
         public string[] buildAnswers()
         {
+            TrueAnswer = TrueAnswer.Replace("'", "''");
             string query = "select artist_name from artists where artist_name != '" + TrueAnswer + "'";// order by rand() limit 3;";
             List<string>[] args = db.getArtistNameByJoin4(query);
             Random rnd = new Random();
