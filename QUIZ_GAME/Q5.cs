@@ -67,15 +67,15 @@ namespace QUIZ_GAME
                 //string query;
                 case "artist":
                     table_name = "user_artists_skills";
-                    answer = db.SelectUserSkills(this.User_email, table_name,false);
+                    answer = db.SelectUserSkills(this.User_email, table_name, false);
                     break;
                 case "song":
                     table_name = "user_songs_skills";
-                    answer = db.SelectUserSkills(this.User_email, table_name,false);
+                    answer = db.SelectUserSkills(this.User_email, table_name, false);
                     break;
                 case "year":
                     table_name = "user_years_skills";
-                    answer = db.SelectUserSkills(this.User_email, table_name,false);
+                    answer = db.SelectUserSkills(this.User_email, table_name, false);
                     break;
                 case "location":
                     table_name = "user_locations_skills";
@@ -89,19 +89,19 @@ namespace QUIZ_GAME
             //if less than 10 rows, it's not enough for relate it as a skill.
             if (numOfRows < 10)
                 return null;
-            
+
             Random rnd = new Random();
             int choose = 0;
             switch (this.Level)
             {
                 case 1:
-                    choose = rnd.Next(0, (numOfRows / 3)+1);
+                    choose = rnd.Next(0, (numOfRows / 3) + 1);
                     break;
                 case 2:
-                    choose = rnd.Next((numOfRows / 3), ((numOfRows / 3)*2)+1);
+                    choose = rnd.Next((numOfRows / 3), ((numOfRows / 3) * 2) + 1);
                     break;
                 case 3:
-                    choose = rnd.Next((numOfRows / 3) * 2, numOfRows );
+                    choose = rnd.Next((numOfRows / 3) * 2, numOfRows);
                     break;
             }
             if (numOfRows == 1)
@@ -114,14 +114,14 @@ namespace QUIZ_GAME
         {
             string songYear = this.songForQuiestion.Year.ToString();
             Song songForClue = null;
-             this.Clue = "In this year <artist_name> also released the song <song_name> ";
+            this.Clue = "In this year <artist_name> also released the song <song_name> ";
             //Build Clue by Artist skill
             List<string>[] answer = null;
-            answer = db.SelectUserSkills(this.User_email, "user_artists_skills",true);
-            foreach(string artist in answer[0])
+            answer = db.SelectUserSkills(this.User_email, "user_artists_skills", true);
+            foreach (string artist in answer[0])
             {
                 //string artist = (string)o_artist;
-                songForClue=db.GetRandomSongByArtistIDAndYear(artist, songYear);
+                songForClue = db.GetRandomSongByArtistIDAndYear(artist, songYear);
                 if (songForClue != null)
                 {
                     this.Clue = this.Clue.Replace("<artist_name>", songForClue.Artist_name);
@@ -153,7 +153,7 @@ namespace QUIZ_GAME
         {
             Random rnd = new Random();
             //For mixing the choices between with skills and without.
-            int chooseWithSkills = rnd.Next(100)%10;
+            int chooseWithSkills = rnd.Next(100) % 10;
 
             if (chooseWithSkills < 4)
             {
@@ -308,7 +308,7 @@ namespace QUIZ_GAME
             {
                 wrongAns = db.get3RandomSongs();
             } while (wrongAns == null);
-            
+
             WrongAnswers = wrongAns;
             return wrongAns;
         }
@@ -319,7 +319,7 @@ namespace QUIZ_GAME
                 toAdd = 1;
             else
                 toAdd = -1;
-            bool hasLocationsSkill=false, hasSongsSkill = false, hasArtistsSkill = false, hasYearsSkill = false;
+            bool hasLocationsSkill = false, hasSongsSkill = false, hasArtistsSkill = false, hasYearsSkill = false;
             string songID = songForQuiestion.Song_id;
             string artistID = songForQuiestion.Artist_id;
             int songYear = songForQuiestion.Year;
@@ -335,15 +335,15 @@ namespace QUIZ_GAME
                 else
                     db.InsertNewSkill("user_locations_skills", this.User_email, artist_location, toAdd);
             }
-            if(hasSongsSkill)
+            if (hasSongsSkill)
                 db.UpdateRate("user_songs_skills", this.User_email, "song_id", songID, toAdd);
             else
                 db.InsertNewSkill("user_songs_skills", this.User_email, songID, toAdd);
-            if(hasArtistsSkill)
+            if (hasArtistsSkill)
                 db.UpdateRate("user_artists_skills", this.User_email, "artist_id", artistID, toAdd);
             else
                 db.InsertNewSkill("user_artists_skills", this.User_email, artistID, toAdd);
-            if(hasYearsSkill)
+            if (hasYearsSkill)
                 db.UpdateRate("user_years_skills", this.User_email, "year", songYear.ToString(), toAdd);
             else
                 db.InsertNewSkill("user_years_skills", this.User_email, songYear.ToString(), toAdd);

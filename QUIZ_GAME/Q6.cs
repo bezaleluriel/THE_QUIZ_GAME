@@ -54,7 +54,7 @@ namespace QUIZ_GAME
             this.Clue = buildClue();
             this.WrongAnswers = buildAnswers();
             this.TrueAnswer = buildTrueAnswer();
-            
+
         }
 
 
@@ -68,14 +68,14 @@ namespace QUIZ_GAME
                 //Create 3 answers of unique years that different from the right answer.
                 if ((!yearsQueue.Contains(year.ToString())) && (albumForQuestion.Year.ToString() != year.ToString()))
                     yearsQueue.Enqueue(year.ToString());
-            }while(yearsQueue.Count < 3);
+            } while (yearsQueue.Count < 3);
             WrongAnswers = yearsQueue.ToArray();
             return WrongAnswers;
         }
 
         public string buildClue()
         {
-            if(buildClueBySongsSkills() == true)
+            if (buildClueBySongsSkills() == true)
             {
                 return this.Clue;
             }
@@ -94,7 +94,6 @@ namespace QUIZ_GAME
                     this.Clue = "PROBLEM WITH CLUE ABOUT SONG FROM" + albumForQuestion.Year.ToString();
                 return this.Clue;
             }
-            //throw new NotImplementedException();
         }
 
         //Returning true if the clue built, and false otherwise.
@@ -109,7 +108,7 @@ namespace QUIZ_GAME
                 return true;
             }
             return false;
-            
+
         }
 
         public string buildQuestion()
@@ -117,7 +116,7 @@ namespace QUIZ_GAME
             switch (this.Level)
             {
                 case 1:
-                    return buildQuestionToLevel(0.8,1,"TOP");
+                    return buildQuestionToLevel(0.8, 1, "TOP");
                 case 2:
                     return buildQuestionToLevel(0.5, 0.8, "MIDDLE");
                 default:
@@ -131,7 +130,7 @@ namespace QUIZ_GAME
             return TrueAnswer;
         }
 
-        public string buildQuestionToLevel(double popularFrom, double popularTo,string locationInTable)
+        public string buildQuestionToLevel(double popularFrom, double popularTo, string locationInTable)
         {
             albumIsNull:
             Album album;
@@ -139,15 +138,15 @@ namespace QUIZ_GAME
             if ((album = BuildQuestionByArtistSkills()) != null)
                 this.albumForQuestion = album;
             else if ((album = BuildQuestionByYearsSkills()) != null)
-                    this.albumForQuestion = album;
+                this.albumForQuestion = album;
             else
             {
                 Random rnd = new Random();
                 int chooseMethod = rnd.Next(0, 2);
-                if(chooseMethod == 1)
+                if (chooseMethod == 1)
                     songForQuestion = db.GetSongOfArtistByPopularity(popularFrom, popularTo);
                 else
-                     songForQuestion = db.GetOthersYearSkillsSong(locationInTable);
+                    songForQuestion = db.GetOthersYearSkillsSong(locationInTable);
                 if (songForQuestion == null)
                     goto albumIsNull;
                 album = db.GetSpecificAlbumOfArtist(songForQuestion.Artist_id, songForQuestion.Album_name);
@@ -182,16 +181,17 @@ namespace QUIZ_GAME
         {
             int numOfElements = list.Count;
 
-            switch (this.Level){
+            switch (this.Level)
+            {
                 case 1:
                     return list.GetRange(0, numOfElements / 3);
-                    
+
                 case 2:
                     return list.GetRange(numOfElements / 3, numOfElements / 3);
-                    
+
                 default:
-                    return list.GetRange((numOfElements / 3)*2, numOfElements / 3);
-                    
+                    return list.GetRange((numOfElements / 3) * 2, numOfElements / 3);
+
             }
         }
 
@@ -233,7 +233,6 @@ namespace QUIZ_GAME
             if (answer == null)
                 return null;
             numOfRows = answer[0].Count;
-            //TODO : Add check if enough rows for skill, if not enough - return null
             if (numOfRows == 0)
                 return null;
 

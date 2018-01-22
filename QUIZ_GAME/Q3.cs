@@ -10,7 +10,7 @@ namespace QUIZ_GAME
     /// Class of question type 3, Implements the interface Iquestion.
     /// </summary>
     /// <seealso cref="QUIZ_GAME.Iquestion" />
-    class Q3 :Iquestion
+    class Q3 : Iquestion
     {
         private int Level;
         private string question;
@@ -79,7 +79,7 @@ namespace QUIZ_GAME
             if (answer == null)
                 return null;
             numOfRows = answer[0].Count;
-            
+
             if (numOfRows == 0)
                 return null;
 
@@ -108,7 +108,7 @@ namespace QUIZ_GAME
                 case 1:
                     return buildQuestionToFirstLevel();
                 case 2:
-                   
+
                     return buildQuestionToSecondLevel();
                 case 3:
                     return buildQuestionToThirdLevel();
@@ -121,8 +121,8 @@ namespace QUIZ_GAME
         public string buildQuestionToFirstLevel()
         {
             string skillParameter = "";
-            
-           
+
+
             string art_name = "";
             Random rnd2 = new Random();
             //For mixing the choices between with skills and without.
@@ -157,7 +157,7 @@ namespace QUIZ_GAME
                 }
             }
             //If there is no skill - choose question by other random parameter
-            if(ar_id == "")
+            if (ar_id == "")
             {
 
                 do
@@ -178,19 +178,17 @@ namespace QUIZ_GAME
                             {
                                 goto AAAA;
                             }
-                                break;
+                            break;
                         case 2:
                             goto AAAA;
-                            // loc = db.getLocationByOtherSkills();
                             break;
-                     
+
                     }
                 } while (ar_id == null);
-               
+
             }
 
             this.Question = this.Question.Replace("<artist_name>", art_name);
-          //  this.Question = this.Question.Replace("<album_name>", this.songForQuiestion.Album_name);
             return this.Question;
         }
 
@@ -198,7 +196,7 @@ namespace QUIZ_GAME
         {
             string skillParameter = "";
             string ar_id = "";
-           
+
             string art_name = "";
 
             Random rnd2 = new Random();
@@ -233,7 +231,7 @@ namespace QUIZ_GAME
                 }
             }
             //If there is no skill - choose question by other random parameter
-            if(ar_id == "")
+            if (ar_id == "")
             {
 
                 do
@@ -255,19 +253,17 @@ namespace QUIZ_GAME
                             {
                                 goto AAAA;
                             }
-                                break;
+                            break;
                         case 2:
                             goto AAAA;
-                            // loc = db.getLocationByOtherSkills();
                             break;
-                       
+
                     }
                 } while (ar_id == null);
-                
+
             }
 
             this.Question = this.Question.Replace("<artist_name>", art_name);
-            //  this.Question = this.Question.Replace("<album_name>", this.songForQuiestion.Album_name);
             return this.Question;
         }
 
@@ -275,7 +271,7 @@ namespace QUIZ_GAME
         {
             string skillParameter = "";
             string ar_id = "";
-            
+
             string art_name = "";
 
             bool checker;
@@ -286,7 +282,7 @@ namespace QUIZ_GAME
             if (chooseWithSkills < 3)
             {
 
-                if ((skillParameter = getSkill("artist")) != null )
+                if ((skillParameter = getSkill("artist")) != null)
                 {
                     BBBB:
                     ar_id = db.GetRandomArtistID(User_email);
@@ -309,11 +305,11 @@ namespace QUIZ_GAME
                     {
                         goto CCCC;
                     }
-                    
+
                 }
             }
             //If there is no skill - choose question by other random parameter
-            if((ar_id == ""))
+            if ((ar_id == ""))
             {
 
                 do
@@ -334,26 +330,24 @@ namespace QUIZ_GAME
                             {
                                 goto AAAA;
                             }
-                                break;
+                            break;
                         case 2:
                             goto AAAA;
-                            // loc = db.getLocationByOtherSkills();
                             break;
-                        
+
                     }
                 } while (ar_id == null);
-               
+
             }
 
             this.Question = this.Question.Replace("<artist_name>", art_name);
-            //  this.Question = this.Question.Replace("<album_name>", this.songForQuiestion.Album_name);
             return this.Question;
         }
 
         public string buildClue()
         {
             Song songForClue = null;
-           
+
 
             //The place is the same place that the artist Moses was born
             this.Clue = "The place is the same place that the artist <artist_name> was born";
@@ -366,13 +360,13 @@ namespace QUIZ_GAME
             }
             //without skills
             string artistNameByPopAndLoc = db.getArtistNameByPopAndLoc(ar_id, User_email, loc);
-            if(artistNameByPopAndLoc != "")
+            if (artistNameByPopAndLoc != "")
             {
                 this.Clue = this.Clue.Replace("<artist_name>", artistNameByPopAndLoc);
                 return this.Clue;
             }
 
-            else if(loc != "")
+            else if (loc != "")
             {
                 Clue = "The first letter is X";
                 this.Clue = this.Clue.Replace("X", loc[0].ToString());
@@ -387,13 +381,8 @@ namespace QUIZ_GAME
 
         public string[] buildAnswers()
         {
-            //select artist_name from artists  order by rand() limit 3;
             TrueAnswer = loc;
-
-           // string query = "select artist_name from artists where artist_name != '" + TrueAnswer + "'";// order by rand() limit 3;";
             string query = "select artist_location from artists_locations where artist_location != '" + loc + "'";
-            // List<string>[] args = db.getYear(query);
-            //string query = "select year from songs where year != '" + TrueAnswer + "'";
             List<string>[] args = db.getArtistNameByJoin3(query);
             Random rnd = new Random();
             List<string> artistsList = args[0];
@@ -418,13 +407,9 @@ namespace QUIZ_GAME
             else
                 toAdd = -1;
             bool hasLocationsSkill = false, hasSongsSkill = false, hasArtistsSkill = false, hasYearsSkill = false;
-            //string songID = songForQuiestion.Song_id;
             string artistID = ar_id;
-            //int songYear = songForQuiestion.Year;
             string artist_location = db.GetArtistLocation(artistID);
-           // hasSongsSkill = db.CheckSpecificSkill("songs_skills", songID, this.User_email);
             hasArtistsSkill = db.CheckSpecificSkill("artists_skills", artistID, this.User_email);
-           // hasYearsSkill = db.CheckSpecificSkill("years_skills", songYear.ToString(), this.User_email);
             if (artist_location != null)
             {
                 hasLocationsSkill = db.CheckSpecificSkill("locations_skills", artist_location, this.User_email);
@@ -433,18 +418,10 @@ namespace QUIZ_GAME
                 else
                     db.InsertNewSkill("user_locations_skills", this.User_email, artist_location, toAdd);
             }
-//            if (hasSongsSkill)
-//                db.UpdateRate("user_songs_skills", this.User_email, "song_id", songID, toAdd);
-//            else
-//                db.InsertNewSkill("user_songs_skills", this.User_email, songID, toAdd);
             if (hasArtistsSkill)
                 db.UpdateRate("user_artists_skills", this.User_email, "artist_id", artistID, toAdd);
             else
                 db.InsertNewSkill("user_artists_skills", this.User_email, artistID, toAdd);
-//            if (hasYearsSkill)
-//                db.UpdateRate("user_years_skills", this.User_email, "year", songYear.ToString(), toAdd);
-//            else
-//                db.InsertNewSkill("user_years_skills", this.User_email, songYear.ToString(), toAdd);
         }
     }
 }

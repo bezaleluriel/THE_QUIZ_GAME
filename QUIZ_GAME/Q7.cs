@@ -71,7 +71,7 @@ namespace QUIZ_GAME
             set
             {
                 clue = value;
-                if(clue!=null)
+                if (clue != null)
                 {
                     this.clue = this.clue.Replace("'", "''");
                 }
@@ -85,7 +85,7 @@ namespace QUIZ_GAME
             set
             {
                 trueAnswer = value;
-                if(trueAnswer != null)
+                if (trueAnswer != null)
                 {
                     this.trueAnswer = this.trueAnswer.Replace("'", "''");
                 }
@@ -99,7 +99,7 @@ namespace QUIZ_GAME
             set
             {
                 wrongAnswers = value;
-                if(wrongAnswers[0]!=null && wrongAnswers[1] != null && wrongAnswers[2] != null)
+                if (wrongAnswers[0] != null && wrongAnswers[1] != null && wrongAnswers[2] != null)
                 {
                     this.wrongAnswers[0] = this.wrongAnswers[0].Replace("'", "''");
                     this.wrongAnswers[1] = this.wrongAnswers[1].Replace("'", "''");
@@ -134,10 +134,10 @@ namespace QUIZ_GAME
             if ((TrueAnswer == null) || (TrueAnswer == FirstArtistName))
             {
                 goto AA;
-            }            
+            }
             // building the clue.
             this.Clue = buildClue();
-            if(Clue == null)
+            if (Clue == null)
             {
                 goto AA;
             }
@@ -147,7 +147,7 @@ namespace QUIZ_GAME
         buildAnswers - this function builds 3 optional answers that are not true.
         **/
         public string[] buildAnswers()
-        {   
+        {
             List<string>[] answer1 = null;
             //List<string>[] answer2 = null;
             //List<string>[] answer3 = null;
@@ -188,7 +188,7 @@ namespace QUIZ_GAME
 
             if (answer != null)
             {
-                if((answer[0][0].Replace("'", "''") == TrueAnswer) || (answer[0][0].Replace("'", "''") == FirstArtistName))
+                if ((answer[0][0].Replace("'", "''") == TrueAnswer) || (answer[0][0].Replace("'", "''") == FirstArtistName))
                 {
                     goto CC;
                 }
@@ -200,7 +200,7 @@ namespace QUIZ_GAME
             else
             {
                 answer = db.selectQ7("select artist_name from (select artist_name, max(artist_familiarity) from (select * from artists_locations natural join artists where artists_locations.artist_id = artists.artist_id AND artists_locations.artist_location = '" + FirstArtistLocation + "') as A) as B", "artist_name");
-                if(answer != null)
+                if (answer != null)
                 {
                     if ((answer[0][0].Replace("'", "''") == TrueAnswer) || (answer[0][0].Replace("'", "''") == firstArtistName))
                     {
@@ -217,7 +217,7 @@ namespace QUIZ_GAME
         buildQuestion - this function builds the question.
         **/
         public string buildQuestion()
-        {            
+        {
             string question = "Which artist was born in the same place as the artist " + FirstArtistName + "?";
             return question;
         }
@@ -229,11 +229,11 @@ namespace QUIZ_GAME
         {
             List<string>[] answer = null;
             // this query finds the number of lines in artist skills table.
-            answer = db.selectQ7("SELECT COUNT(rate) from user_artists_skills where user_email = '" + User_email + "'","count");
+            answer = db.selectQ7("SELECT COUNT(rate) from user_artists_skills where user_email = '" + User_email + "'", "count");
             // this number is the number of rows in a third of the table.
             int thirdOfTable = Int32.Parse(answer[0][0]) / 3;
             // this number returns the number of rows in two thirds of the table.
-            int twoThirdsOfTable = thirdOfTable * 2; 
+            int twoThirdsOfTable = thirdOfTable * 2;
             answer = null;
 
             // now we build the answer according to the level.
@@ -243,7 +243,7 @@ namespace QUIZ_GAME
                     // we will try to use the query with the skills - 
                     // we choose an artist name from top third of artist skills table of this user (highest third of rates) 
                     // that was born in the same place as the artist that the question is about.
-                    answer = db.selectQ7("select artist_name,artist_id from artists natural join(select * from user_artists_skills natural join artists_locations where user_artists_skills.artist_id = artists_locations.artist_id AND user_email = '"+ User_email +"' order by rate desc limit " + thirdOfTable + ") AS B where artist_location = '" + FirstArtistLocation + "' order by rand() limit 1","artist_name,artist_id");
+                    answer = db.selectQ7("select artist_name,artist_id from artists natural join(select * from user_artists_skills natural join artists_locations where user_artists_skills.artist_id = artists_locations.artist_id AND user_email = '" + User_email + "' order by rate desc limit " + thirdOfTable + ") AS B where artist_location = '" + FirstArtistLocation + "' order by rand() limit 1", "artist_name,artist_id");
                     if (answer != null)
                     {
                         answer_artist_id = answer[0][1];
@@ -270,7 +270,7 @@ namespace QUIZ_GAME
                     // we will try to use the query with the skills - 
                     // we choose an artist name from top third of artist skills table of this user (middle third of rates) 
                     // that was born in the same place as the artist that the question is about.
-                    answer = db.selectQ7("select artist_name,artist_id from artists natural join (select * from (select * from user_artists_skills natural join artists_locations where user_artists_skills.artist_id = artists_locations.artist_id AND user_email = '" + User_email + "' order by rate desc limit " + twoThirdsOfTable +" )AS B order by rate ASC limit " + thirdOfTable + ") AS C where artist_location = '" + FirstArtistLocation + "' order by rand() limit 1", "artist_name,artist_id");
+                    answer = db.selectQ7("select artist_name,artist_id from artists natural join (select * from (select * from user_artists_skills natural join artists_locations where user_artists_skills.artist_id = artists_locations.artist_id AND user_email = '" + User_email + "' order by rate desc limit " + twoThirdsOfTable + " )AS B order by rate ASC limit " + thirdOfTable + ") AS C where artist_location = '" + FirstArtistLocation + "' order by rand() limit 1", "artist_name,artist_id");
                     // if we could find an artist using the skills we return the artist name
                     if (answer != null)
                     {
@@ -298,7 +298,7 @@ namespace QUIZ_GAME
                     // we will try to use the query with the skills - 
                     // we choose an artist name from top third of artist skills table of this user (bottom third of rates) 
                     // that was born in the same place as the artist that the question is about.
-                    answer = db.selectQ7("select artist_name,artist_id from artists natural join (select * from user_artists_skills natural join artists_locations where user_artists_skills.artist_id = artists_locations.artist_id AND user_email = '" + User_email + "' order by rate asc limit " + thirdOfTable +") AS B where artist_location = '" + FirstArtistLocation + "' order by rand() limit 1", "artist_name,artist_id");
+                    answer = db.selectQ7("select artist_name,artist_id from artists natural join (select * from user_artists_skills natural join artists_locations where user_artists_skills.artist_id = artists_locations.artist_id AND user_email = '" + User_email + "' order by rate asc limit " + thirdOfTable + ") AS B where artist_location = '" + FirstArtistLocation + "' order by rand() limit 1", "artist_name,artist_id");
                     if (answer != null)
                     {
                         answer_artist_id = answer[0][1];
@@ -349,14 +349,14 @@ namespace QUIZ_GAME
                 // answer is a 2d array containing the singers name in cell [0][0]
                 // and answer[0][1] containing his location.
                 FirstArtistName = answer[0][0];
-                FirstArtistLocation = answer[0][1];              
+                FirstArtistLocation = answer[0][1];
             }
 
         }
 
         /**
         updates relevant skills in skills tables according to the answer and if user answered correctly.
-        **/ 
+        **/
         public void updateRelevantSkills(bool correctAnswer)
         {
             int toAdd = 0;

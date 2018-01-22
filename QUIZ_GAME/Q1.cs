@@ -25,8 +25,8 @@ namespace QUIZ_GAME
 
         public string Question
         {
-            get {return question; }
-            set { question = value;}
+            get { return question; }
+            set { question = value; }
         }
 
         public string Clue
@@ -57,8 +57,9 @@ namespace QUIZ_GAME
             Clue = buildClue();
         }
 
-        public void updateRelevantSkills(bool correctAnswer) {
-            
+        public void updateRelevantSkills(bool correctAnswer)
+        {
+
             int toAdd = 0;
             if (correctAnswer)
                 toAdd = 1;
@@ -89,23 +90,26 @@ namespace QUIZ_GAME
                 db.UpdateRate("user_years_skills", this.User_email, "year", year.ToString(), toAdd);
             else
                 db.InsertNewSkill("user_years_skills", this.User_email, year.ToString(), toAdd);
-        
+
         }
 
         public string[] buildAnswers()
         {
             Random rnd = new Random();
             string index1, index2, index3;
-            do{
-            index1 = rnd.Next(1960, 1980).ToString();
-            } while(index1 == TrueAnswer);
-            do{
-            index2 = rnd.Next(1981, 2000).ToString();
-            } while(index2 == TrueAnswer);
-            do{
-            index3 = rnd.Next(2001, 2017).ToString();
-            } while(index3 == TrueAnswer);
-            string[] answers = { index1, index2, index3};
+            do
+            {
+                index1 = rnd.Next(1960, 1980).ToString();
+            } while (index1 == TrueAnswer);
+            do
+            {
+                index2 = rnd.Next(1981, 2000).ToString();
+            } while (index2 == TrueAnswer);
+            do
+            {
+                index3 = rnd.Next(2001, 2017).ToString();
+            } while (index3 == TrueAnswer);
+            string[] answers = { index1, index2, index3 };
             return answers;
         }
 
@@ -119,11 +123,9 @@ namespace QUIZ_GAME
 
             if (isArtistSkill())
             {
-                //query = "Select artist_id from user_artists_skills where user_email ='" + User_email +
-                //    "' and  rate > 0";
-                //artists = db.getArtistId(query);
                 artists = artistSkillTable[1];
-                for (int i = 0; i < artists.Count; i++){
+                for (int i = 0; i < artists.Count; i++)
+                {
                     if (!stop)
                     {
                         localArtistId = artists.ElementAt(i);
@@ -139,7 +141,8 @@ namespace QUIZ_GAME
                             }
                         }
                     }
-                    if (stop) {
+                    if (stop)
+                    {
                         query = "select song_name from songs where artist_id = '" + localArtistId + "' and year = '" + year + "'";
                         args = db.getSongName(query);
                         int k = 0;
@@ -149,17 +152,17 @@ namespace QUIZ_GAME
                             localSongName = (args[0]).ElementAt(k);
                             if (!localSongName.Equals(song)) { break; }
                         } while (k < args[0].Count());
-                        
+
                         query = "select artist_name from artists where artist_id = '" + localArtistId + "'";
                         args = db.getArtistName(query);
                         string localArtistName = (args[0]).ElementAt(0);
                         clue = "The same year the song " + localSongName + " of artist " + localArtistName + " came out.";
-                        return clue ;
+                        return clue;
                     }
                 }
-                
+
             }
-            if(stop == false)
+            if (stop == false)
             {
                 query = "select song_name from songs where year = '" + year + "'";
                 args = db.getSongName(query);
@@ -167,7 +170,7 @@ namespace QUIZ_GAME
                     (args[0]).ElementAt(1) + " and " + (args[0]).ElementAt(2) + " came out.";
 
             }
-            
+
             return clue;
         }
 
@@ -180,24 +183,30 @@ namespace QUIZ_GAME
             return false;
         }
 
-        private bool isSongSkill() {
+        private bool isSongSkill()
+        {
             if (songSkillTable == null)
             {
                 songSkillTable = db.SelectUserSkills(User_email, "user_songs_skills");
                 if (songSkillTable != null) { return true; }
                 return false;
-            } else return true;
+            }
+            else return true;
         }
 
-        private bool isArtistSkill() {
-            if(artistSkillTable == null) { 
-            artistSkillTable = db.SelectUserSkills(User_email, "user_artists_skills");
-            if (artistSkillTable != null) { return true; }
-            return false;
-            } else return true;
+        private bool isArtistSkill()
+        {
+            if (artistSkillTable == null)
+            {
+                artistSkillTable = db.SelectUserSkills(User_email, "user_artists_skills");
+                if (artistSkillTable != null) { return true; }
+                return false;
+            }
+            else return true;
         }
 
-        private bool isYearSkill() {
+        private bool isYearSkill()
+        {
             if (yearSkillTable == null)
             {
                 yearSkillTable = db.SelectUserSkills(User_email, "user_years_skills");
@@ -276,8 +285,8 @@ namespace QUIZ_GAME
             TrueAnswer = year;
             question = "In which year the song " + song + " of artist " + artist_name + " came out?";
             return question;
-        }  
-        
+        }
+
         private void getQuestionWithSkill(string skillTable, int index)
         {
             string query;
@@ -286,7 +295,7 @@ namespace QUIZ_GAME
             switch (skillTable)
             {
                 case "songs":
-                    
+
                     song_id = (songSkillTable[1]).ElementAt(index);
                     query = "select artist_id, song_name, year from songs where song_id = '" + song_id + "'";
                     args = db.getSongYearAndArtistID(query);
@@ -352,7 +361,7 @@ namespace QUIZ_GAME
         {
             return null;
         }
-    }  
+    }
 
 
 }

@@ -126,19 +126,20 @@ namespace QUIZ_GAME
                     string s = (songSkillTable[1]).ElementAt(i);
                     if (!s.Equals(song_id))
                     {
-                        
+
                         query = "SELECT song_name from songs WHERE album_name = '" + album_name +
                             "' AND song_id = '" + s + "'";
-                        song_name = db.getSongName(query);                        
+                        song_name = db.getSongName(query);
                     }
-                    if (song_name != null) {
+                    if (song_name != null)
+                    {
                         sameSongName = (song_name[0]).ElementAt(0);
                         break;
                     }
-                }               
-                
+                }
+
             }
-            if(song_name == null)
+            if (song_name == null)
             {
                 query = "SELECT song_name from songs WHERE album_name = '" + album_name + "'";
                 song_name = db.getSongName(query);
@@ -148,9 +149,11 @@ namespace QUIZ_GAME
                 while (i < size)
                 {
                     sameSongName = (song_name[0]).ElementAt(i);
-                    if (!song.Equals(sameSongName)) {
+                    if (!song.Equals(sameSongName))
+                    {
                         break;
-                    }else if(i + 1 == size)
+                    }
+                    else if (i + 1 == size)
                     {
                         char firstLetter;
                         do
@@ -158,13 +161,13 @@ namespace QUIZ_GAME
                             firstLetter = TrueAnswer[j];
                             j++;
                         } while (!((firstLetter >= 65 && firstLetter <= 90) || (firstLetter >= 97 && firstLetter <= 122)));
-                        clue = "album name starts with the letter " +firstLetter;
+                        clue = "album name starts with the letter " + firstLetter;
                         return clue;
                     }
                     i++;
                 }
             }
-            
+
             clue = "In the same album there is the song " + sameSongName + ".";
             return clue;
         }
@@ -200,7 +203,6 @@ namespace QUIZ_GAME
             int skillSize = 0;
 
             Random rnd = new Random();
-            //int chooseWithSkills = rnd.Next(100) % 3;
             int chooseWithSkills = 1;
 
             if (chooseWithSkills == 1)
@@ -241,7 +243,7 @@ namespace QUIZ_GAME
                     }
                 }
             }
-            if(chooseWithSkills != 1 || !isSkill) { getQuestionWithNoSkill(Level); }
+            if (chooseWithSkills != 1 || !isSkill) { getQuestionWithNoSkill(Level); }
 
             query = "Select artist_name from artists where artist_id = '" + artist_id + "'";
             args = db.getArtistName(query);
@@ -259,7 +261,7 @@ namespace QUIZ_GAME
             switch (skillTable)
             {
                 case "songs":
-                   
+
                     song_id = (songSkillTable[1]).ElementAt(index);
                     query = "select song_name, artist_id, year, album_name from songs where song_id = '" + song_id + "'";
                     args = db.getSongAndArtistIDAndYearAndAlbum(query);

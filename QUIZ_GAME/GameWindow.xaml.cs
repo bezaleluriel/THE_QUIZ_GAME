@@ -41,7 +41,7 @@ namespace QUIZ_GAME
 
         private void btnA1_Click(object sender, RoutedEventArgs e)
         {
-            if(this.gameFlow.CurrentCorrectAnsNumber == 0)
+            if (this.gameFlow.CurrentCorrectAnsNumber == 0)
             {
                 MessageBeforeNextWin(true);
                 gameFlow.UpdateSkills(true);
@@ -58,7 +58,7 @@ namespace QUIZ_GAME
                 gameFlow.finishGame();
                 MessageBeforeNextWin(false);
                 gameFlow.UpdateSkills(false);
-                HighScoresWindow highScoresWindow = new HighScoresWindow(true,gameFlow.CurrentMoney.ToString());
+                HighScoresWindow highScoresWindow = new HighScoresWindow(true, gameFlow.CurrentMoney.ToString());
                 highScoresWindow.Show();
                 this.Close();
             }
@@ -162,7 +162,7 @@ namespace QUIZ_GAME
                 mplayer.Play();
                 message = "You Were Wrong!\nGAME OVER!";
             }
-                
+
             MessageBoxResult result = MessageBox.Show(message, "Who Wants To Be A Millionaire?", MessageBoxButton.OK);
         }
 

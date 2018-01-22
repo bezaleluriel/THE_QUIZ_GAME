@@ -15,13 +15,12 @@ namespace QUIZ_GAME
         private int Level;
         private string question;
         private string User_email;
-       // private string TrueAnswer;
         private string clue;
         private Song songForQuiestion;
         private DB_ConnectQ3Q4 db;
         private string artist_id;
 
-       
+
 
         public string Clue
         {
@@ -79,7 +78,7 @@ namespace QUIZ_GAME
             if (answer == null)
                 return null;
             numOfRows = answer[0].Count;
-            
+
             if (numOfRows == 0)
                 return null;
 
@@ -156,7 +155,7 @@ namespace QUIZ_GAME
                         case 2:
                             this.songForQuiestion = this.db.GetRandomTopSongSkillsSong();
                             break;
-                        //todo- something with album
+                            //todo- something with album
                     }
                 } while (this.songForQuiestion == null);
             }
@@ -273,16 +272,7 @@ namespace QUIZ_GAME
             //The same singer sang the song 
             this.Clue = "The same singer sang the song <song_name> ";
             //Build Clue by Artist skill
-            //List<string>[] answer = null;
-            //answer = db.SelectUserSkills(this.User_email, "user_artists_skills", true);
-
-
             //the firsttt clue
-
-            //(SELECT * from user_songs_skills WHERE user_email = "abc1@gmail.com" AND  rate > 0) as blabla to keep all the posirive songs of him
-            //select * from (Select * from songs where artist_id = "AR002UA1187B9A637D") as bella where song_id = "TRAFPWS12903CDF737"; when i check one by one all the songs id 
-            //this.Clue = this.Clue.Replace("<song_name>", songForClue.Song_name);
-
             //with skills
             songForClue = db.GetSongbyjoin(songForQuiestion.Artist_id, User_email);
             if (songForClue != null)
@@ -305,12 +295,7 @@ namespace QUIZ_GAME
 
         public string[] buildAnswers()
         {
-            //select artist_name from artists  order by rand() limit 3;
-
-
             string query = "select artist_name from artists where artist_name != '" + TrueAnswer + "'";// order by rand() limit 3;";
-            // List<string>[] args = db.getYear(query);
-            //string query = "select year from songs where year != '" + TrueAnswer + "'";
             List<string>[] args = db.getArtistNameByJoin4(query);
             Random rnd = new Random();
             List<string> artistsList = args[0];
