@@ -79,7 +79,7 @@ namespace QUIZ_GAME
             if (answer == null)
                 return null;
             numOfRows = answer[0].Count;
-            //TODO : Add check if enough rows for skill, if not enough - return null
+            
             if (numOfRows == 0)
                 return null;
 
