@@ -8,6 +8,12 @@ using MySql.Data.MySqlClient;
 
 namespace QUIZ_GAME
 {
+ /*******************************************************
+ *with the DB_Connect class we are connecting to Mysql Server,
+ * that should be open always in our computer, and ask for/ add
+ * information from/to our data base with querys.
+ * we wrote differnet fuctions for each Question.
+ ******************************************************/
     class DB_ConnectQ3Q4
     {
         private MySqlConnection connection;
