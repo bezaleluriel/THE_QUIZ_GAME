@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -10,6 +11,10 @@ using System.Windows;
 
 namespace QUIZ_GAME
 {
+    /// <summary>
+    /// Class represents the flow of the game. Initializing 3 threads that calculating the questions, 
+    /// creating the sequence of the questions and more.
+    /// </summary>
     public class GameFlow : INotifyPropertyChanged
     {
         private DB_Connect db;
@@ -27,27 +32,56 @@ namespace QUIZ_GAME
         private bool gameFinished;
 
         public event PropertyChangedEventHandler PropertyChanged;
-
+        /// <summary>
+        /// Gets or sets the current question.
+        /// </summary>
+        /// <value>
+        /// The current question.
+        /// </value>
         public string CurrentQuestion
         {
             get { return currentQuestion; }
             set { currentQuestion = value; NotifyPropertyChanged("CurrentQuestion"); }
         }
+        /// <summary>
+        /// Gets or sets the current money.
+        /// </summary>
+        /// <value>
+        /// The current money.
+        /// </value>
         public int CurrentMoney
         {
             get { return currentMoney; }
             set { currentMoney = value; NotifyPropertyChanged("CurrentMoney"); }
         }
+        /// <summary>
+        /// Gets or sets the current question number.
+        /// </summary>
+        /// <value>
+        /// The current question number.
+        /// </value>
         public int CurrentQuestionNumber
         {
             get { return currentQuestionNumber; }
             set { currentQuestionNumber = value; NotifyPropertyChanged("CurrentQuestionNumber"); }
         }
+        /// <summary>
+        /// Gets or sets the current clue.
+        /// </summary>
+        /// <value>
+        /// The current clue.
+        /// </value>
         public string CurrentClue
         {
             get { return currentClue; }
             set { currentClue = value; NotifyPropertyChanged("CurrentClue"); }
         }
+        /// <summary>
+        /// Gets or sets the current first ans.
+        /// </summary>
+        /// <value>
+        /// The current first ans.
+        /// </value>
         public string CurrentFirstAns
         {
             get { return currentFirstAns; }
@@ -58,22 +92,43 @@ namespace QUIZ_GAME
             get { return currentSecondAns; }
             set { currentSecondAns = value; NotifyPropertyChanged("CurrentSecondAns"); }
         }
+        /// <summary>
+        /// Gets or sets the current third ans.
+        /// </summary>
+        /// <value>
+        /// The current third ans.
+        /// </value>
         public string CurrentThirdAns
         {
             get { return currentThirdAns; }
             set { currentThirdAns = value; NotifyPropertyChanged("CurrentThirdAns"); }
         }
+        /// <summary>
+        /// Gets or sets the current fourth ans.
+        /// </summary>
+        /// <value>
+        /// The current fourth ans.
+        /// </value>
         public string CurrentFourthAns
         {
             get { return currentFourthAns; ; }
             set { currentFourthAns = value; NotifyPropertyChanged("CurrentFourthAns"); }
         }
+        /// <summary>
+        /// Gets or sets the current correct ans number.
+        /// </summary>
+        /// <value>
+        /// The current correct ans number.
+        /// </value>
         public int CurrentCorrectAnsNumber
         {
             get { return currentCorrectAnsNumber; }
             set { currentCorrectAnsNumber = value; NotifyPropertyChanged("CurrentCorrectAnsNumber"); }
         }
-
+        /// <summary>
+        /// Initializes a new instance of the GameFlow class, receiving the email of the user that playing on it.
+        /// </summary>
+        /// <param name="mail">The mail of the user that playing.</param>
         public GameFlow(string mail)
         {
             //Sign for threads that the game finished.
@@ -87,22 +142,28 @@ namespace QUIZ_GAME
             buildFirstTwoQuestions();
             //Activate The first Question.
             ActivateQuestion((Iquestion)questionsList[0]);
+            //Thread for first level questions.
             new Thread(() =>
             {
                 buildFirstLevel();
             }).Start();
+            //Thread for second level questions.
             new Thread(() =>
             {
                 //Building Second Level 
                 buildSecondLevel();
             }).Start();
+            //Thread for third level questions.
             new Thread(() =>
             {
                 buildThirdLevel();
             }).Start();
 
         }
-
+        /// <summary>
+        /// Receiving a question and activating it's properties to be the current question.
+        /// </summary>
+        /// <param name="question">The question to activate.</param>
         private void ActivateQuestion(Iquestion question)
         {
             CurrentQuestion = question.Question;
@@ -112,22 +173,26 @@ namespace QUIZ_GAME
             this.CurrentCorrectAnsNumber = correctAnswerLocation;
             ActivateAnswer(correctAnswerLocation, question.TrueAnswer);
             int wrongAnsIndex = 0;
-            for(int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
-                if(i != correctAnswerLocation)
-                {
-                    //i%3 Because we have 3 wrong answers
+                if (i != correctAnswerLocation)
                     ActivateAnswer(i, question.WrongAnswers[wrongAnsIndex++]);
-                }
             }
         }
 
+        /// <summary>
+        ///Activating the property of the clue, will show it on GUI when activated.
+        /// </summary>
         public void getClue()
         {
             CurrentClue = ((Iquestion)questionsList[currentQuestionNumber]).Clue;
         }
-
-        private void ActivateAnswer(int position,string answer)
+        /// <summary>
+        /// Activates the answer propert, on specific position.
+        /// </summary>
+        /// <param name="position">The position to activate the answer in.</param>
+        /// <param name="answer">The answer to activate at the proper property.</param>
+        private void ActivateAnswer(int position, string answer)
         {
             switch (position)
             {
@@ -147,6 +212,10 @@ namespace QUIZ_GAME
             }
         }
 
+        /// <summary>
+        /// Builds the first two questions of the game.
+        /// It occuring on the main thread.
+        /// </summary>
         private void buildFirstTwoQuestions()
         {
             ////////////////////////////
@@ -156,28 +225,30 @@ namespace QUIZ_GAME
                 //If the game finished - kill the thread.
                 if (gameFinished == true)
                     break;
-                //TODO: Change it to 1,9 when we have all the questions.
-                int quesitonType = rnd.Next(1, 7); // Random question type between 1-6
-                this.questionsList[i]= buildQuestionByTypeAndLevel(quesitonType, 1, user_email);
-                //this.questionsList.Add(buildQuestionByTypeAndLevel(quesitonType, 1,user_email));
+                int quesitonType = rnd.Next(1, 7); // Random question type between 1-7
+                this.questionsList[i] = buildQuestionByTypeAndLevel(quesitonType, 1, user_email);
             }
         }
 
+        /// <summary>
+        /// Builds the first level questions (Questions number 3-5).
+        /// </summary>
         private void buildFirstLevel()
         {
             ////////////////////////////
             Random rnd = new Random();
-            for(int i = 2; i < 5; i++)
+            for (int i = 2; i < 5; i++)
             {
                 //If the game finished - kill the thread.
                 if (gameFinished == true)
                     break;
-                //TODO: Change it to 1,9 when we have all the questions.
-                int quesitonType = rnd.Next(1, 7); // Random question type between 1-6
+                int quesitonType = rnd.Next(1, 7); // Random question type between 1-8
                 this.questionsList[i] = buildQuestionByTypeAndLevel(quesitonType, 1, user_email);
-                //this.questionsList.Add(buildQuestionByTypeAndLevel(quesitonType, 1,user_email));
             }
         }
+        /// <summary>
+        /// Builds the second level questions(Questions number 5-10)
+        /// </summary>
         private void buildSecondLevel()
         {
             ////////////////////////////
@@ -187,11 +258,14 @@ namespace QUIZ_GAME
                 //If the game finished - kill the thread.
                 if (gameFinished == true)
                     break;
-                //TODO: Change it to 1,9 when we have all the questions.
-                int quesitonType = rnd.Next(1, 7); // Random question type between 1-6
+                int quesitonType = rnd.Next(1, 8); // Random question type between 1-9
                 this.questionsList[i] = buildQuestionByTypeAndLevel(quesitonType, 2, user_email);
             }
         }
+
+        /// <summary>
+        /// Builds the third level questions(Questions number 10-15)
+        /// </summary>
         private void buildThirdLevel()
         {
             ////////////////////////////
@@ -204,11 +278,17 @@ namespace QUIZ_GAME
                 //TODO: Change it to 1,9 when we have all the questions.
                 int quesitonType = rnd.Next(1, 9); // Random question type between 1-9
                 this.questionsList[i] = buildQuestionByTypeAndLevel(quesitonType, 3, user_email);
-                // this.questionsList.Add(buildQuestionByTypeAndLevel(quesitonType, 2, user_email));
             }
         }
 
-        private Iquestion buildQuestionByTypeAndLevel(int type,int level,string user_email)
+        /// <summary>
+        /// Builds the question by type and level.
+        /// </summary>
+        /// <param name="type">The type of the question (one of 1-8).</param>
+        /// <param name="level">The level to build the question for.</param>
+        /// <param name="user_email">The user email.</param>
+        /// <returns>The Question built</returns>
+        private Iquestion buildQuestionByTypeAndLevel(int type, int level, string user_email)
         {
             switch (type)
             {
@@ -226,12 +306,15 @@ namespace QUIZ_GAME
                     return new Q6(level, user_email);
                 case 7:
                     return new Q7(level, user_email);
-                case 8:
+                default:
                     return new Q8(level, user_email);
             }
-            //TODO: Remove the return null
-            return null;
+
         }
+        /// <summary>
+        /// Moves to next question, and activates it's properties.
+        /// </summary>
+        /// <returns>False if the game finished, otherwise - true</returns>
         public bool MoveToNextQuestion()
         {
             //Returning false when the game is finished
@@ -241,10 +324,18 @@ namespace QUIZ_GAME
                 finishGame();
                 return false;
             }
-                
+            Stopwatch stop1 = new Stopwatch();
+            stop1.Start();
             //Waiting to tje next question calculation
-            while (questionsList[currentQuestionNumber + 1] == null) { }
-            //TODO :Maybe Problem
+            while (questionsList[currentQuestionNumber + 1] == null)
+            {
+                //If the timeout of question calculation passed - finish the game
+                if (stop1.ElapsedMilliseconds >= 20000)
+                {
+                    MessageBox.Show("Problem Occured While Calculating New Questions(TIMEOUT)\n, Please Restart The Game");
+                    return false;
+                }
+            }
             if (currentQuestionNumber >= questionsList.Length)
             {
                 string message = "Please wait, the  next question calculation is still in progress.";
@@ -263,17 +354,29 @@ namespace QUIZ_GAME
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
+        /// <summary>
+        /// Updates the skills of the user according to the last question.
+        /// </summary>
+        /// <param name="rightAnswer">if set to <c>true</c> [right answer].</param>
         public void UpdateSkills(bool rightAnswer)
         {
             ((Iquestion)questionsList[currentQuestionNumber]).updateRelevantSkills(rightAnswer);
         }
 
+        /// <summary>
+        /// Finishes the game, insert the high score to the DB.
+        /// </summary>
         public void finishGame()
         {
             this.gameFinished = true;
             db.insertHighScore(this.user_email, CurrentMoney);
         }
 
+        /// <summary>
+        /// Gets the money by question number.
+        /// </summary>
+        /// <param name="questionNumber">The question number.</param>
+        /// <returns></returns>
         public int getMoneyByQuestionNumber(int questionNumber)
         {
             switch (questionNumber)
@@ -306,11 +409,9 @@ namespace QUIZ_GAME
                     return 250000;
                 case 13:
                     return 500000;
-                default :
+                default:
                     return 1000000;
             }
         }
-
-
     }
 }

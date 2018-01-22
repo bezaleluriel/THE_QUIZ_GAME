@@ -8,6 +8,9 @@ using MySql.Data.MySqlClient;
 
 namespace QUIZ_GAME
 {
+    /// <summary>
+    /// Class of the DB connections for Questions 3-4.
+    /// </summary>
     class DB_ConnectQ3Q4
     {
         private MySqlConnection connection;
@@ -218,50 +221,6 @@ namespace QUIZ_GAME
             return artistId;
         }
 
-
-
-        /*
-         * public Song GetRandomSongByYear(string year,bool popular)
-        {
-            Song songToReturn = null;
-            string query;
-            if (popular)
-                query = "select * from (select * from songs where year = " + year +") as artistYears natural join (select * from artists where artist_familiarity>0.7)as populars order by rand() limit 1;";
-            else
-                query = "Select * from (select * from songs where year=" + year + ") as TheSong natural join artists order by rand() limit 1;";
-
-            MySqlDataReader dataReader;
-            if (this.OpenConnection() == true)
-            {
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                //Create a data reader and Execute the command
-                dataReader = cmd.ExecuteReader();
-                if (dataReader.Read())
-                {
-                    string song_id = dataReader.GetString(1);
-                    songToReturn = new Song(song_id);
-                    songToReturn.Version_id = dataReader.GetString(2);
-                    songToReturn.Song_name = dataReader.GetString(3);
-                    songToReturn.Album_name = dataReader.GetString(4);
-                    songToReturn.Duration = dataReader.GetFloat(5);
-                    songToReturn.Year = dataReader.GetInt32(6);
-                    songToReturn.Artist_id = dataReader.GetString(0);
-                    songToReturn.Artist_name = dataReader.GetString(7);
-                }
-            }
-            else
-            {
-                return null;
-            }
-            //close Data Reader
-            dataReader.Close();
-            //close Connection
-            this.CloseConnection();
-            return songToReturn;
-        }
-         */
-
-
         public Song GetSongOfArtistByPopularity(double from, double to)
         {
 
@@ -400,8 +359,6 @@ namespace QUIZ_GAME
         {
             string loc = "";
             string query;
-            //SELECT artist_location FROM mydb.artists_locations WHERE artist_id = 'AR003FB1187B994355';
-            //  query = "Select * from user_artists_skills where user_email = " + userEmail + "order by rate desc;";
             query = "SELECT artist_location FROM mydb.artists_locations WHERE artist_id = '" + artistId + "';";
 
             MySqlDataReader dataReader;
@@ -430,8 +387,6 @@ namespace QUIZ_GAME
         {
 
             string query;
-            //SELECT artist_location FROM mydb.artists_locations WHERE artist_id = 'AR003FB1187B994355';
-            //  query = "Select * from user_artists_skills where user_email = " + userEmail + "order by rate desc;";
             query = "SELECT artist_name FROM artists WHERE artist_id = '" + artistId + "';";
 
             MySqlDataReader dataReader;
@@ -611,7 +566,6 @@ namespace QUIZ_GAME
             string query;
             string song_id;
             Song songToReturn = null;
-            //SELECT * from (SELECT * from user_songs_skills WHERE user_email = 'abc1@gmail.com' AND  rate > 0 ) as ba natural join (select * from songs where artist_id='ARL752Q1187FB35EFE') as blasongs natural join (select * from artists) as blaa;
             query = "SELECT * from (SELECT * from user_songs_skills WHERE user_email = '" + userEmail + "' AND  rate > 0 ) as ba natural join (select * from songs where artist_id='" + artistId + "') as blasongs natural join (select * from artists) as blaa;";
             MySqlDataReader dataReader;
             if (this.OpenConnection() == true)
@@ -621,7 +575,6 @@ namespace QUIZ_GAME
                 dataReader = cmd.ExecuteReader();
                 if (dataReader.Read())
                 {
-                    //song = dataReader.GetString(0);
                     song_id = dataReader.GetString(1);
                     songToReturn = new Song(song_id);
                     songToReturn.Version_id = dataReader.GetString(4);
@@ -925,8 +878,6 @@ namespace QUIZ_GAME
             Song songToReturn = null;
             string query;
             string artistId = "";
-            //SELECT artist_location FROM mydb.artists_locations WHERE artist_id = 'AR003FB1187B994355';
-            //  query = "Select * from user_artists_skills where user_email = " + userEmail + "order by rate desc;";
             query = "Select artist_id from(Select* from user_artists_skills natural join artists_locations where user_email ='" + userEmail + "' order by rate desc) as bla order by rand() limit 1;";
             MySqlDataReader dataReader;
             if (this.OpenConnection() == true)
@@ -939,12 +890,6 @@ namespace QUIZ_GAME
                     artistId = dataReader.GetString(0);
 
                 }
-                /*
-                query = "SELECT artist_location FROM mydb.artists_locations WHERE artist_id = '"+ artistId +"';";
-                MySqlCommand cmd2 = new MySqlCommand(query, connection);
-                //Create a data reader and Execute the command
-                dataReader = cmd2.ExecuteReader();
-                string artist_location = dataReader.GetString(0);*/
             }
             else
             {

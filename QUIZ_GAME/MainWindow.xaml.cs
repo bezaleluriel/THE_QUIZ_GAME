@@ -49,9 +49,7 @@ namespace QUIZ_GAME
                 MessageBox.Show("You need to Login/Register to start a game!");
                 return;
             }
-            MediaPlayer mplayer = new MediaPlayer();
-            mplayer.Open(new Uri(@"../../images/sound1.mp3", UriKind.Relative));
-            mplayer.Play();
+
             WaitingWindow waitingWin = new WaitingWindow();
             waitingWin.Show();
             this.Close();

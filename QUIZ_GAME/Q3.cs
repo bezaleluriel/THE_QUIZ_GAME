@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace QUIZ_GAME
 {
-    class Q3:Iquestion
+    /// <summary>
+    /// Class of question type 3, Implements the interface Iquestion.
+    /// </summary>
+    /// <seealso cref="QUIZ_GAME.Iquestion" />
+    class Q3 :Iquestion
     {
         private int Level;
         private string question;

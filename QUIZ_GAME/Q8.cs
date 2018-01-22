@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace QUIZ_GAME
 {
+    /// <summary>
+    /// Class of question type 8, Implements the interface Iquestion.
+    /// </summary>
+    /// <seealso cref="QUIZ_GAME.Iquestion" />
     class Q8 : Iquestion
     {
         private int Level;

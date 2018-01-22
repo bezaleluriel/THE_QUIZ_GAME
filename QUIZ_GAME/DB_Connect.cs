@@ -10,6 +10,9 @@ using System.Data;
 
 namespace QUIZ_GAME
 {
+    /// <summary>
+    /// Class of the DB connections for all the question, except 3-4.
+    /// </summary>
     class DB_Connect
     {//
 
@@ -93,7 +96,6 @@ namespace QUIZ_GAME
             {
                 //create command and assign the query and connection from the constructor
                 MySqlCommand cmd = new MySqlCommand(query, connection);
-
                 //Execute command
                 try
                 {
@@ -106,8 +108,6 @@ namespace QUIZ_GAME
                     this.CloseConnection();
                     return false;
                 }
-
-
                 //close connection
                 this.CloseConnection();
                 return true;
@@ -120,7 +120,6 @@ namespace QUIZ_GAME
         {
             string query = "SELECT * FROM users Where user_email = '" + email
                 + "' AND user_password = '" + password + "'";
-
             //Create a list to store the result
             List<string>[] list = new List<string>[3];
             list[0] = new List<string>();
@@ -151,10 +150,8 @@ namespace QUIZ_GAME
 
                 //close Data Reader
                 dataReader.Close();
-
                 //close Connection
                 this.CloseConnection();
-
                 //return list to be displayed
                 return list;
             }
@@ -634,8 +631,6 @@ namespace QUIZ_GAME
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 //Create a data reader and Execute the command
                 MySqlDataReader dataReader = cmd.ExecuteReader();
-                //while (dataReader.Read())
-                //    list[0].Add(dataReader.GetString(1));
                 for(int i = 0; i < 3; i++)
                 {
                     dataReader.Read();
@@ -1537,11 +1532,5 @@ namespace QUIZ_GAME
                 this.CloseConnection();
             }
         }
-
-
-
-
     }
-
-
 }

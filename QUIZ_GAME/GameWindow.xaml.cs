@@ -20,16 +20,23 @@ namespace QUIZ_GAME
     public partial class Game : Window
     {
         private GameFlow gameFlow;
+        MediaPlayer mplayer;
         public Game(GameFlow gf)
         {
-
+            mplayer = new MediaPlayer();
             this.gameFlow = gf;
             InitializeComponent();
             this.DataContext = gameFlow;
+            this.Loaded += GameWindow_Loaded;
 
 
 
+        }
 
+        private void GameWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            mplayer.Open(new Uri(@"../../images/sound1.mp3", UriKind.Relative));
+            mplayer.Play();
         }
 
         private void btnA1_Click(object sender, RoutedEventArgs e)
@@ -140,10 +147,6 @@ namespace QUIZ_GAME
 
         public void MessageBeforeNextWin(bool trueAnswer)
         {
-            MediaPlayer mplayer = new MediaPlayer();
-
-            
-
             mplayer.Play();
             string message;
             if (trueAnswer)
